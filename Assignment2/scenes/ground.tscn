@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr6dyo4wnjsbk"]
+
+[ext_resource type="Texture2D" uid="uid://bet5oyvv7nm4q" path="res://textures/floor/coast_sand_rocks_02_diff_4k.png" id="1_rqj5v"]
+[ext_resource type="Texture2D" uid="uid://b0t6d2vuak6u5" path="res://textures/floor/coast_sand_rocks_02_nor_gl_4k.png" id="2_fab3s"]
+[ext_resource type="Texture2D" uid="uid://dpvscnrgs7p6r" path="res://textures/floor/coast_sand_rocks_02_arm_4k.png" id="3_5fnsj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gxky2"]
+size = Vector3(100, 2, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l2i3b"]
+size = Vector3(100, 2, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6k870"]
+albedo_texture = ExtResource("1_rqj5v")
+roughness_texture = ExtResource("3_5fnsj")
+normal_enabled = true
+normal_texture = ExtResource("2_fab3s")
+uv1_scale = Vector3(5, 5, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fqbs"]
+albedo_texture = ExtResource("1_rqj5v")
+roughness_texture = ExtResource("3_5fnsj")
+normal_enabled = true
+normal_texture = ExtResource("2_fab3s")
+uv1_scale = Vector3(5, 5, 5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6dw0p"]
+material = SubResource("StandardMaterial3D_3fqbs")
+size = Vector2(100, 100)
+
+[node name="Ground" type="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gxky2")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19204, 0.221684, -0.242911)
+mesh = SubResource("BoxMesh_l2i3b")
+material = SubResource("StandardMaterial3D_6k870")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("PlaneMesh_6dw0p")

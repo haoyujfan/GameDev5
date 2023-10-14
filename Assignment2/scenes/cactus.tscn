@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=3 uid="uid://clclk7iemgvat"]
+
+[ext_resource type="Texture2D" uid="uid://df0q6ktwwnmun" path="res://textures/cactus/combined/plants_0006_color_1k.jpg" id="1_hg3f7"]
+[ext_resource type="Texture2D" uid="uid://bv0hsmgh1klv5" path="res://textures/cactus/combined/plants_0006_opacity_1k.jpg" id="2_v2vpn"]
+[ext_resource type="Texture2D" uid="uid://bl0sueq5c80sd" path="res://textures/cactus/combined/plants_0006_height_1k.png" id="3_nf65j"]
+[ext_resource type="Texture2D" uid="uid://mfvuchh5gxfh" path="res://textures/cactus/combined/plants_0006_normal_opengl_1k.png" id="4_epnpn"]
+[ext_resource type="Texture2D" uid="uid://bfqhg131am8ra" path="res://textures/cactus/combined/plants_0006_roughness_1k.jpg" id="5_qpho2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uj300"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_viot2"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bqng"]
+albedo_texture = ExtResource("1_hg3f7")
+roughness_texture = ExtResource("5_qpho2")
+normal_enabled = true
+normal_texture = ExtResource("4_epnpn")
+clearcoat_enabled = true
+clearcoat_texture = ExtResource("2_v2vpn")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_nf65j")
+
+[node name="Cactus" type="Cactus"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 3, -24)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_uj300")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+mesh = SubResource("CapsuleMesh_viot2")
+material = SubResource("StandardMaterial3D_1bqng")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://dl8g5ltkkkf6q"]
+
+[ext_resource type="Texture2D" uid="uid://brqggqdiy0ho8" path="res://textures/orange/Orange_001_COLOR.jpg" id="1_trl8r"]
+[ext_resource type="Texture2D" uid="uid://cqqff4nx7h7g5" path="res://textures/orange/Orange_001_OCC.jpg" id="2_myp3r"]
+[ext_resource type="Texture2D" uid="uid://cwlormfe70ouw" path="res://textures/orange/Orange_001_NORM.jpg" id="3_ta7dr"]
+[ext_resource type="Texture2D" uid="uid://jn5a4lonqkcu" path="res://textures/orange/Orange_001_ROUGH.jpg" id="4_xgge4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dddvy"]
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_dhk8u"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5eoht"]
+albedo_texture = ExtResource("1_trl8r")
+roughness_texture = ExtResource("4_xgge4")
+normal_enabled = true
+normal_texture = ExtResource("3_ta7dr")
+ao_enabled = true
+ao_texture = ExtResource("2_myp3r")
+uv1_scale = Vector3(4, 4, 4)
+
+[node name="Food" type="Food"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 3, 40)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_dddvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+mesh = SubResource("SphereMesh_dhk8u")
+material = SubResource("StandardMaterial3D_5eoht")
