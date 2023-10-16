@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://jg2mfrcj2c7d"]
+
+[ext_resource type="Texture2D" uid="uid://cv5yqm8fxqtl6" path="res://textures/planks/blue_painted_planks_diff_2k.png" id="1_5lv3d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ggucg"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_p6d0b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehevm"]
+albedo_texture = ExtResource("1_5lv3d")
+
+[node name="Eater" type="Eater"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ggucg")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+mesh = SubResource("SphereMesh_p6d0b")
+material = SubResource("StandardMaterial3D_ehevm")

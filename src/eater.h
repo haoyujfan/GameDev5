@@ -1,6 +1,7 @@
 #ifndef EATER_H
 #define EATER_H
 
+#include <godot_cpp/classes/a_star3d.hpp>
 #include <godot_cpp/classes/character_body3d.hpp>
 #include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -11,6 +12,8 @@
 #include "raycast.h"
 #include "food.h"
 #include "camera.h"
+#include "player.h"
+
 
 using namespace godot;
 
@@ -24,30 +27,19 @@ class Eater : public CharacterBody3D {
         Vector3 momentum;
         Input *input;
         Transform3D transform;
-        Raycast *ray1;
-        Raycast *ray2;
-        Raycast *ray3;
-        Raycast *ray4;
-        SceneTree *tree;
-        int lives;
+        Player *player;
 
         Food *food1;
         Food *food2;
         Food *food3;
         Food *food4;
+        AStar3D *a_star;
         RandomNumberGenerator rand;
-
-        Camera *camera;
-        Raycast *camera_cast1;
-        Raycast *camera_cast2;
-        Node3D *colliding;
 
         // sounds
         AudioStreamPlayer *interact_player;
-        AudioStreamPlayer *empty_interact_player;
         AudioStreamMP3 *interact;
         AudioStreamMP3 *empty_interact;
-        bool mute_sound_effects;
 
         // movement
         double gravity;
@@ -57,8 +49,6 @@ class Eater : public CharacterBody3D {
         double air_resistance;
         double current_air;
         bool jumped;
-        bool hanging;
-        bool AD_rotate;
 
     protected:
         static void _bind_methods();
@@ -70,13 +60,10 @@ class Eater : public CharacterBody3D {
         void _process(double delta) override;
         void _physics_process(double delta) override;
         void _ready() override;
-        Vector3 rotate_wasd();
-        Vector3 strafe_wasd();
 
         void initialize_sound();
-        void play_empty_interact();
         void play_interact();
-        bool get_ad_rotate();
+
 
         void set_gravity(float p_gravity);
         float get_gravity();
@@ -93,14 +80,8 @@ class Eater : public CharacterBody3D {
         void set_air_resistance(float p_air_resistance);
         float get_air_resistance();
 
-        void ledge_hang();
-        void gliding();
-           
         bool get_sound_toggle();
-        int get_lives();
-        void set_lives(int p_lives);
         void toggles();
-        void end_conditions();
         void food_interaction(bool entered);
 };
     

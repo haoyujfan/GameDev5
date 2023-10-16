@@ -5,6 +5,8 @@
 #include "ground.h"
 #include "camera.h"
 #include "raycast.h"
+#include "attacker.h"
+#include "eater.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/core/class_db.hpp>
@@ -22,6 +24,8 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Ground>();
     ClassDB::register_class<Camera>();
     ClassDB::register_class<Raycast>();
+    ClassDB::register_class<Eater>();
+    ClassDB::register_class<Attacker>();
 }
 
 void uninitialize_player_module(ModuleInitializationLevel p_level) {

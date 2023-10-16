@@ -11,6 +11,7 @@
 #include <godot_cpp/variant/transform3d.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/object.hpp>
+#include <godot_cpp/classes/a_star3d.hpp>
 
 #include <cstdlib>
 
@@ -42,15 +43,12 @@ void Eater::_bind_methods() {
     ClassDB::add_property("Eater", PropertyInfo(Variant::FLOAT, "air resistance", PROPERTY_HINT_RANGE, 
         "0, 2, 0.1"), "set_air_resistance", "get_air_resistance");
 
-    ClassDB::bind_method(D_METHOD("get_lives"), &Eater::get_lives);
-
     ADD_SIGNAL(MethodInfo("interact_orange"));
     ADD_SIGNAL(MethodInfo("sound_effect_toggle", PropertyInfo(Variant::STRING, "toggle")));
     ADD_SIGNAL(MethodInfo("rotate_mode_toggle", PropertyInfo(Variant::STRING, "toggle")));
 }
 
 Eater::Eater() {
-    lives = 0;
     gravity = 1400.0;
     glide_gravity = 200.0;
     jump_velocity = 300.0;
@@ -59,32 +57,27 @@ Eater::Eater() {
     current_air = 0;
     velocity = Vector3(0.0, 0.0, 0.0);
     position = Vector3(0.0, 10.0, 0.0);
-    hanging = false;
-    AD_rotate = true;
-    mute_sound_effects = false;
 }
 
 Eater::~Eater() {}
 
 void Eater::_ready() {
+    a_star = memnew(AStar3D);
     momentum = Vector3(0.0, 0.0, 0.0);
     set_position(position);
     initialize_sound();
-    ray1 = get_node<Raycast>("Raycast");
-    ray2 = get_node<Raycast>("Raycast2");
-    ray3 = get_node<Raycast>("Raycast3");
-    ray4 = get_node<Raycast>("Raycast4");
-    camera_cast1 = get_node<Raycast>("Node3D/Camera/Raycast");
-    camera_cast2 = get_node<Raycast>("Node3D/Camera/Raycast2");
-    colliding = NULL;
 
     food1 = get_node<Food>("../Food");
     food2 = get_node<Food>("../Food2");
     food3 = get_node<Food>("../Food3");
     food4 = get_node<Food>("../Food4");
 
-    camera = get_node<Camera>("Node3D/Camera");
-    tree = get_tree();
+    a_star->add_point(1, food1->get_position());
+    a_star->add_point(2, food2->get_position());
+    a_star->add_point(3, food3->get_position());
+    a_star->add_point(4, food4->get_position());
+    
+    player = get_node<Player>("../Player");
 }
 
 void Eater::_process(double delta) {
@@ -96,28 +89,6 @@ void Eater::_process(double delta) {
     
     // handle food interactions
     food_interaction(entered);
-
-    // empty interaction
-    if (!entered && Input::get_singleton()->is_action_just_pressed("E")) {
-        if (!empty_interact_player->is_playing() && !mute_sound_effects) {
-            play_empty_interact();
-        }
-    }
-    // sound effect toggle
-    if (Input::get_singleton()->is_action_just_pressed("Sound Effect")) {
-        mute_sound_effects = !mute_sound_effects;
-    }
-    toggles();
-
-    // dithering for camera collisions
-    if (camera_cast1->is_colliding() && camera_cast2->is_colliding()) {
-        colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
-        colliding->set_visible(false);
-    }
-    if (!camera_cast1->is_colliding() && !camera_cast2->is_colliding() && colliding) {
-        colliding->set_visible(true);
-        colliding = NULL;
-    }
 }
 
 void Eater::_physics_process(double delta) {
@@ -127,9 +98,6 @@ void Eater::_physics_process(double delta) {
     }
 
     // sets rotate mode or strafe mode
-    if (Input::get_singleton()->is_action_just_pressed("R")) {
-        AD_rotate = !AD_rotate;
-    }
     // reset gravity 
     if (this->is_on_floor()) {
         speed = 1;
@@ -139,142 +107,28 @@ void Eater::_physics_process(double delta) {
 
     // gravity and jumping
     if (!this->is_on_floor()) {
-        if (!hanging) {
-            translate_object_local(momentum);
-            velocity.y -= gravity * delta;
-            speed -= air_resistance * delta;
-        }
-        else {
-            gravity = 0;
-        }
-
+        translate_object_local(momentum);
+        velocity.y -= gravity * delta;
+        speed -= air_resistance * delta;
     }
-    if (Input::get_singleton()->is_action_just_pressed("Jump") && this->is_on_floor()) {
-        velocity.y = jump_velocity;
-        jumped = true;
-    }
-    if (Input::get_singleton()->is_action_just_pressed("Jump") && !this->is_on_floor() && jumped) {
-        gravity = 1400.0;
-        velocity.y = jump_velocity;
-        jumped = false;
-    }
-    if (Input::get_singleton()->is_action_just_pressed("Jump") && hanging) {
-        gravity = 1400.0;
-        velocity.y = jump_velocity;
-        jumped = true;
-        hanging = false;
-    }
+    // if (Input::get_singleton()->is_action_just_pressed("Jump") && this->is_on_floor()) {
+    //     velocity.y = jump_velocity;
+    //     jumped = true;
+    // }
+    // if (Input::get_singleton()->is_action_just_pressed("Jump") && !this->is_on_floor() && jumped) {
+    //     gravity = 1400.0;
+    //     velocity.y = jump_velocity;
+    //     jumped = false;
+    // }
+    // if (Input::get_singleton()->is_action_just_pressed("Jump") && hanging) {
+    //     gravity = 1400.0;
+    //     velocity.y = jump_velocity;
+    //     jumped = true;
+    //     hanging = false;
+    // }
     
-    // ledge stop and ledge hang 
-    if (Input::get_singleton()->is_action_pressed("Shift")) {
-        if (ray1->is_colliding() && ray2->is_colliding() &&
-            ray3->is_colliding() && ray4->is_colliding()) {
-            // WASD movement
-            if (AD_rotate) {
-                momentum = rotate_wasd();
-            }
-            else {
-                momentum = strafe_wasd();
-            }
-        }
-    } else if (Input::get_singleton()->is_action_pressed("H")) {
-        if (ray1->is_colliding() || ray2->is_colliding() ||
-            ray3->is_colliding() || ray4->is_colliding()) {
-            // WASD movement
-            if (AD_rotate) {
-                momentum = rotate_wasd();
-            }
-            else {
-                momentum = strafe_wasd();
-            }
-        } else {
-            gravity = 0;
-            velocity.y = 0;
-            hanging = true;
-        }
-    } else {
-        // WASD movement
-        if (AD_rotate) {
-            momentum = rotate_wasd();
-        }
-        else {
-            momentum = strafe_wasd();
-        }
-
-    }
-    gliding();
-    
-    end_conditions();
     set_velocity(velocity);
     move_and_slide();
-}
-
-Vector3 Eater::rotate_wasd() {
-    Vector3 result = Vector3(0, 0, 0);
-    if (!hanging) {
-        if (Input::get_singleton()->is_action_pressed("W")) {
-            if (this->is_on_floor()) {
-                translate_object_local(-transform.get_basis().get_column(2) * speed);
-            }
-            result += -transform.get_basis().get_column(2) * speed;
-        }
-        if (Input::get_singleton()->is_action_pressed("S")) {
-            if (this->is_on_floor()) {
-                translate_object_local(transform.get_basis().get_column(2) * speed);
-            }
-            result += transform.get_basis().get_column(2) * speed;
-        }
-        if (Input::get_singleton()->is_action_pressed("A")) {
-            camera->set_as_top_level(true);
-            rotate_object_local(Vector3(0, 1, 0), 0.05);
-            camera->set_as_top_level(false);
-        }
-        if (Input::get_singleton()->is_action_pressed("D")) {
-            camera->set_as_top_level(true);
-            rotate_object_local(Vector3(0, 1, 0), -0.05);
-            camera->set_as_top_level(false);
-        }
-    }
-    if (result == Vector3(0, 0, 0)) {
-        return momentum;
-    } else {
-        return result;
-    }
-}
-
-Vector3 Eater::strafe_wasd() {
-    Vector3 result = Vector3(0, 0, 0);
-    if (!hanging) {
-        if (Input::get_singleton()->is_action_pressed("W")) {
-            if (this->is_on_floor()) {
-                translate_object_local(-transform.get_basis().get_column(2) * speed);
-            }
-            result += -transform.get_basis().get_column(2) * speed;
-        }
-        if (Input::get_singleton()->is_action_pressed("S")) {
-            if (this->is_on_floor()) {
-                translate_object_local(transform.get_basis().get_column(2) * speed);
-            }
-            result += transform.get_basis().get_column(2) * speed;
-        }
-        if (Input::get_singleton()->is_action_pressed("A")) {
-            if (this->is_on_floor()) {
-                translate_object_local(-transform.get_basis().get_column(0) * speed);
-            }
-            result += -transform.get_basis().get_column(0) * speed;
-        }
-        if (Input::get_singleton()->is_action_pressed("D")) {
-            if (this->is_on_floor()) {
-                translate_object_local(transform.get_basis().get_column(0) * speed);
-            }
-            result += transform.get_basis().get_column(0) * speed;
-        }
-    }
-    if (result == Vector3(0, 0, 0)) {
-        return momentum;
-    } else {
-        return result;
-    }
 }
 
 void Eater::initialize_sound() {
@@ -284,13 +138,6 @@ void Eater::initialize_sound() {
     interact = memnew(AudioStreamMP3);
     interact->set_data(squish_ptr->get_file_as_bytes(squish_path));
     interact_player = get_node<AudioStreamPlayer>("InteractPlayer");
-
-    String clonk_path = "res://audio/clonk.mp3";
-    Ref<FileAccess> clonk_file = FileAccess::open(clonk_path, FileAccess::ModeFlags::READ);
-    FileAccess *clonk_ptr = Object::cast_to<FileAccess>(*clonk_file);
-    empty_interact = memnew(AudioStreamMP3);
-    empty_interact->set_data(clonk_ptr->get_file_as_bytes(clonk_path));
-    empty_interact_player = get_node<AudioStreamPlayer>("EmptyInteractPlayer");
 }
 
 void Eater::play_interact() {
@@ -301,20 +148,11 @@ void Eater::play_interact() {
     }
 }
 
-void Eater::play_empty_interact() {
-    if (empty_interact_player && !Engine::get_singleton()->is_editor_hint()) {
-        empty_interact_player->set_stream(empty_interact);
-        empty_interact_player->set_volume_db(-17.0);
-        empty_interact_player->play(0.0);
-    }
-}
-
 void Eater::food_interaction(bool entered) {
     if (entered && Input::get_singleton()->is_action_just_pressed("E")) {
-        if (!interact_player->is_playing() && !mute_sound_effects) {
+        if (!interact_player->is_playing() && !player->get_sound_toggle()) {
                 play_interact();
         }
-        lives++;
         if (food1->is_entered()) {
             food1->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
             rand.randf_range(-50, 50)));
@@ -335,58 +173,6 @@ void Eater::food_interaction(bool entered) {
             rand.randf_range(-50, 50)));
             emit_signal("interact_orange");
         } 
-    }
-}
-
-void Eater::ledge_hang() {
-     // ledge stop and ledge hang 
-    if (Input::get_singleton()->is_action_pressed("Shift")) {
-        if (ray1->is_colliding() && ray2->is_colliding() &&
-            ray3->is_colliding() && ray4->is_colliding()) {
-            // WASD movement
-            if (AD_rotate) {
-                momentum = rotate_wasd();
-            }
-            else {
-                momentum = strafe_wasd();
-            }
-        }
-    } else if (Input::get_singleton()->is_action_pressed("H")) {
-        if (ray1->is_colliding() || ray2->is_colliding() ||
-            ray3->is_colliding() || ray4->is_colliding()) {
-            // WASD movement
-            if (AD_rotate) {
-                momentum = rotate_wasd();
-            }
-            else {
-                momentum = strafe_wasd();
-            }
-        } else {
-            gravity = 0;
-            velocity.y = 0;
-            hanging = true;
-        }
-    } else {
-        // WASD movement
-        if (AD_rotate) {
-            momentum = rotate_wasd();
-        }
-        else {
-            momentum = strafe_wasd();
-        }
-    }
-}
-
-void Eater::gliding() {
-       // gliding (g)
-    if (Input::get_singleton()->is_action_pressed("G") && velocity.y < 0) {
-        gravity = glide_gravity;
-        current_air = air_resistance;
-        air_resistance = 0;
-    }
-    if (Input::get_singleton()->is_action_just_released("G")) {
-        gravity = 1400.0;
-        air_resistance = current_air;
     }
 }
 
@@ -430,46 +216,3 @@ float Eater::get_air_resistance() {
     return air_resistance;
 }
 
-bool Eater::get_ad_rotate() {
-    return AD_rotate;
-}
-
-int Eater::get_lives() {
-    return lives;
-}
-
-bool Eater::get_sound_toggle() {
-    return mute_sound_effects;
-}
-
-void Eater::set_lives(int p_lives) {
-    lives = p_lives;
-}
-
-void Eater::toggles() {
-    if (mute_sound_effects) {
-        emit_signal("sound_effect_toggle", "(muted)");
-    }
-    if (!mute_sound_effects) {
-        emit_signal("sound_effect_toggle", "(unmuted)");
-    }
-    if (AD_rotate) {
-        emit_signal("rotate_mode_toggle", "(AD Keys)");
-    }
-    if (!AD_rotate) {
-        emit_signal("rotate_mode_toggle", "(Mouse Movement)");
-    }
-}
-
-void Eater::end_conditions() {
-    if (get_position().y < -100.0) {
-        tree->change_scene_to_file("res://scenes/off_map.tscn");
-    }
-    else if (lives < 0) {
-        tree->change_scene_to_file("res://scenes/no_lives.tscn");
-
-    }
-    if (lives == 10) {
-        tree->change_scene_to_file("res://scenes/win_screen.tscn");
-    }
-}

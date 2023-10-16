@@ -13,9 +13,17 @@
 #ifndef GROUND_REGISTER_TYPES_H
 #define GROUND_REGISTER_TYPES_H
 
+#ifndef EATER_REGISTER_TYPES_H
+#define EATER_REGISTER_TYPES_H
+
+#ifndef ATTACKER_REGISTER_TYPES_H
+#define ATTACKER_REGISTER_TYPES_H
+
 void initialize_player_module();
 void uninitialize_player_module();
 
+#endif
+#endif
 #endif
 #endif
 #endif
