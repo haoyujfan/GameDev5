@@ -36,7 +36,7 @@ void Food::_ready() {
 }
 
 void Food::food_body_entered(const Node3D* node) {
-    if (node->get_class() == "Player") {
+    if (node->get_class() == "Player" || node->get_class() == "Eater") {
         entered = true;
     }
 }
