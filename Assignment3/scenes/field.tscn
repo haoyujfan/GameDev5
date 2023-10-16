@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dl8g5ltkkkf6q" path="res://scenes/food.tscn" id="2_71hdr"]
 [ext_resource type="PackedScene" uid="uid://clclk7iemgvat" path="res://scenes/cactus.tscn" id="3_abjbr"]
 [ext_resource type="PackedScene" uid="uid://dg2giq6w1wr4w" path="res://scenes/player.tscn" id="4_8n5cc"]
-[ext_resource type="PackedScene" uid="uid://jg2mfrcj2c7d" path="res://eater.tscn" id="6_1pnk3"]
+[ext_resource type="PackedScene" uid="uid://jg2mfrcj2c7d" path="res://scenes/eater.tscn" id="6_1pnk3"]
 
 [node name="field" type="Node3D"]
 script = ExtResource("1_e1b4n")
@@ -129,7 +129,7 @@ Music Volume Up: 🔼
 Music Volume Down: 🔽"
 
 [node name="Eater" parent="." instance=ExtResource("6_1pnk3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.2516, 8.13224, 24.4843)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 19.6418)
 
 [connection signal="music_toggle" from="Ground" to="." method="_on_ground_music_toggle"]
 [connection signal="interact_cactus" from="Cactus" to="." method="_on_cactus_interact_cactus"]

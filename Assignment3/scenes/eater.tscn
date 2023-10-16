@@ -1,13 +1,16 @@
 [gd_scene load_steps=5 format=3 uid="uid://jg2mfrcj2c7d"]
 
-[ext_resource type="Texture2D" uid="uid://cv5yqm8fxqtl6" path="res://textures/planks/blue_painted_planks_diff_2k.png" id="1_5lv3d"]
+[ext_resource type="Texture2D" uid="uid://cv5yqm8fxqtl6" path="res://textures/planks/blue_painted_planks_diff_2k.png" id="1_arbsk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggucg"]
+radius = 5.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_p6d0b"]
+radius = 5.0
+height = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehevm"]
-albedo_texture = ExtResource("1_5lv3d")
+albedo_texture = ExtResource("1_arbsk")
 
 [node name="Eater" type="Eater"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
