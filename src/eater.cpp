@@ -169,7 +169,7 @@ void Eater::food_interaction(bool entered) {
             food1->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
             rand.randf_range(-50, 50)));
             a_star->remove_point(1);
-            a_star->add_point(1, food1->get_position());
+            // a_star->add_point(1, food1->get_position());
         } 
         if (food2->is_entered()) {
             food2->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
