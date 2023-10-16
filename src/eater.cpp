@@ -115,7 +115,8 @@ void Eater::_physics_process(double delta) {
     int id = a_star->get_closest_point(position);
     Vector3 dest = a_star->get_point_position(id);
     Vector3 dir = dest - position;
-    velocity = dir * 50 * delta;
+    dir.normalize();
+    velocity = dir * 500 * delta;
 
     move();
 //     // if (Input::get_singleton()->is_action_just_pressed("Jump") && this->is_on_floor()) {
@@ -136,6 +137,7 @@ void Eater::_physics_process(double delta) {
     
     set_velocity(velocity);
     move_and_slide();
+    position = get_position();
 }
 
 void Eater::move() {
@@ -162,33 +164,33 @@ void Eater::play_interact() {
 
 void Eater::food_interaction(bool entered) {
     if (entered) {
-        if (!interact_player->is_playing() && !player->get_sound_toggle()) {
-                play_interact();
-        }
+        // if (!interact_player->is_playing() && !player->get_sound_toggle()) {
+        //         play_interact();
+        // }
         if (food1->is_entered()) {
-            food1->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
+            food1->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
             rand.randf_range(-50, 50)));
             a_star->remove_point(1);
-            // a_star->add_point(1, food1->get_position());
+            a_star->add_point(1, food1->get_position());
         } 
         if (food2->is_entered()) {
-            food2->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
+            food2->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
             rand.randf_range(-50, 50)));
             a_star->remove_point(2);
             a_star->add_point(2, food2->get_position());
         } 
         if (food3->is_entered()) {
-            food3->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
+            food3->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
             rand.randf_range(-50, 50)));
             a_star->remove_point(3);
             a_star->add_point(3, food3->get_position());
         }
         if (food4->is_entered()) {
-            food4->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
+            food4->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
             rand.randf_range(-50, 50)));
             a_star->remove_point(4);
             a_star->add_point(4, food4->get_position());
-        } 
+        }
     }
 }
 
