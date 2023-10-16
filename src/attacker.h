@@ -9,7 +9,7 @@
 #include <godot_cpp/classes/area3d.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include "raycast.h"
-#include "food.h"
+#include "player.h"
 #include "camera.h"
 
 using namespace godot;
@@ -29,12 +29,8 @@ class Attacker : public CharacterBody3D {
         Raycast *ray3;
         Raycast *ray4;
         SceneTree *tree;
-        int lives;
 
-        Food *food1;
-        Food *food2;
-        Food *food3;
-        Food *food4;
+        Player *player;
         RandomNumberGenerator rand;
 
         Camera *camera;
@@ -42,12 +38,6 @@ class Attacker : public CharacterBody3D {
         Raycast *camera_cast2;
         Node3D *colliding;
 
-        // sounds
-        AudioStreamPlayer *interact_player;
-        AudioStreamPlayer *empty_interact_player;
-        AudioStreamMP3 *interact;
-        AudioStreamMP3 *empty_interact;
-        bool mute_sound_effects;
 
         // movement
         double gravity;
@@ -56,9 +46,6 @@ class Attacker : public CharacterBody3D {
         double speed;
         double air_resistance;
         double current_air;
-        bool jumped;
-        bool hanging;
-        bool AD_rotate;
 
     protected:
         static void _bind_methods();
@@ -70,13 +57,7 @@ class Attacker : public CharacterBody3D {
         void _process(double delta) override;
         void _physics_process(double delta) override;
         void _ready() override;
-        Vector3 rotate_wasd();
-        Vector3 strafe_wasd();
-
-        void initialize_sound();
-        void play_empty_interact();
-        void play_interact();
-        bool get_ad_rotate();
+        Vector3 movement();
 
         void set_gravity(float p_gravity);
         float get_gravity();
@@ -87,21 +68,10 @@ class Attacker : public CharacterBody3D {
         void set_jump_force(float p_force);
         float get_jump_force();
 
-        void set_glide_gravity(float p_glide_gravity);
-        float get_glide_gravity();
-
         void set_air_resistance(float p_air_resistance);
         float get_air_resistance();
 
-        void ledge_hang();
-        void gliding();
-           
-        bool get_sound_toggle();
-        int get_lives();
-        void set_lives(int p_lives);
-        void toggles();
-        void end_conditions();
-        void food_interaction(bool entered);
+        void ledge_stop();
 };
     
 
