@@ -75,6 +75,7 @@ void Eater::_ready() {
     food3 = get_node<Food>("../Food3");
     food4 = get_node<Food>("../Food4");
 
+    // may crash in editor if food not loaded yet
     a_star->add_point(1, food1->get_position());
     a_star->add_point(2, food2->get_position());
     a_star->add_point(3, food3->get_position());
@@ -120,32 +121,10 @@ void Eater::_physics_process(double delta) {
     Vector3 dir = dest - position;
     dir.normalize();
     velocity = dir * 500 * delta;
-
-    move();
-//     // if (Input::get_singleton()->is_action_just_pressed("Jump") && this->is_on_floor()) {
-//     //     velocity.y = jump_velocity;
-//     //     jumped = true;
-//     // }
-//     // if (Input::get_singleton()->is_action_just_pressed("Jump") && !this->is_on_floor() && jumped) {
-//     //     gravity = 1400.0;
-//     //     velocity.y = jump_velocity;
-//     //     jumped = false;
-//     // }
-//     // if (Input::get_singleton()->is_action_just_pressed("Jump") && hanging) {
-//     //     gravity = 1400.0;
-//     //     velocity.y = jump_velocity;
-//     //     jumped = true;
-//     //     hanging = false;
-//     // }
     
     set_velocity(velocity);
     move_and_slide();
     position = get_position();
-}
-
-void Eater::move() {
-    
-    
 }
 
 void Eater::initialize_sound() {

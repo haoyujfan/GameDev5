@@ -64,8 +64,6 @@ class Eater : public CharacterBody3D {
         void initialize_sound();
         void play_interact();
 
-        void move();
-
         void set_gravity(float p_gravity);
         float get_gravity();
 
