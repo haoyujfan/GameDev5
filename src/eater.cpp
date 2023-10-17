@@ -100,22 +100,7 @@ void Eater::_physics_process(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-
-    // sets rotate mode or strafe mode
-    // reset gravity 
-    if (this->is_on_floor()) {
-        speed = 1;
-        gravity = 1400.0;
-        momentum = Vector3(0, 0, 0);
-    }
-
-    // gravity and jumping
-    if (!this->is_on_floor()) {
-        translate_object_local(momentum);
-        velocity.y -= gravity * delta;
-        speed -= air_resistance * delta;
-    }
-
+    
     int id = a_star->get_closest_point(position);
     Vector3 dest = a_star->get_point_position(id);
     Vector3 dir = dest - position;
