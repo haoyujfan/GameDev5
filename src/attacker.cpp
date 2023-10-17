@@ -47,7 +47,7 @@ Attacker::Attacker() {
     air_resistance = 0;
     current_air = 0;
     velocity = Vector3(0.0, 0.0, 0.0);
-    position = Vector3(0.0, 10.0, 0.0);
+    position = Vector3(10.0, 10.0, 0.0);
 }
 
 Attacker::~Attacker() {}
@@ -60,6 +60,8 @@ void Attacker::_ready() {
     ray3 = get_node<Raycast>("Raycast3");
     ray4 = get_node<Raycast>("Raycast4");
     colliding = NULL;
+
+    a_star = memnew(AStar3D);
 
     player = get_node<Player>("../Player");
 
@@ -76,15 +78,22 @@ void Attacker::_physics_process(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    // ledge stop
-    if (ray1->is_colliding() && ray2->is_colliding() &&
-        ray3->is_colliding() && ray4->is_colliding()) {
-        // WASD movement
-        momentum = movement();
-    } else {
-        gravity = 0;
-        velocity.y = 0;
-    }
+
+    Vector3 dest = player->get_position();
+    Vector3 dir = dest - position;
+    dir.normalize();
+    velocity = dir * 500 * delta;
+    position = get_position();
+
+    // // ledge stop
+    // if (ray1->is_colliding() && ray2->is_colliding() &&
+    //     ray3->is_colliding() && ray4->is_colliding()) {
+    //     // WASD movement
+    //     momentum = movement();
+    // } else {
+    //     gravity = 0;
+    //     velocity.y = 0;
+    // }
     set_velocity(velocity);
     move_and_slide();
 }
@@ -101,11 +110,11 @@ Vector3 Attacker::movement() {
 
 
 void Attacker::ledge_stop() {
-     // ledge stop
-    if (ray1->is_colliding() && ray2->is_colliding() &&
-        ray3->is_colliding() && ray4->is_colliding()) {
-        momentum = movement();
-    }
+//      // ledge stop
+//     if (ray1->is_colliding() && ray2->is_colliding() &&
+//         ray3->is_colliding() && ray4->is_colliding()) {
+//         momentum = movement();
+//     }
 }
 
 void Attacker::set_gravity(float p_gravity) {

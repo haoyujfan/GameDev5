@@ -1,6 +1,7 @@
 #ifndef ATTACKER_H
 #define ATTACKER_H
 
+#include <godot_cpp/classes/a_star3d.hpp>
 #include <godot_cpp/classes/character_body3d.hpp>
 #include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -37,6 +38,7 @@ class Attacker : public CharacterBody3D {
         Raycast *camera_cast1;
         Raycast *camera_cast2;
         Node3D *colliding;
+        AStar3D *a_star;
 
 
         // movement
