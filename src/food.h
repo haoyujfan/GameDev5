@@ -14,6 +14,7 @@ private:
     Vector3 position;
     int value;
     bool entered;
+    String enter_class;
 
 protected:
     static void _bind_methods();
@@ -27,6 +28,7 @@ public:
     void food_body_entered(const Node3D *node);
     void food_body_exited(const Node3D *node);
     bool is_entered();
+    String get_enter_class();
 
 };
 

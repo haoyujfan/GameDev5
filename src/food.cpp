@@ -31,6 +31,7 @@ void Food::_process(double delta) {}
 // initialize the food when its children are ready 
 void Food::_ready() {
     entered = false;
+    enter_class = "";
     this->connect("body_entered", Callable(this, "food_body_entered"));
     this->connect("body_exited", Callable(this, "food_body_exited"));
 }
@@ -38,15 +39,21 @@ void Food::_ready() {
 void Food::food_body_entered(const Node3D* node) {
     if (node->get_class() == "Player" || node->get_class() == "Eater") {
         entered = true;
+        enter_class = node->get_class();
     }
 }
 
 void Food::food_body_exited(const Node3D* node) {
     if (node->get_class() == "Player" || node->get_class() == "Eater") {
         entered = false;
+        enter_class = "";
     }
 }
 
 bool Food::is_entered() {
     return entered;
+}
+
+String Food::get_enter_class() {
+    return enter_class;
 }

@@ -92,7 +92,10 @@ void Eater::_process(double delta) {
         food3->is_entered() || food4->is_entered();
     
     // handle food interactions
-    food_interaction(entered);
+    if (food1->get_enter_class() == "Eater" || food2->get_enter_class() == "Eater" ||
+        food3->get_enter_class() == "Eater" || food4->get_enter_class() == "Eater") {
+        food_interaction(entered);
+    }
 }
 
 void Eater::_physics_process(double delta) {
@@ -100,7 +103,7 @@ void Eater::_physics_process(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    
+
     int id = a_star->get_closest_point(position);
     Vector3 dest = a_star->get_point_position(id);
     Vector3 dir = dest - position;
@@ -200,4 +203,3 @@ void Eater::set_air_resistance(float p_air_resistance) {
 float Eater::get_air_resistance() {
     return air_resistance;
 }
-

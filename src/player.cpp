@@ -91,11 +91,14 @@ void Player::_process(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
+
+    // handle food interactions
     bool entered = food1->is_entered() || food2->is_entered() || 
         food3->is_entered() || food4->is_entered();
-    
-    // handle food interactions
-    food_interaction(entered);
+    if (food1->get_enter_class() == "Player" || food2->get_enter_class() == "Player" ||
+        food3->get_enter_class() == "Player" || food4->get_enter_class() == "Player") {
+        food_interaction(entered);
+    }
 
     // empty interaction
     if (!entered && Input::get_singleton()->is_action_just_pressed("E")) {
