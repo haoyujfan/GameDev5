@@ -62,6 +62,9 @@ Eater::Eater() {
 Eater::~Eater() {}
 
 void Eater::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     a_star = memnew(AStar3D);
     momentum = Vector3(0.0, 0.0, 0.0);
     set_position(position);
