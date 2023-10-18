@@ -133,7 +133,7 @@ Music Volume Up: 🔼
 Music Volume Down: 🔽"
 
 [node name="Attacker" parent="." instance=ExtResource("7_i1by6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1822, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 0)
 
 [connection signal="music_toggle" from="Ground" to="." method="_on_ground_music_toggle"]
 [connection signal="interact_cactus" from="Cactus" to="." method="_on_cactus_interact_cactus"]

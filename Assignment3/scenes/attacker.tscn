@@ -10,7 +10,7 @@ height = 10.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0diy"]
 
 [node name="Attacker" type="Attacker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ji7la")
