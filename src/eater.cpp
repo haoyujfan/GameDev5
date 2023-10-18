@@ -108,9 +108,9 @@ void Eater::_physics_process(double delta) {
     Vector3 dest = a_star->get_point_position(id);
     Vector3 dir = dest - position;
     dir.normalize();
-    velocity = dir * 500 * delta;
+    // velocity = dir * 500 * delta;
     
-    set_velocity(velocity);
+    // set_velocity(velocity);
     move_and_slide();
     position = get_position();
 }
