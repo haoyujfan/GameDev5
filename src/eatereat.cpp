@@ -1,6 +1,6 @@
 #include "eatereat.h"
 #include <godot_cpp/variant/utility_functions.hpp>
-#include "engine.hpp"
+#include <godot_cpp/classes/engine.hpp>
 
 #include <cstdlib>
 

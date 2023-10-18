@@ -7,6 +7,8 @@
 #include "raycast.h"
 #include "attacker.h"
 #include "eater.h"
+#include "eaterfsm.h"
+#include "eatereat.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/core/class_db.hpp>
@@ -26,6 +28,8 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Raycast>();
     ClassDB::register_class<Eater>();
     ClassDB::register_class<Attacker>();
+    ClassDB::register_class<Eaterfsm>();
+    ClassDB::register_class<Eatereat>();
 }
 
 void uninitialize_player_module(ModuleInitializationLevel p_level) {
