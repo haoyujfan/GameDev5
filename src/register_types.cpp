@@ -28,6 +28,7 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Raycast>();
     ClassDB::register_class<Eater>();
     ClassDB::register_class<Attacker>();
+    ClassDB::register_class<Eaterstate>();
     ClassDB::register_class<Eaterfsm>();
     ClassDB::register_class<Eatereat>();
 }

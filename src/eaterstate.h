@@ -18,9 +18,9 @@ class Eaterstate : public Node {
         Eaterstate();
         ~Eaterstate();
 
-        void _process(double delta) override;
-        void _physics_process(double delta) override;
-        void _ready() override;
+        // void _process(double delta) override;
+        // void _physics_process(double delta) override;
+        // void _ready() override;
 
         void Enter();
         void Exit();

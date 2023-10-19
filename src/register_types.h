@@ -16,12 +16,24 @@
 #ifndef EATER_REGISTER_TYPES_H
 #define EATER_REGISTER_TYPES_H
 
+#ifndef EATERSTATE_REGISTER_TYPES_H
+#define EATERSTATE_REGISTER_TYPES_H
+
+#ifndef EATERFSM_REGISTER_TYPES_H
+#define EATERFSM_REGISTER_TYPES_H
+
+#ifndef EATEREAT_REGISTER_TYPES_H
+#define EATEREAT_REGISTER_TYPES_H
+
 #ifndef ATTACKER_REGISTER_TYPES_H
 #define ATTACKER_REGISTER_TYPES_H
 
 void initialize_player_module();
 void uninitialize_player_module();
 
+#endif
+#endif
+#endif
 #endif
 #endif
 #endif

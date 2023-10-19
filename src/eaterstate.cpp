@@ -11,11 +11,11 @@ Eaterstate::Eaterstate() {}
 
 Eaterstate::~Eaterstate() {}
 
-void Enter() {}
+void Eaterstate::Enter() {}
 
-void Exit() {}
+void Eaterstate::Exit() {}
 
-void Update(double delta) {}
+void Eaterstate::Update(double delta) {}
 
-void Physics_Update(double delta) {}
+void Eaterstate::Physics_Update(double delta) {}
 
