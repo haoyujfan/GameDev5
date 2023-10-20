@@ -20,6 +20,7 @@ void EaterEat::Enter() {
 
 void EaterEat::Update(double delta) {
     eater->set_velocity(Vector3(10, 10, 10) * delta);
+    eater->move_and_slide();
     UtilityFunctions::print("in update of eat state");
 }
 
