@@ -7,6 +7,7 @@
 namespace godot {
 
 class EaterEat : public State {
+    GDCLASS(EaterEat, State)
 
     private:
         CharacterBody3D *eater;
