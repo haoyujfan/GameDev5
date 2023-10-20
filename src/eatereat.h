@@ -6,7 +6,7 @@
 
 namespace godot {
 
-class Eatereat : public State {
+class EaterEat : public State {
 
     private:
         CharacterBody3D *eater;
@@ -14,8 +14,8 @@ class Eatereat : public State {
     protected:
 
     public:
-        Eatereat();
-        ~Eatereat();
+        EaterEat();
+        ~EaterEat();
 
         void _ready() override;
 

@@ -6,7 +6,7 @@
 
 using namespace godot;
 
-void Eatereat::_ready() {
+void EaterEat::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
@@ -14,19 +14,19 @@ void Eatereat::_ready() {
     eater = get_node<CharacterBody3D>("../../../Eater");
 }
 
-void Eatereat::Enter() {
+void EaterEat::Enter() {
     UtilityFunctions::print("enter eat state");
 }
 
-void Eatereat::Update(double delta) {
+void EaterEat::Update(double delta) {
     eater->set_velocity(Vector3(10, 10, 10) * delta);
     UtilityFunctions::print("in update of eat state");
 }
 
-void Eatereat::Physics_Update(double delta) {
+void EaterEat::Physics_Update(double delta) {
 
 }
 
-void Eatereat::Exit() {
+void EaterEat::Exit() {
     UtilityFunctions::print("exit eat state");
 }
