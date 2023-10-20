@@ -9,6 +9,7 @@
 #include "eater.h"
 #include "eater_fsm.h"
 #include "state.h"
+#include "eatereat.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/core/class_db.hpp>
@@ -26,10 +27,11 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Ground>();
     ClassDB::register_class<Camera>();
     ClassDB::register_class<Raycast>();
-    ClassDB::register_class<Eater>();
-    ClassDB::register_class<Attacker>();
-    ClassDB::register_class<EaterFSM>();
     ClassDB::register_class<State>();
+    ClassDB::register_class<Eater>();
+    ClassDB::register_class<EaterFSM>();
+    ClassDB::register_class<EaterEat>();
+    ClassDB::register_class<Attacker>();
 }
 
 void uninitialize_player_module(ModuleInitializationLevel p_level) {
