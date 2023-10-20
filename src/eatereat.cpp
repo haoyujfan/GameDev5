@@ -6,6 +6,10 @@
 
 using namespace godot;
 
+EaterEat::EaterEat() {}
+
+EaterEat::~EaterEat() {}
+
 void EaterEat::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
