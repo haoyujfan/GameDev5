@@ -1,14 +1,14 @@
-#ifndef EATERFSM_H
-#define EATERFSM_H
+#ifndef ATTACKERFSM_H
+#define ATTACKERFSM_H
 
 #include <godot_cpp/classes/node.hpp>
 #include "state.h"
-#include "eater.h"
+#include "attacker.h"
 
 using namespace godot;
 
-class EaterFSM : public Node {
-    GDCLASS(EaterFSM, Node)
+class AttackerFSM : public Node {
+    GDCLASS(AttackerFSM, Node)
 
     private:
         Dictionary states;
@@ -20,8 +20,8 @@ class EaterFSM : public Node {
         static void _bind_methods();
 
     public:
-        EaterFSM();
-        ~EaterFSM();
+        AttackerFSM();
+        ~AttackerFSM();
 
         void _process(double delta) override;
         void _physics_process(double delta) override;

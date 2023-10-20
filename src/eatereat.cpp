@@ -4,6 +4,8 @@
 
 #include <cstdlib>
 
+using namespace godot;
+
 void Eatereat::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;

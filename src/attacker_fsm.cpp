@@ -1,4 +1,4 @@
-#include "eater_fsm.h"
+#include "attacker_fsm.h"
 #include "state.h"
 #include <godot_cpp/variant/utility_functions.hpp>
 
@@ -6,15 +6,15 @@
 
 using namespace godot;
 
-void EaterFSM::_bind_methods() {}
+void AttackerFSM::_bind_methods() {}
 
-EaterFSM::EaterFSM() {
+AttackerFSM::AttackerFSM() {
     // states = *memnew(Dictionary());
 }
 
-EaterFSM::~EaterFSM() {}
+AttackerFSM::~AttackerFSM() {}
 
-void EaterFSM::_ready() {
+void AttackerFSM::_ready() {
     TypedArray children = get_children();
     for (int i = 0; i < children.size(); i++) {
         Variant child = children[i];
@@ -29,19 +29,19 @@ void EaterFSM::_ready() {
 
 }
 
-void EaterFSM::_process(double delta) {
+void AttackerFSM::_process(double delta) {
     if (current_state) {
         current_state->update(delta);
     }
 }
 
-void EaterFSM::_physics_process(double delta) {
+void AttackerFSM::_physics_process(double delta) {
     if (current_state) {
         current_state->physics_update(delta);
     }
 }
 
-void EaterFSM::on_child_transition(State *p_old_state, String new_state_name) {
+void AttackerFSM::on_child_transition(State *p_old_state, String new_state_name) {
     if (p_old_state != current_state) {
         return;
     }

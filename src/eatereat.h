@@ -1,10 +1,12 @@
 #ifndef EATEREAT_H
 #define EATEREAT_H
 
-#include "eaterstate.h"
+#include "state.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 
-class Eatereat : public Eaterstate {
+namespace godot {
+
+class Eatereat : public State {
 
     private:
         CharacterBody3D *eater;
@@ -23,5 +25,6 @@ class Eatereat : public Eaterstate {
         void Physics_Update(double delta);
 };
     
+}
 
 #endif
