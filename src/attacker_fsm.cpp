@@ -47,4 +47,16 @@ void AttackerFSM::on_child_transition(State *p_old_state, String new_state_name)
     }
     // ASK ABOUT THIS ** WEIRD ERROR FROM NULL TO "none"
     Variant new_state = states.get(new_state_name.to_lower(), "none");
+
+    if (!new_state) {
+        return;
+    }
+
+    if (current_state) {
+        current_state->exit();
+    }
+
+    Object::cast_to<State>(new_state)->enter();
+
+    current_state = Object::cast_to<State>(new_state);
 }
