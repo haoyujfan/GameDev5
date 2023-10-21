@@ -27,3 +27,7 @@ material = SubResource("StandardMaterial3D_ehevm")
 [node name="EaterFSM" type="EaterFSM" parent="."]
 
 [node name="EaterEat" type="EaterEat" parent="EaterFSM"]
+
+[node name="EaterChase" type="EaterChase" parent="EaterFSM"]
+
+[node name="EaterRetreat" type="EaterRetreat" parent="EaterFSM"]
