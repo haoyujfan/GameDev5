@@ -6,7 +6,9 @@
 
 using namespace godot;
 
-void EaterFSM::_bind_methods() {}
+void EaterFSM::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("on_child_transition", "old_state_name", "new_state_name"), &EaterFSM::on_child_transition);
+}
 
 EaterFSM::EaterFSM() {
     // states = *memnew(Dictionary());
@@ -18,10 +20,10 @@ void EaterFSM::_ready() {
     TypedArray children = get_children();
     for (int i = 0; i < children.size(); i++) {
         Variant child = children[i];
-        State child_state = *Object::cast_to<State>(child);
+        State *child_state = Object::cast_to<State>(child);
         initial_state = Object::cast_to<State>(child);
-        states[child_state.get_name().to_lower()] = child;
-        child_state.connect("transitioned", Callable(this, "on_child_transition"));
+        states[child_state->get_name().to_lower()] = child;
+        child_state->connect("transitioned", Callable(this, "on_child_transition"));
     }
     if (initial_state) {
         initial_state->enter();
@@ -42,8 +44,8 @@ void EaterFSM::_physics_process(double delta) {
     }
 }
 
-void EaterFSM::on_child_transition(State *p_old_state, String new_state_name) {
-    if (p_old_state != current_state) {
+void EaterFSM::on_child_transition(String old_state_name, String new_state_name) {
+    if (old_state_name != current_state->get_name()) {
         return;
     }
     // ASK ABOUT THIS ** WEIRD ERROR FROM NULL TO "none"

@@ -29,7 +29,7 @@ class EaterFSM : public Node {
         void _process(double delta) override;
         void _physics_process(double delta) override;
         void _ready() override;
-        void on_child_transition(State *old_state, String new_state_name);
+        void on_child_transition(String old_state_name, String new_state_name);
 };
     
 

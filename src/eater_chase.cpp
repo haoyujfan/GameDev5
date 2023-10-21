@@ -23,7 +23,8 @@ void EaterChase::enter() {
 
 void EaterChase::update(double delta) {
     if (eater) {
-        eater->set_velocity(Vector3(10, 0, 0));
+        eater->set_velocity(Vector3(0, 10, 0));
+        emit_signal("transitioned", "EaterChase", "EaterEat");
     }
 }
 

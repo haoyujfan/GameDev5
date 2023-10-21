@@ -5,7 +5,7 @@
 using namespace godot;
 
 void State::_bind_methods() {
-    ADD_SIGNAL(MethodInfo("transitioned"));
+    ADD_SIGNAL(MethodInfo("transitioned", PropertyInfo(Variant::STRING, "old_state"), PropertyInfo(Variant::STRING, "new_state")));
 }
 
 State::State() {}

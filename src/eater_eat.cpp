@@ -22,9 +22,9 @@ void EaterEat::enter() {
 }
 
 void EaterEat::update(double delta) {
-    UtilityFunctions::print("eat update");
     if (eater) {
-        eater->set_velocity(Vector3(0, 0, 10));
+        eater->set_velocity(Vector3(0, 10, 0));
+        emit_signal("transitioned", "EaterEat", "EaterRetreat");
     }
 }
 
