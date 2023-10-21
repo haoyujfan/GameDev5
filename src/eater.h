@@ -79,8 +79,6 @@ class Eater : public CharacterBody3D {
         void set_air_resistance(float p_air_resistance);
         float get_air_resistance();
 
-        void set_velocity(Vector3 p_velocity);
-
         bool get_sound_toggle();
         void toggles();
         void food_interaction(bool entered);
