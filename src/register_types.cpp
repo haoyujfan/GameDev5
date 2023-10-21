@@ -9,9 +9,9 @@
 #include "eater.h"
 #include "eater_fsm.h"
 #include "state.h"
-#include "eatereat.h"
-#include "eaterchase.h"
-#include "eaterretreat.h"
+#include "eater_eat.h"
+#include "eater_chase.h"
+#include "eater_retreat.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/core/class_db.hpp>

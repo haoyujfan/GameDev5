@@ -4,9 +4,9 @@
 #include <godot_cpp/classes/node.hpp>
 #include "state.h"
 #include "eater.h"
-#include "eatereat.h"
-#include "eaterchase.h"
-#include "eaterretreat.h"
+#include "eater_eat.h"
+#include "eater_chase.h"
+#include "eater_retreat.h"
 
 using namespace godot;
 
