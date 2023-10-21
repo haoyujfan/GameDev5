@@ -1,4 +1,6 @@
 #include "state.h"
+#include <godot_cpp/variant/utility_functions.hpp>
+
 
 using namespace godot;
 
@@ -10,9 +12,13 @@ State::State() {}
 
 State::~State() {}
 
-void State::enter() {}
+void State::enter() {
+    UtilityFunctions::print("enter generic state");
+}
 
-void State::exit() {}
+void State::exit() {
+    UtilityFunctions::print("exit generic state");
+}
 
 void State::update(double delta) {}
 

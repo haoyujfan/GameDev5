@@ -4,6 +4,7 @@
 #include <godot_cpp/classes/node.hpp>
 #include "state.h"
 #include "eater.h"
+#include "eatereat.h"
 
 using namespace godot;
 
