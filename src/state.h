@@ -16,6 +16,7 @@ protected:
 public:
     State();
     ~State();
+    void _ready() override;
     void enter();
     void exit();
     void update(double delta);

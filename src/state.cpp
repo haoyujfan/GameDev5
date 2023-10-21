@@ -12,6 +12,8 @@ State::State() {}
 
 State::~State() {}
 
+void State::_ready() {}
+
 void State::enter() {
     UtilityFunctions::print("enter generic state");
 }

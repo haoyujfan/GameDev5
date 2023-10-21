@@ -113,6 +113,8 @@ void Eater::_physics_process(double delta) {
     // set_velocity(velocity);
     move_and_slide();
     position = get_position();
+
+    UtilityFunctions::print(velocity);
 }
 
 void Eater::initialize_sound() {
@@ -202,4 +204,9 @@ void Eater::set_air_resistance(float p_air_resistance) {
 
 float Eater::get_air_resistance() {
     return air_resistance;
+}
+
+void Eater::set_velocity(Vector3 p_velocity) {
+    velocity = p_velocity;
+    // set_velocity(velocity);
 }

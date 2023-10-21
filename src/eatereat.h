@@ -2,6 +2,7 @@
 #define EATEREAT_H
 
 #include "state.h"
+#include "eater.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 
 namespace godot {
@@ -11,7 +12,7 @@ class EaterEat : public State {
     GDCLASS(EaterEat, State)
 
     private:
-        CharacterBody3D *eater;
+        Eater *eater;
 
     protected:
 

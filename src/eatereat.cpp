@@ -14,8 +14,7 @@ void EaterEat::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-
-    eater = get_node<CharacterBody3D>("../../../Eater");
+    eater = get_node<Eater>("../../../Eater");
 }
 
 void EaterEat::enter() {
@@ -23,10 +22,8 @@ void EaterEat::enter() {
 }
 
 void EaterEat::update(double delta) {
-    UtilityFunctions::print("in update of eat state");
     if (eater) {
-        eater->set_velocity(Vector3(10, 10, 10) * delta);
-        eater->move_and_slide();
+        eater->set_velocity(Vector3(10, 10, 10));
     }
 }
 
