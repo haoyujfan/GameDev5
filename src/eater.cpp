@@ -206,7 +206,7 @@ float Eater::get_air_resistance() {
     return air_resistance;
 }
 
-void Eater::set_velocity(Vector3 p_velocity) {
-    velocity = p_velocity;
-    // set_velocity(velocity);
-}
+// void Eater::set_velocity(Vector3 p_velocity) {
+//     velocity = p_velocity;
+//     // set_velocity(velocity);
+// }

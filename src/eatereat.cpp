@@ -23,7 +23,7 @@ void EaterEat::enter() {
 
 void EaterEat::update(double delta) {
     if (eater) {
-        eater->set_velocity(Vector3(10, 10, 10));
+        // eater->set_velocity(Vector3(10, 0, 10));
     }
 }
 
