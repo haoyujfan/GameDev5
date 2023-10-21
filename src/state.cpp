@@ -22,6 +22,8 @@ void State::exit() {
     UtilityFunctions::print("exit generic state");
 }
 
-void State::update(double delta) {}
+void State::update(double delta) {
+    UtilityFunctions::print("generic update");
+}
 
 void State::physics_update(double delta) {}

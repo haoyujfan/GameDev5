@@ -5,6 +5,8 @@
 #include "state.h"
 #include "eater.h"
 #include "eatereat.h"
+#include "eaterchase.h"
+#include "eaterretreat.h"
 
 using namespace godot;
 
