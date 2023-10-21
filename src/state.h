@@ -17,10 +17,10 @@ public:
     State();
     ~State();
     void _ready() override;
-    void enter();
-    void exit();
-    void update(double delta);
-    void physics_update(double delta);
+    virtual void enter();
+    virtual void exit();
+    virtual void update(double delta);
+    virtual void physics_update(double delta);
 };
 
 }
