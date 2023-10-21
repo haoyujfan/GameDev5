@@ -28,21 +28,25 @@ void EaterFSM::_ready() {
     if (initial_state) {
         if (Object::cast_to<Node>(initial_state)->get_class() == "EaterEat") {
             Object::cast_to<EaterEat>(initial_state)->enter();
+            current_state = Object::cast_to<EaterEat>(initial_state);
         }
-        current_state = initial_state;
     }
 
 }
 
 void EaterFSM::_process(double delta) {
     if (current_state) {
-        current_state->update(delta);
+        if (Object::cast_to<Node>(current_state)->get_class() == "EaterEat") {
+            Object::cast_to<EaterEat>(current_state)->update(delta);
+        }
     }
 }
 
 void EaterFSM::_physics_process(double delta) {
     if (current_state) {
-        current_state->physics_update(delta);
+        if (Object::cast_to<Node>(current_state)->get_class() == "EaterEat") {
+            Object::cast_to<EaterEat>(current_state)->physics_update(delta);
+        }
     }
 }
 
