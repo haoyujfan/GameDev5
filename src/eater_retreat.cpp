@@ -1,4 +1,4 @@
-#include "eaterretreat.h"
+#include "eater_retreat.h"
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/engine.hpp>
 

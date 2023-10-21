@@ -22,8 +22,8 @@ class EaterEat : public State {
 
         void _ready() override;
 
-        void enter();
-        void exit();
+        void enter() override;
+        void exit() override;
         void update(double delta);
         void physics_update(double delta);
 };
