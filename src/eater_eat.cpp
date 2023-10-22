@@ -1,4 +1,5 @@
 #include "eater_eat.h"
+#include "food.h"
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/engine.hpp>
 
@@ -15,7 +16,6 @@ void EaterEat::_ready() {
         return;
     }
     eater = get_node<Eater>("../../../Eater");
-    food_entered->connect("body_entered", Callable(this, ""));
 }
 
 void EaterEat::enter() {
@@ -31,6 +31,10 @@ void EaterEat::update(double delta) {
 
 void EaterEat::physics_update(double delta) {
 
+}
+
+void EaterEat::eat_food(String food_name) {
+    Food *curr_food = get_node<Food>("../../../" + food_name);
 }
 
 void EaterEat::exit() {

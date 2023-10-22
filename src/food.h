@@ -2,6 +2,7 @@
 #define FOOD_H
 
 #include <godot_cpp/classes/area3d.hpp>
+#include "eater_eat.h"
 #include <godot_cpp/classes/audio_stream_player.hpp>
 #include <godot_cpp/classes/audio_stream_mp3.hpp>
 
@@ -15,6 +16,7 @@ private:
     int value;
     bool entered;
     String enter_class;
+    EaterEat *eater_eat;
 
 protected:
     static void _bind_methods();
