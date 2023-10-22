@@ -29,7 +29,7 @@ void AttackerAttack::update(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    //player->set_lives(player->get_lives() - 1);
+    player->set_lives(player->get_lives() - 1);
     player->life_lost_GUI();
     emit_signal("transitioned", "attackerattack", "attackerdodge");
 }

@@ -4,6 +4,7 @@
 #include "state.h"
 #include "eater.h"
 #include "food.h"
+#include "player.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 
 namespace godot {
@@ -18,6 +19,7 @@ class EaterChase : public State {
         Food *food2;
         Food *food3;
         Food *food4;
+        Player *player;
 
     protected:
 

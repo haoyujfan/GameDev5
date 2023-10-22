@@ -22,6 +22,7 @@ void EaterChase::_ready() {
     food2 = get_node<Food>("../../../Food2");
     food3 = get_node<Food>("../../../Food3");
     food4 = get_node<Food>("../../../Food4");
+    player = get_node<Player>("../../../Player");
 }
 
 void EaterChase::enter() {
@@ -45,10 +46,20 @@ void EaterChase::physics_update(double delta) {
         a_star->add_point(4, food4->get_position());
     }
     int id = a_star->get_closest_point(eater->get_position());
+    Vector3 dir_p = Vector3(0.0, 0.0, 0.0);
+    real_t dist_p = 1000.0;
+    if (player->is_inside_tree()) {
+        Vector3 dest_p = player->get_position();
+        dir_p = dest_p - eater->get_position();
+        dir_p.normalize();
+        dist_p = (eater->get_position() - dest_p).length();
+        if (dist_p < 10) {
+            emit_signal("transitioned", "eaterchase", "eaterretreat");
+        }
+    }
     Vector3 dest = a_star->get_point_position(id);
     Vector3 dir = dest - eater->get_position();
     dir.normalize();
-    //eater->velocity = dir * 500 * delta;
     eater->set_velocity(dir * 500 * delta);
     eater->move_and_slide();
     eater->set_position(eater->get_position());
