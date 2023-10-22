@@ -53,7 +53,7 @@ void EaterChase::physics_update(double delta) {
         dir_p = dest_p - eater->get_position();
         dir_p.normalize();
         dist_p = (eater->get_position() - dest_p).length();
-        if (dist_p < 10) {
+        if (dist_p < 20) {
             emit_signal("transitioned", "eaterchase", "eaterretreat");
         }
     }
