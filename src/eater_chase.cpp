@@ -16,7 +16,7 @@ void EaterChase::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    eater = get_node<Eater>("../../../Eater");
+    eater = Object::cast_to<Eater>(this->get_parent()->get_parent());
     a_star = memnew(AStar3D);
     food1 = get_node<Food>("../../../Food");
     food2 = get_node<Food>("../../../Food2");

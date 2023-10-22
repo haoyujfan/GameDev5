@@ -20,7 +20,7 @@ void EaterEat::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    eater = get_node<Eater>("../../../Eater");
+    eater = Object::cast_to<Eater>(this->get_parent()->get_parent());
 }
 
 void EaterEat::enter() {

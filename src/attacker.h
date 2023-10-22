@@ -24,6 +24,7 @@ class Attacker : public CharacterBody3D {
         Vector3 velocity;
         Player *player;
         AStar3D *a_star;
+        RandomNumberGenerator rand;
 
 
         // movement

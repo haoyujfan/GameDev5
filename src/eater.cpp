@@ -56,12 +56,18 @@ Eater::Eater() {
     air_resistance = 0;
     current_air = 0;
     velocity = Vector3(0.0, 0.0, 0.0);
-    position = Vector3(-10.0, 10.0, 0.0);
+    position = Vector3(rand.randf_range(-150, 150), rand.randf_range(2, 20), 
+        rand.randf_range(-150, 150));
 }
 
 Eater::~Eater() {}
 
-void Eater::_ready() {}
+void Eater::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+    set_position(position);
+}
 
 void Eater::_process(double delta) {}
 

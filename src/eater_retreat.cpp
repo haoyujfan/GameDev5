@@ -15,7 +15,7 @@ void EaterRetreat::_ready() {
         return;
     }
     player = get_node<Player>("../../../Player");
-    eater = get_node<Eater>("../../../Eater");
+    eater = Object::cast_to<Eater>(this->get_parent()->get_parent());
 }
 
 void EaterRetreat::enter() {

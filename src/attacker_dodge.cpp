@@ -17,7 +17,7 @@ void AttackerDodge::_ready() {
         return;
     }
     a_star = memnew(AStar3D);
-    attacker = get_node<Attacker>("../../../Attacker");
+    attacker = Object::cast_to<Attacker>(this->get_parent()->get_parent());
     player = get_node<Player>("../../../Player");
 }
 

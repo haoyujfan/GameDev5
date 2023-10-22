@@ -16,7 +16,7 @@ void AttackerAttack::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    attacker = get_node<Attacker>("../../../Attacker");
+    attacker = Object::cast_to<Attacker>(this->get_parent()->get_parent());
     player = get_node<Player>("../../../Player");
     a_star = memnew(AStar3D);
 }
