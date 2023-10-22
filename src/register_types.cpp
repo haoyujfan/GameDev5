@@ -5,13 +5,17 @@
 #include "ground.h"
 #include "camera.h"
 #include "raycast.h"
-#include "attacker.h"
+#include "state.h"
 #include "eater.h"
 #include "eater_fsm.h"
-#include "state.h"
 #include "eater_eat.h"
 #include "eater_chase.h"
 #include "eater_retreat.h"
+#include "attacker.h"
+#include "attacker_fsm.h"
+#include "attacker_attack.h"
+#include "attacker_chase.h"
+#include "attacker_dodge.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/core/class_db.hpp>
@@ -36,6 +40,10 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<EaterChase>();
     ClassDB::register_class<EaterRetreat>();
     ClassDB::register_class<Attacker>();
+    ClassDB::register_class<AttackerFSM>();
+    ClassDB::register_class<AttackerAttack>();
+    ClassDB::register_class<AttackerChase>();
+    ClassDB::register_class<AttackerDodge>();
 }
 
 void uninitialize_player_module(ModuleInitializationLevel p_level) {
