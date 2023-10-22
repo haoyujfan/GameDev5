@@ -2,6 +2,7 @@
 #include "state.h"
 #include <godot_cpp/variant/utility_functions.hpp>
 
+
 #include <cstdlib>
 
 using namespace godot;
@@ -15,6 +16,9 @@ EaterFSM::EaterFSM() {}
 EaterFSM::~EaterFSM() {}
 
 void EaterFSM::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     TypedArray children = get_children();
     for (int i = 0; i < children.size(); i++) {
         Variant child = children[i];

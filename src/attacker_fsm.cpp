@@ -15,6 +15,9 @@ AttackerFSM::AttackerFSM() {}
 AttackerFSM::~AttackerFSM() {}
 
 void AttackerFSM::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     TypedArray children = get_children();
     for (int i = 0; i < children.size(); i++) {
         Variant child = children[i];
@@ -29,7 +32,6 @@ void AttackerFSM::_ready() {
         initial_state->enter();
         current_state = initial_state;
     }
-
 }
 
 void AttackerFSM::_process(double delta) {

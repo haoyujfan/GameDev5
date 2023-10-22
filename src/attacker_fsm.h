@@ -2,11 +2,9 @@
 #define ATTACKERFSM_H
 
 #include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/engine.hpp>
 #include "state.h"
 #include "attacker.h"
-// #include "attacker_attack.h"
-// #include "attacker_chase.h"
-// #include "attacker_dodge.h"
 
 using namespace godot;
 

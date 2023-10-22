@@ -24,10 +24,17 @@ void AttackerAttack::enter() {
 }
 
 void AttackerAttack::update(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     emit_signal("transitioned", "attackerattack", "attackerchase");
 }
 
-void AttackerAttack::physics_update(double delta) {}
+void AttackerAttack::physics_update(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+}
 
 void AttackerAttack::exit() {
     UtilityFunctions::print("exit attacker attack state");

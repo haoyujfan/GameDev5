@@ -22,14 +22,15 @@ void EaterRetreat::enter() {
 }
 
 void EaterRetreat::update(double delta) {
-    if (eater) {
-        eater->set_velocity(Vector3(0, 10, 0));
-        emit_signal("transitioned", "EaterRetreat", "EaterChase");
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
     }
 }
 
 void EaterRetreat::physics_update(double delta) {
-
+    if(Engine::get_singleton()->is_editor_hint()) {
+            return;
+    }
 }
 
 void EaterRetreat::exit() {

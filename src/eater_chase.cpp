@@ -28,7 +28,11 @@ void EaterChase::enter() {
     UtilityFunctions::print("enter eater chase state");
 }
 
-void EaterChase::update(double delta) {}
+void EaterChase::update(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+}
 
 void EaterChase::physics_update(double delta) {
      if(Engine::get_singleton()->is_editor_hint()) {

@@ -25,9 +25,16 @@ void AttackerChase::enter() {
     UtilityFunctions::print("enter attacker chase state");
 }
 
-void AttackerChase::update(double delta) {}
+void AttackerChase::update(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+}
 
 void AttackerChase::physics_update(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     Vector3 dest = player->get_position();
     Vector3 dir = dest - attacker->get_position();
     dir.normalize();

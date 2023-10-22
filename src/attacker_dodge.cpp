@@ -23,9 +23,17 @@ void AttackerDodge::enter() {
     UtilityFunctions::print("enter attacker dodge state");
 }
 
-void AttackerDodge::update(double delta) {}
+void AttackerDodge::update(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+}
 
-void AttackerDodge::physics_update(double delta) {}
+void AttackerDodge::physics_update(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+}
 
 void AttackerDodge::exit() {
     UtilityFunctions::print("exit attacker dodge state");
