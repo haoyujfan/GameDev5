@@ -10,9 +10,7 @@ void EaterFSM::_bind_methods() {
     ClassDB::bind_method(D_METHOD("on_child_transition", "old_state_name", "new_state_name"), &EaterFSM::on_child_transition);
 }
 
-EaterFSM::EaterFSM() {
-    // states = *memnew(Dictionary());
-}
+EaterFSM::EaterFSM() {}
 
 EaterFSM::~EaterFSM() {}
 

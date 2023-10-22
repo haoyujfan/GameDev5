@@ -4,6 +4,9 @@
 #include <godot_cpp/classes/node.hpp>
 #include "state.h"
 #include "attacker.h"
+// #include "attacker_attack.h"
+// #include "attacker_chase.h"
+// #include "attacker_dodge.h"
 
 using namespace godot;
 
@@ -26,7 +29,7 @@ class AttackerFSM : public Node {
         void _process(double delta) override;
         void _physics_process(double delta) override;
         void _ready() override;
-        void on_child_transition(State *old_state, String new_state_name);
+        void on_child_transition(String old_state_name, String new_state_name);
 };
     
 

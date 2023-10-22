@@ -24,7 +24,7 @@ void EaterEat::_ready() {
 }
 
 void EaterEat::enter() {
-    UtilityFunctions::print("enter eat state");
+    UtilityFunctions::print("enter eater eat state");
 }
 
 void EaterEat::update(double delta) {
@@ -40,5 +40,5 @@ void EaterEat::eat_food(String food_name) {
 }
 
 void EaterEat::exit() {
-    UtilityFunctions::print("exit eat state");
+    UtilityFunctions::print("exit eater eat state");
 }

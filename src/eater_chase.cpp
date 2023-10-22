@@ -25,7 +25,7 @@ void EaterChase::_ready() {
 }
 
 void EaterChase::enter() {
-    UtilityFunctions::print("enter chase state");
+    UtilityFunctions::print("enter eater chase state");
 }
 
 void EaterChase::update(double delta) {}
@@ -54,5 +54,5 @@ void EaterChase::physics_update(double delta) {
 }
 
 void EaterChase::exit() {
-    UtilityFunctions::print("exit chase state");
+    UtilityFunctions::print("exit eater chase state");
 }

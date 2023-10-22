@@ -6,11 +6,11 @@
 
 using namespace godot;
 
-void AttackerFSM::_bind_methods() {}
-
-AttackerFSM::AttackerFSM() {
-    // states = *memnew(Dictionary());
+void AttackerFSM::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("on_child_transition", "old_state_name", "new_state_name"), &AttackerFSM::on_child_transition);
 }
+
+AttackerFSM::AttackerFSM() {}
 
 AttackerFSM::~AttackerFSM() {}
 
@@ -18,9 +18,12 @@ void AttackerFSM::_ready() {
     TypedArray children = get_children();
     for (int i = 0; i < children.size(); i++) {
         Variant child = children[i];
-        State child_state = *Object::cast_to<State>(child);
-        states[child_state.get_name().to_lower()] = child;
-        child_state.connect("transitioned", Callable(this, "on_child_transition"));
+        State *child_state = Object::cast_to<State>(child);
+        if (child_state->get_name().to_lower() == "attackerchase") {
+            initial_state = Object::cast_to<State>(child);
+        }
+        states[child_state->get_name().to_lower()] = child;
+        child_state->connect("transitioned", Callable(this, "on_child_transition"));
     }
     if (initial_state) {
         initial_state->enter();
@@ -41,12 +44,12 @@ void AttackerFSM::_physics_process(double delta) {
     }
 }
 
-void AttackerFSM::on_child_transition(State *p_old_state, String new_state_name) {
-    if (p_old_state != current_state) {
+void AttackerFSM::on_child_transition(String old_state_name, String new_state_name) {
+    if (old_state_name.to_lower() != current_state->get_name().to_lower()) {
         return;
     }
-    // ASK ABOUT THIS ** WEIRD ERROR FROM NULL TO "none"
-    Variant new_state = states.get(new_state_name.to_lower(), "none");
+
+    Variant new_state = states.get(new_state_name.to_lower(), nullptr);
 
     if (!new_state) {
         return;

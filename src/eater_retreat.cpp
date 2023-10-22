@@ -18,7 +18,7 @@ void EaterRetreat::_ready() {
 }
 
 void EaterRetreat::enter() {
-    UtilityFunctions::print("enter retreat state");
+    UtilityFunctions::print("enter eater retreat state");
 }
 
 void EaterRetreat::update(double delta) {
@@ -33,5 +33,5 @@ void EaterRetreat::physics_update(double delta) {
 }
 
 void EaterRetreat::exit() {
-    UtilityFunctions::print("exit retreat state");
+    UtilityFunctions::print("exit eater retreat state");
 }
