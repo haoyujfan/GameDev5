@@ -28,10 +28,10 @@ void EaterEat::enter() {
 }
 
 void EaterEat::update(double delta) {
-    if (eater) {
-        
-        emit_signal("transitioned", "eatereat", "eaterchase");
-    }
+    curr_food->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
+    rand.randf_range(-50, 50)));
+    emit_signal("transition", "eatereat", "eaterchase");
+
 }
 
 void EaterEat::physics_update(double delta) {
@@ -39,10 +39,7 @@ void EaterEat::physics_update(double delta) {
 }
 
 void EaterEat::eat_food(String food_name) {
-    Food *curr_food = get_node<Food>("../../../" + food_name);
-    curr_food->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
-        rand.randf_range(-50, 50)));
-    emit_signal("transition", "eatereat", "eaterchase");
+    curr_food = get_node<Food>("../../../" + food_name);
 }
 
 void EaterEat::exit() {

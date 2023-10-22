@@ -17,6 +17,7 @@ class EaterEat : public State {
     private:
         Eater *eater;
         RandomNumberGenerator rand;
+        Food *curr_food;
 
     protected:
         static void _bind_methods();

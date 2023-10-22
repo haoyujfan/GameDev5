@@ -37,11 +37,13 @@ void EaterChase::update(double delta) {
 }
 
 void EaterChase::physics_update(double delta) {
+    if (food1 && food2 && food3 && food4) {
+        a_star->add_point(1, food1->get_position());
+        a_star->add_point(2, food2->get_position());
+        a_star->add_point(3, food3->get_position());
+        a_star->add_point(4, food4->get_position());
+    }
     // may crash in editor if food not loaded yet
-    a_star->add_point(1, food1->get_position());
-    a_star->add_point(2, food2->get_position());
-    a_star->add_point(3, food3->get_position());
-    a_star->add_point(4, food4->get_position());
 
      if(Engine::get_singleton()->is_editor_hint()) {
         return;

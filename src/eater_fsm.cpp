@@ -47,7 +47,7 @@ void EaterFSM::_physics_process(double delta) {
 }
 
 void EaterFSM::on_child_transition(String old_state_name, String new_state_name) {
-    if (old_state_name != current_state->get_name()) {
+    if (old_state_name.to_lower() != current_state->get_name().to_lower()) {
         return;
     }
 
