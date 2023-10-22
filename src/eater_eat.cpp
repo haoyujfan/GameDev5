@@ -11,6 +11,11 @@ EaterEat::EaterEat() {}
 
 EaterEat::~EaterEat() {}
 
+void EaterEat::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("eat_food", "food_name"), &EaterEat::eat_food);
+}
+
+
 void EaterEat::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
@@ -35,6 +40,9 @@ void EaterEat::physics_update(double delta) {
 
 void EaterEat::eat_food(String food_name) {
     Food *curr_food = get_node<Food>("../../../" + food_name);
+    curr_food->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
+        rand.randf_range(-50, 50)));
+    emit_signal("transition", "eatereat", "eaterchase");
 }
 
 void EaterEat::exit() {

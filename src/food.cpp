@@ -12,6 +12,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+
 using namespace godot;
 
 // bind c++ methods to godot
@@ -34,7 +35,7 @@ void Food::_process(double delta) {}
 
 // initialize the food when its children are ready 
 void Food::_ready() {
-    eater_eat = get_node<EaterEat>("../Eater/EaterFSM/EaterEat");
+    EaterEat *eater_eat = get_node<EaterEat>("../Eater/EaterFSM/EaterEat");
     entered = false;
     enter_class = "";
     this->connect("body_entered", Callable(this, "food_body_entered"));

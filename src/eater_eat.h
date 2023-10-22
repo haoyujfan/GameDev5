@@ -4,6 +4,9 @@
 #include "state.h"
 #include "eater.h"
 #include <godot_cpp/classes/character_body3d.hpp>
+#include <godot_cpp/classes/random_number_generator.hpp>
+
+
 
 namespace godot {
 
@@ -13,8 +16,10 @@ class EaterEat : public State {
 
     private:
         Eater *eater;
+        RandomNumberGenerator rand;
 
     protected:
+        static void _bind_methods();
 
     public:
         EaterEat();
