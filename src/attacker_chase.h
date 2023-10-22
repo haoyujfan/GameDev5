@@ -8,7 +8,6 @@
 namespace godot {
 
 class AttackerChase : public State {
-    // GDCLASS NOT WORKING BUT NEED IT TO GET IT IN THE GUI
     GDCLASS(AttackerChase, State)
 
     private:

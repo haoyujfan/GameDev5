@@ -11,7 +11,6 @@
 namespace godot {
 
 class EaterEat : public State {
-    // GDCLASS NOT WORKING BUT NEED IT TO GET IT IN THE GUI
     GDCLASS(EaterEat, State)
 
     private:

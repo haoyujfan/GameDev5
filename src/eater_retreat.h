@@ -8,7 +8,6 @@
 namespace godot {
 
 class EaterRetreat : public State {
-    // GDCLASS NOT WORKING BUT NEED IT TO GET IT IN THE GUI
     GDCLASS(EaterRetreat, State)
 
     private:
