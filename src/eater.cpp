@@ -61,18 +61,11 @@ Eater::Eater() {
 
 Eater::~Eater() {}
 
-void Eater::_ready() {
+void Eater::_ready() {}
 
-}
+void Eater::_process(double delta) {}
 
-void Eater::_process(double delta) {
-    
-}
-
-void Eater::_physics_process(double delta) {
-    
-   
-}
+void Eater::_physics_process(double delta) {}
 
 void Eater::initialize_sound() {
 //     String squish_path = "res://audio/squish.mp3";
@@ -91,9 +84,7 @@ void Eater::play_interact() {
     // }
 }
 
-void Eater::food_interaction(bool entered) {
-    
-}
+void Eater::food_interaction(bool entered) {}
 
 void Eater::set_gravity(float p_gravity) {
     gravity = p_gravity;
