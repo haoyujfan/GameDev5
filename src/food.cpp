@@ -53,6 +53,9 @@ void Food::food_body_entered(const Node3D* node) {
         if (enter_class == "Eater") {
             emit_signal("eater_ate", this->get_name());
         }
+        else {
+            entered_by_player = true;
+        }
     }
 }
 
@@ -60,11 +63,18 @@ void Food::food_body_exited(const Node3D* node) {
     if (node->get_class() == "Player" || node->get_class() == "Eater") {
         entered = false;
         enter_class = "";
+        if (node->get_class() == "Player") {
+            entered_by_player = false;
+        }
     }
 }
 
 bool Food::is_entered() {
     return entered;
+}
+
+bool Food::is_entered_by_player() {
+    return entered_by_player;
 }
 
 String Food::get_enter_class() {
