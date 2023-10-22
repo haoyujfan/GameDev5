@@ -17,6 +17,8 @@ void AttackerDodge::_ready() {
         return;
     }
     a_star = memnew(AStar3D);
+    attacker = get_node<Attacker>("../../../Attacker");
+    player = get_node<Player>("../../../Player");
 }
 
 void AttackerDodge::enter() {
@@ -32,6 +34,17 @@ void AttackerDodge::update(double delta) {
 void AttackerDodge::physics_update(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
+    }
+    if (player->is_inside_tree() && attacker) {
+        Vector3 dest = player->get_position();
+        Vector3 dir = -1 * (dest - attacker->get_position());
+        dir.normalize();
+        attacker->set_velocity(dir * 500 * delta);
+        attacker->move_and_slide();
+        attacker->set_position(attacker->get_position());
+        if ((dest - attacker->get_position()).length() > 40) {
+            emit_signal("transitioned", "attackerdodge", "attackerchase");
+        }
     }
 }
 

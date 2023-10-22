@@ -29,9 +29,9 @@ void AttackerAttack::update(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    player->set_lives(player->get_lives() - 1);
+    //player->set_lives(player->get_lives() - 1);
     player->life_lost_GUI();
-    emit_signal("transitioned", "attackerattack", "attackerchase");
+    emit_signal("transitioned", "attackerattack", "attackerdodge");
 }
 
 void AttackerAttack::physics_update(double delta) {
