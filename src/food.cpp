@@ -35,6 +35,9 @@ void Food::_process(double delta) {}
 
 // initialize the food when its children are ready 
 void Food::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     EaterEat *eater_eat = get_node<EaterEat>("../Eater/EaterFSM/EaterEat");
     entered = false;
     enter_class = "";

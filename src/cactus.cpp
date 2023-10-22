@@ -41,6 +41,9 @@ void Cactus::_process(double delta) {
 
 // initialize the cactus when its children are ready 
 void Cactus::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     initialize_sound();
     this->connect("body_entered", Callable(this, "cactus_body_entered"));
     mute_sound_effects = false;
