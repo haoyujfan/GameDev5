@@ -62,40 +62,11 @@ Eater::Eater() {
 Eater::~Eater() {}
 
 void Eater::_ready() {
-    if(Engine::get_singleton()->is_editor_hint()) {
-        return;
-    }
-    a_star = memnew(AStar3D);
-    momentum = Vector3(0.0, 0.0, 0.0);
-    set_position(position);
-    initialize_sound();
 
-    food1 = get_node<Food>("../Food");
-    food2 = get_node<Food>("../Food2");
-    food3 = get_node<Food>("../Food3");
-    food4 = get_node<Food>("../Food4");
-
-    // may crash in editor if food not loaded yet
-    a_star->add_point(1, food1->get_position());
-    a_star->add_point(2, food2->get_position());
-    a_star->add_point(3, food3->get_position());
-    a_star->add_point(4, food4->get_position());
-    
-    player = get_node<Player>("../Player");
 }
 
 void Eater::_process(double delta) {
-    if(Engine::get_singleton()->is_editor_hint()) {
-        return;
-    }
-    bool entered = food1->is_entered() || food2->is_entered() || 
-        food3->is_entered() || food4->is_entered();
     
-    // handle food interactions
-    if (food1->get_enter_class() == "Eater" || food2->get_enter_class() == "Eater" ||
-        food3->get_enter_class() == "Eater" || food4->get_enter_class() == "Eater") {
-        food_interaction(entered);
-    }
 }
 
 void Eater::_physics_process(double delta) {
@@ -104,52 +75,24 @@ void Eater::_physics_process(double delta) {
 }
 
 void Eater::initialize_sound() {
-    String squish_path = "res://audio/squish.mp3";
-    Ref<FileAccess> squish_file = FileAccess::open(squish_path, FileAccess::ModeFlags::READ);
-    FileAccess *squish_ptr = Object::cast_to<FileAccess>(*squish_file);
-    interact = memnew(AudioStreamMP3);
-    interact->set_data(squish_ptr->get_file_as_bytes(squish_path));
-    interact_player = get_node<AudioStreamPlayer>("InteractPlayer");
+//     String squish_path = "res://audio/squish.mp3";
+//     Ref<FileAccess> squish_file = FileAccess::open(squish_path, FileAccess::ModeFlags::READ);
+//     FileAccess *squish_ptr = Object::cast_to<FileAccess>(*squish_file);
+//     interact = memnew(AudioStreamMP3);
+//     interact->set_data(squish_ptr->get_file_as_bytes(squish_path));
+//     interact_player = get_node<AudioStreamPlayer>("InteractPlayer");
 }
 
 void Eater::play_interact() {
-    if (interact_player && !Engine::get_singleton()->is_editor_hint()) {
-        interact_player->set_stream(interact);
-        interact_player->set_volume_db(-12.0);
-        interact_player->play(0.0);
-    }
+    // if (interact_player && !Engine::get_singleton()->is_editor_hint()) {
+    //     interact_player->set_stream(interact);
+    //     interact_player->set_volume_db(-12.0);
+    //     interact_player->play(0.0);
+    // }
 }
 
 void Eater::food_interaction(bool entered) {
-    if (entered) {
-        // if (!interact_player->is_playing() && !player->get_sound_toggle()) {
-        //         play_interact();
-        // }
-        if (food1->is_entered()) {
-            food1->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
-            rand.randf_range(-50, 50)));
-            a_star->remove_point(1);
-            a_star->add_point(1, food1->get_position());
-        } 
-        if (food2->is_entered()) {
-            food2->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
-            rand.randf_range(-50, 50)));
-            a_star->remove_point(2);
-            a_star->add_point(2, food2->get_position());
-        } 
-        if (food3->is_entered()) {
-            food3->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
-            rand.randf_range(-50, 50)));
-            a_star->remove_point(3);
-            a_star->add_point(3, food3->get_position());
-        }
-        if (food4->is_entered()) {
-            food4->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 10), 
-            rand.randf_range(-50, 50)));
-            a_star->remove_point(4);
-            a_star->add_point(4, food4->get_position());
-        }
-    }
+    
 }
 
 void Eater::set_gravity(float p_gravity) {

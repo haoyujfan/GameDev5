@@ -2,7 +2,7 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/a_star3d.hpp>
-#include "food.h"
+
 
 #include <cstdlib>
 
@@ -18,16 +18,11 @@ void EaterChase::_ready() {
     }
     eater = get_node<Eater>("../../../Eater");
     a_star = memnew(AStar3D);
-    Food *food1 = get_node<Food>("../../../Food");
-    Food *food2 = get_node<Food>("../../../Food2");
-    Food *food3 = get_node<Food>("../../../Food3");
-    Food *food4 = get_node<Food>("../../../Food4");
-
-    // may crash in editor if food not loaded yet
-    a_star->add_point(1, food1->get_position());
-    a_star->add_point(2, food2->get_position());
-    a_star->add_point(3, food3->get_position());
-    a_star->add_point(4, food4->get_position());
+    food1 = get_node<Food>("../../../Food");
+    food2 = get_node<Food>("../../../Food2");
+    food3 = get_node<Food>("../../../Food3");
+    food4 = get_node<Food>("../../../Food4");
+    
 }
 
 void EaterChase::enter() {
@@ -42,6 +37,12 @@ void EaterChase::update(double delta) {
 }
 
 void EaterChase::physics_update(double delta) {
+    // may crash in editor if food not loaded yet
+    a_star->add_point(1, food1->get_position());
+    a_star->add_point(2, food2->get_position());
+    a_star->add_point(3, food3->get_position());
+    a_star->add_point(4, food4->get_position());
+
      if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
