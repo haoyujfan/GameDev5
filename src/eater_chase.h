@@ -13,7 +13,7 @@ class EaterChase : public State {
 
     private:
         Eater *eater;
-
+        AStar3D *a_star;
     protected:
 
     public:

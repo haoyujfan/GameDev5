@@ -15,6 +15,7 @@ void EaterEat::_ready() {
         return;
     }
     eater = get_node<Eater>("../../../Eater");
+    food_entered->connect("body_entered", Callable(this, ""));
 }
 
 void EaterEat::enter() {
@@ -23,8 +24,8 @@ void EaterEat::enter() {
 
 void EaterEat::update(double delta) {
     if (eater) {
-        eater->set_velocity(Vector3(0, 10, 0));
-        emit_signal("transitioned", "EaterEat", "EaterRetreat");
+        
+        emit_signal("transitioned", "eatereat", "eaterchase");
     }
 }
 

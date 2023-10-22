@@ -21,7 +21,9 @@ void EaterFSM::_ready() {
     for (int i = 0; i < children.size(); i++) {
         Variant child = children[i];
         State *child_state = Object::cast_to<State>(child);
-        initial_state = Object::cast_to<State>(child);
+        if (child_state->get_name().to_lower() == "eaterchase") {
+            initial_state = Object::cast_to<State>(child);
+        }
         states[child_state->get_name().to_lower()] = child;
         child_state->connect("transitioned", Callable(this, "on_child_transition"));
     }
@@ -48,8 +50,8 @@ void EaterFSM::on_child_transition(String old_state_name, String new_state_name)
     if (old_state_name != current_state->get_name()) {
         return;
     }
-    // ASK ABOUT THIS ** WEIRD ERROR FROM NULL TO "none"
-    Variant new_state = states.get(new_state_name.to_lower(), "none");
+
+    Variant new_state = states.get(new_state_name.to_lower(), nullptr);
 
     if (!new_state) {
         return;
