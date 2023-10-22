@@ -99,6 +99,7 @@ class Player : public CharacterBody3D {
         bool get_sound_toggle();
         int get_lives();
         void set_lives(int p_lives);
+        void life_lost_GUI();
         void toggles();
         void end_conditions();
         void food_interaction(bool entered);

@@ -3,6 +3,7 @@
 
 #include "state.h"
 #include "attacker.h"
+#include "player.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 
 namespace godot {
@@ -13,6 +14,7 @@ class AttackerAttack : public State {
     private:
         Attacker *attacker;
         AStar3D *a_star;
+        Player *player;
 
     protected:
 

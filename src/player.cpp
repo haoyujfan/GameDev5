@@ -44,6 +44,7 @@ void Player::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_lives"), &Player::get_lives);
 
     ADD_SIGNAL(MethodInfo("interact_orange"));
+    ADD_SIGNAL(MethodInfo("life_lost_attacker"));
     ADD_SIGNAL(MethodInfo("sound_effect_toggle", PropertyInfo(Variant::STRING, "toggle")));
     ADD_SIGNAL(MethodInfo("rotate_mode_toggle", PropertyInfo(Variant::STRING, "toggle")));
 }
@@ -446,6 +447,10 @@ bool Player::get_sound_toggle() {
 
 void Player::set_lives(int p_lives) {
     lives = p_lives;
+}
+
+void Player::life_lost_GUI() {
+    emit_signal("life_lost_attacker");
 }
 
 void Player::toggles() {

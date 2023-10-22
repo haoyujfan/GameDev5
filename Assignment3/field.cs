@@ -33,11 +33,15 @@ public partial class field : Node3D
 	{
 		PointsValue++;
 	}
-	
-	private void _on_cactus_interact_cactus()
+	private void _lose_life()
 	{
 		PointsValue--;
 	}
+	private void _on_player_life_lost_attacker()
+	{
+		PointsValue--;
+	}
+
 	private void _on_player_sound_effect_toggle(string toggle)
 	{
 		Effects.Text = "Sound Effect Mute: , " + toggle;
@@ -52,14 +56,4 @@ public partial class field : Node3D
 	{
 		Music.Text = "Music Mute: M " + toggle;
 	}
-
-
 }
-
-
-
-
-
-
-
-

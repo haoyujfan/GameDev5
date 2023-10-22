@@ -16,7 +16,7 @@ using namespace godot;
 void Cactus::_bind_methods() {
     ClassDB::bind_method(D_METHOD("cactus_body_entered", "area"), &Cactus::cactus_body_entered);
 
-    ADD_SIGNAL(MethodInfo("interact_cactus"));
+    ADD_SIGNAL(MethodInfo("lose_life"));
 }
 
 // constructor
@@ -68,7 +68,7 @@ void Cactus::play_interact() {
 void Cactus::cactus_body_entered(const Node3D* node) {
     if (node->get_class() == "Player") {
         play_interact();
-        emit_signal("interact_cactus");
+        emit_signal("lose_life");
         int lives = player->get_lives();
         player->set_lives(lives - 1);
     }

@@ -130,3 +130,10 @@ Music Volume Down: 🔽"
 [node name="Attacker" parent="." instance=ExtResource("7_i1by6")]
 
 [node name="Eater" parent="." instance=ExtResource("6_1pnk3")]
+
+[connection signal="lose_life" from="Cactus" to="." method="_lose_life"]
+[connection signal="lose_life" from="Cactus2" to="." method="_lose_life"]
+[connection signal="lose_life" from="Cactus3" to="." method="_lose_life"]
+[connection signal="lose_life" from="Cactus4" to="." method="_lose_life"]
+[connection signal="interact_orange" from="Player" to="." method="_on_player_interact_orange"]
+[connection signal="life_lost_attacker" from="Player" to="." method="_on_player_life_lost_attacker"]
