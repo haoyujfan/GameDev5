@@ -22,6 +22,9 @@ Ground::~Ground() {
 }
 
 void Ground::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     volume = -15;
     mute_music = false;
     music_pos = 0.0;
@@ -29,6 +32,9 @@ void Ground::_ready() {
 }
 
 void Ground::_process(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     music_controls();
     toggle();
 }
