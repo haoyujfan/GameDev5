@@ -31,11 +31,7 @@ void EaterEat::update(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    if (curr_food) {
-    curr_food->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
-        rand.randf_range(-150, 150)));
-    }
-    emit_signal("transitioned", "eatereat", "eaterchase");
+    
 }
 
 void EaterEat::physics_update(double delta) {
@@ -46,6 +42,11 @@ void EaterEat::physics_update(double delta) {
 
 void EaterEat::eat_food(String food_name) {
     curr_food = get_node<Food>("../../../" + food_name);
+    if (curr_food) {
+        curr_food->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
+            rand.randf_range(-150, 150)));
+    }
+    emit_signal("transitioned", "eatereat", "eaterchase");
 }
 
 void EaterEat::exit() {
