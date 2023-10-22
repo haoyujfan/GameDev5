@@ -328,23 +328,23 @@ void Player::food_interaction(bool entered) {
         }
         lives++;
         if (food1->is_entered()) {
-            food1->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
-            rand.randf_range(-50, 50)));
+            food1->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(2, 20), 
+            rand.randf_range(-150, 150)));
             emit_signal("interact_orange");
         } 
         if (food2->is_entered()) {
-            food2->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
-            rand.randf_range(-50, 50)));
+            food2->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(2, 20), 
+            rand.randf_range(-150, 150)));
             emit_signal("interact_orange");
         } 
         if (food3->is_entered()) {
-            food3->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
-            rand.randf_range(-50, 50)));
+            food3->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(2, 20), 
+            rand.randf_range(-150, 150)));
             emit_signal("interact_orange");
         }
         if (food4->is_entered()) {
-            food4->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
-            rand.randf_range(-50, 50)));
+            food4->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(2, 20), 
+            rand.randf_range(-150, 150)));
             emit_signal("interact_orange");
         } 
     }

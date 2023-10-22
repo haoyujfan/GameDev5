@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://dpvscnrgs7p6r" path="res://textures/floor/coast_sand_rocks_02_arm_4k.png" id="3_5fnsj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gxky2"]
-size = Vector3(100, 2, 100)
+size = Vector3(300, 2, 300)
 
 [sub_resource type="BoxMesh" id="BoxMesh_l2i3b"]
-size = Vector3(100, 2, 100)
+size = Vector3(300, 2, 300)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6k870"]
 albedo_texture = ExtResource("1_rqj5v")
@@ -26,7 +26,7 @@ uv1_scale = Vector3(5, 5, 5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6dw0p"]
 material = SubResource("StandardMaterial3D_3fqbs")
-size = Vector2(100, 100)
+size = Vector2(300, 300)
 
 [node name="Ground" type="Ground"]
 

@@ -32,8 +32,8 @@ void EaterEat::update(double delta) {
         return;
     }
     if (curr_food) {
-    curr_food->set_position(Vector3(rand.randf_range(-50, 50), rand.randf_range(2, 20), 
-        rand.randf_range(-50, 50)));
+    curr_food->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(2, 20), 
+        rand.randf_range(-150, 150)));
     }
     emit_signal("transitioned", "eatereat", "eaterchase");
 }
