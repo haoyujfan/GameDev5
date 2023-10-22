@@ -67,6 +67,9 @@ Player::Player() {
 Player::~Player() {}
 
 void Player::_ready() {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     momentum = Vector3(0.0, 0.0, 0.0);
     set_position(position);
     initialize_sound();
