@@ -35,12 +35,18 @@ void AttackerFSM::_ready() {
 }
 
 void AttackerFSM::_process(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     if (current_state) {
         current_state->update(delta);
     }
 }
 
 void AttackerFSM::_physics_process(double delta) {
+    if(Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
     if (current_state) {
         current_state->physics_update(delta);
     }

@@ -39,7 +39,7 @@ void EaterChase::physics_update(double delta) {
      if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    if (food1 && food2 && food3 && food4) {
+    if (food1->is_inside_tree() && food2->is_inside_tree() && food3->is_inside_tree() && food4->is_inside_tree()) {
         a_star->add_point(1, food1->get_position());
         a_star->add_point(2, food2->get_position());
         a_star->add_point(3, food3->get_position());
