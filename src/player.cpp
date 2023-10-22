@@ -117,8 +117,14 @@ void Player::_process(double delta) {
 
     // dithering for camera collisions
     if (camera_cast1->is_colliding() && camera_cast2->is_colliding()) {
-        colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
-        colliding->set_visible(false);
+        if (colliding && camera_cast1->get_collider() != colliding) {
+            colliding->set_visible(true);
+            colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
+            colliding->set_visible(false);
+        } else {
+            colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
+            colliding->set_visible(false);
+        }
     }
     if (!camera_cast1->is_colliding() && !camera_cast2->is_colliding() && colliding) {
         colliding->set_visible(true);
