@@ -22,22 +22,7 @@ class Attacker : public CharacterBody3D {
         /* data */
         Vector3 position;
         Vector3 velocity;
-        Vector3 momentum;
-        Input *input;
-        Transform3D transform;
-        Raycast *ray1;
-        Raycast *ray2;
-        Raycast *ray3;
-        Raycast *ray4;
-        SceneTree *tree;
-
         Player *player;
-        RandomNumberGenerator rand;
-
-        Camera *camera;
-        Raycast *camera_cast1;
-        Raycast *camera_cast2;
-        Node3D *colliding;
         AStar3D *a_star;
 
 
@@ -59,7 +44,6 @@ class Attacker : public CharacterBody3D {
         void _process(double delta) override;
         void _physics_process(double delta) override;
         void _ready() override;
-        Vector3 movement();
 
         void set_gravity(float p_gravity);
         float get_gravity();
@@ -72,8 +56,6 @@ class Attacker : public CharacterBody3D {
 
         void set_air_resistance(float p_air_resistance);
         float get_air_resistance();
-
-        void ledge_stop();
 };
     
 

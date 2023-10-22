@@ -8,7 +8,6 @@
 #include <godot_cpp/classes/audio_stream_player.hpp>
 #include <godot_cpp/classes/audio_stream_mp3.hpp>
 #include <godot_cpp/variant/transform3d.hpp>
-#include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/object.hpp>
 
 #include <cstdlib>
@@ -39,9 +38,7 @@ void Attacker::_bind_methods() {
 }
 
 Attacker::Attacker() {
-
     gravity = 1400.0;
-
     jump_velocity = 300.0;
     speed = 2;
     air_resistance = 0;
@@ -52,70 +49,11 @@ Attacker::Attacker() {
 
 Attacker::~Attacker() {}
 
-void Attacker::_ready() {
-    momentum = Vector3(0.0, 0.0, 0.0);
-    set_position(position);
-    ray1 = get_node<Raycast>("Raycast");
-    ray2 = get_node<Raycast>("Raycast2");
-    ray3 = get_node<Raycast>("Raycast3");
-    ray4 = get_node<Raycast>("Raycast4");
-    colliding = NULL;
+void Attacker::_ready() {}
 
-    a_star = memnew(AStar3D);
+void Attacker::_process(double delta) {}
 
-    player = get_node<Player>("../Player");
-
-    tree = get_tree();
-}
-
-void Attacker::_process(double delta) {
-    if(Engine::get_singleton()->is_editor_hint()) {
-        return;
-    }
-}
-
-void Attacker::_physics_process(double delta) {
-    if(Engine::get_singleton()->is_editor_hint()) {
-        return;
-    }
-
-    Vector3 dest = player->get_position();
-    Vector3 dir = dest - position;
-    dir.normalize();
-    velocity = dir * 500 * delta;
-    position = get_position();
-
-    // // ledge stop
-    // if (ray1->is_colliding() && ray2->is_colliding() &&
-    //     ray3->is_colliding() && ray4->is_colliding()) {
-    //     // WASD movement
-    //     momentum = movement();
-    // } else {
-    //     gravity = 0;
-    //     velocity.y = 0;
-    // }
-    set_velocity(velocity);
-    move_and_slide();
-}
-
-Vector3 Attacker::movement() {
-    Vector3 result = Vector3(0, 0, 0);
-    if (result == Vector3(0, 0, 0)) {
-        return momentum;
-    } else {
-        return result;
-    }
-}
-
-
-
-void Attacker::ledge_stop() {
-//      // ledge stop
-//     if (ray1->is_colliding() && ray2->is_colliding() &&
-//         ray3->is_colliding() && ray4->is_colliding()) {
-//         momentum = movement();
-//     }
-}
+void Attacker::_physics_process(double delta) {}
 
 void Attacker::set_gravity(float p_gravity) {
     gravity = p_gravity;

@@ -23,7 +23,9 @@ void AttackerAttack::enter() {
     UtilityFunctions::print("enter attacker attack state");
 }
 
-void AttackerAttack::update(double delta) {}
+void AttackerAttack::update(double delta) {
+    emit_signal("transitioned", "attackerattack", "attackerchase");
+}
 
 void AttackerAttack::physics_update(double delta) {}
 

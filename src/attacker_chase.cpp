@@ -16,6 +16,8 @@ void AttackerChase::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
+    attacker = get_node<Attacker>("../../../Attacker");
+    player = get_node<Player>("../../../Player");
     a_star = memnew(AStar3D);
 }
 
@@ -25,7 +27,17 @@ void AttackerChase::enter() {
 
 void AttackerChase::update(double delta) {}
 
-void AttackerChase::physics_update(double delta) {}
+void AttackerChase::physics_update(double delta) {
+    Vector3 dest = player->get_position();
+    Vector3 dir = dest - attacker->get_position();
+    dir.normalize();
+    attacker->set_velocity(dir * 500 * delta);
+    attacker->move_and_slide();
+    attacker->set_position(attacker->get_position());
+    if ((dest - attacker->get_position()).length() < 13) {
+        emit_signal("transitioned", "attackerchase", "attackerattack");
+    }
+}
 
 void AttackerChase::exit() {
     UtilityFunctions::print("exit attacker chase state");
