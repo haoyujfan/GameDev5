@@ -4,6 +4,7 @@
 #include "state.h"
 #include "eater.h"
 #include "player.h"
+#include "raycast.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 
 namespace godot {
@@ -14,6 +15,7 @@ class EaterRetreat : public State {
     private:
         Eater *eater;
         Player *player;
+        Raycast *raycast;
 
     protected:
 

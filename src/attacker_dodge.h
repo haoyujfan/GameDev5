@@ -4,6 +4,7 @@
 #include "state.h"
 #include "attacker.h"
 #include "player.h"
+#include "raycast.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 
 namespace godot {
@@ -15,6 +16,7 @@ class AttackerDodge : public State {
         Attacker *attacker;
         AStar3D *a_star;
         Player *player;
+        Raycast *raycast;
 
     protected:
 

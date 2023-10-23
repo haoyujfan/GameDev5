@@ -19,6 +19,7 @@ void AttackerChase::_ready() {
     attacker = Object::cast_to<Attacker>(this->get_parent()->get_parent());
     player = get_node<Player>("../../../Player");
     a_star = memnew(AStar3D);
+    raycast = get_node<Raycast>("../../Raycast");
 }
 
 void AttackerChase::enter() {
@@ -35,14 +36,18 @@ void AttackerChase::physics_update(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    Vector3 dest = player->get_position();
-    Vector3 dir = dest - attacker->get_position();
-    dir.normalize();
-    attacker->set_velocity(dir * 500 * delta);
-    attacker->move_and_slide();
-    attacker->set_position(attacker->get_position());
-    if ((dest - attacker->get_position()).length() < 13) {
-        emit_signal("transitioned", "attackerchase", "attackerattack");
+    if (raycast->is_colliding() && raycast->get_collider() == player) {
+        attacker->set_position(Vector3(0, 10, 0));
+    } else {
+        Vector3 dest = player->get_position();
+        Vector3 dir = dest - attacker->get_position();
+        dir.normalize();
+        attacker->set_velocity(dir * 500 * delta);
+        attacker->move_and_slide();
+        attacker->set_position(attacker->get_position());
+        if ((dest - attacker->get_position()).length() < 11) {
+            emit_signal("transitioned", "attackerchase", "attackerattack");
+        }
     }
 }
 

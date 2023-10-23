@@ -19,6 +19,7 @@ void AttackerDodge::_ready() {
     a_star = memnew(AStar3D);
     attacker = Object::cast_to<Attacker>(this->get_parent()->get_parent());
     player = get_node<Player>("../../../Player");
+    raycast = get_node<Raycast>("../../Raycast");
 }
 
 void AttackerDodge::enter() {
@@ -35,15 +36,19 @@ void AttackerDodge::physics_update(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    if (player->is_inside_tree() && attacker) {
-        Vector3 dest = player->get_position();
-        Vector3 dir = -1 * (dest - attacker->get_position());
-        dir.normalize();
-        attacker->set_velocity(dir * 500 * delta);
-        attacker->move_and_slide();
-        attacker->set_position(attacker->get_position());
-        if ((dest - attacker->get_position()).length() > 40) {
-            emit_signal("transitioned", "attackerdodge", "attackerchase");
+    if (raycast->is_colliding() && raycast->get_collider() == player) {
+        attacker->set_position(Vector3(0, 10, 0));
+    } else {
+        if (player->is_inside_tree() && attacker) {
+            Vector3 dest = player->get_position();
+            Vector3 dir = -1 * (dest - attacker->get_position());
+            dir.normalize();
+            attacker->set_velocity(dir * 500 * delta);
+            attacker->move_and_slide();
+            attacker->set_position(attacker->get_position());
+            if ((dest - attacker->get_position()).length() > 40) {
+                emit_signal("transitioned", "attackerdodge", "attackerchase");
+            }
         }
     }
 }

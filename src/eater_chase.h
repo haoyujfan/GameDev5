@@ -5,6 +5,7 @@
 #include "eater.h"
 #include "food.h"
 #include "player.h"
+#include "raycast.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 
 namespace godot {
@@ -20,6 +21,7 @@ class EaterChase : public State {
         Food *food3;
         Food *food4;
         Player *player;
+        Raycast *raycast;
 
     protected:
 
