@@ -1,4 +1,6 @@
 #include "player.h"
+#include <godot_cpp/classes/csg_mesh3d.hpp>
+#include <godot_cpp/classes/base_material3d.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
@@ -62,6 +64,7 @@ Player::Player() {
     hanging = false;
     AD_rotate = true;
     mute_sound_effects = false;
+    hurt_frames = 0;
 }
 
 Player::~Player() {}
@@ -87,6 +90,10 @@ void Player::_ready() {
     food4 = get_node<Food>("../Food4");
 
     camera = get_node<Camera>("Node3D/Camera");
+    Ref<Material> mat_ref = get_node<CSGMesh3D>("CSGMesh3D")->get_material();
+    //FileAccess *squish_ptr = Object::cast_to<FileAccess>(*squish_file);
+    material = Object::cast_to<BaseMaterial3D>(*mat_ref);
+    albedo = material->get_albedo();
     tree = get_tree();
 }
 
@@ -214,6 +221,15 @@ void Player::_physics_process(double delta) {
         }
 
     }
+    if (is_hurt) {
+        material->set_albedo(Color(.5, 0, 0, .5));
+        hurt_frames++;
+        if (hurt_frames > 20) {
+            material->set_albedo(albedo);
+            is_hurt = false;
+            hurt_frames = 0;
+        }
+    }
     gliding();
     
     end_conditions();
@@ -330,30 +346,22 @@ void Player::food_interaction(bool entered_by_player) {
         if (food1->is_entered_by_player()) {
             food1->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            if (entered_by_player) {
-                emit_signal("interact_orange");
-            }
+            emit_signal("interact_orange");
         } 
         if (food2->is_entered_by_player()) {
             food2->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            if (entered_by_player) {
-                emit_signal("interact_orange");
-            }
+            emit_signal("interact_orange");
         } 
         if (food3->is_entered_by_player()) {
             food3->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            if (entered_by_player) {
-                emit_signal("interact_orange");
-            }
+            emit_signal("interact_orange");
         }
         if (food4->is_entered_by_player()) {
             food4->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            if (entered_by_player) {
-                emit_signal("interact_orange");
-            }
+            emit_signal("interact_orange");
         } 
     }
 }
@@ -468,6 +476,14 @@ void Player::set_lives(int p_lives) {
 
 void Player::life_lost_GUI() {
     emit_signal("life_lost_attacker");
+}
+
+void Player::set_is_hurt(bool p_is_hurt) {
+    is_hurt = p_is_hurt;
+}
+
+void Player::set_hurt_frames(int frames) {
+    hurt_frames = frames;
 }
 
 void Player::toggles() {

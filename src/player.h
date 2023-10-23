@@ -8,6 +8,7 @@
 #include <godot_cpp/classes/audio_stream_mp3.hpp>
 #include <godot_cpp/classes/area3d.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
+#include <godot_cpp/classes/base_material3d.hpp>
 #include "raycast.h"
 #include "food.h"
 #include "camera.h"
@@ -30,6 +31,7 @@ class Player : public CharacterBody3D {
         Raycast *ray4;
         SceneTree *tree;
         int lives;
+        bool is_hurt;
 
         Food *food1;
         Food *food2;
@@ -59,6 +61,11 @@ class Player : public CharacterBody3D {
         bool jumped;
         bool hanging;
         bool AD_rotate;
+
+        // color
+        BaseMaterial3D *material;
+        Color albedo;
+        int hurt_frames;
 
     protected:
         static void _bind_methods();
@@ -100,6 +107,8 @@ class Player : public CharacterBody3D {
         int get_lives();
         void set_lives(int p_lives);
         void life_lost_GUI();
+        void set_is_hurt(bool p_is_hurt);
+        void set_hurt_frames(int frames);
         void toggles();
         void end_conditions();
         void food_interaction(bool entered);

@@ -17,6 +17,7 @@ void Cactus::_bind_methods() {
     ClassDB::bind_method(D_METHOD("cactus_body_entered", "area"), &Cactus::cactus_body_entered);
 
     ADD_SIGNAL(MethodInfo("lose_life"));
+    ADD_SIGNAL(MethodInfo("cactus_hit"));
 }
 
 // constructor
@@ -74,6 +75,8 @@ void Cactus::cactus_body_entered(const Node3D* node) {
         emit_signal("lose_life");
         int lives = player->get_lives();
         player->set_lives(lives - 1);
+        player->set_is_hurt(true);
+        player->set_hurt_frames(0);
     }
 }
 
