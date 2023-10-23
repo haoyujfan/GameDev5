@@ -25,14 +25,6 @@ material = SubResource("StandardMaterial3D_ehevm")
 
 [node name="InteractPlayer" type="AudioStreamPlayer3D" parent="."]
 
-[node name="EaterFSM" type="EaterFSM" parent="."]
-
-[node name="EaterEat" type="EaterEat" parent="EaterFSM"]
-
-[node name="EaterChase" type="EaterChase" parent="EaterFSM"]
-
-[node name="EaterRetreat" type="EaterRetreat" parent="EaterFSM"]
-
 [node name="Raycast" type="Raycast" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.08165e-12, 2.08165e-12)
 target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
@@ -48,3 +40,11 @@ target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
 [node name="Raycast4" type="Raycast" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 5)
 target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
+
+[node name="FSM" type="FSM" parent="."]
+
+[node name="EaterEat" type="EaterEat" parent="FSM"]
+
+[node name="EaterChase" type="EaterChase" parent="FSM"]
+
+[node name="EaterRetreat" type="EaterRetreat" parent="FSM"]

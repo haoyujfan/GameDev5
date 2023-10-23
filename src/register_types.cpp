@@ -6,13 +6,12 @@
 #include "camera.h"
 #include "raycast.h"
 #include "state.h"
+#include "FSM.h"
 #include "eater.h"
-#include "eater_fsm.h"
 #include "eater_eat.h"
 #include "eater_chase.h"
 #include "eater_retreat.h"
 #include "attacker.h"
-#include "attacker_fsm.h"
 #include "attacker_attack.h"
 #include "attacker_chase.h"
 #include "attacker_dodge.h"
@@ -34,13 +33,12 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Camera>();
     ClassDB::register_class<Raycast>();
     ClassDB::register_class<State>();
+    ClassDB::register_class<FSM>();
     ClassDB::register_class<Eater>();
-    ClassDB::register_class<EaterFSM>();
     ClassDB::register_class<EaterEat>();
     ClassDB::register_class<EaterChase>();
     ClassDB::register_class<EaterRetreat>();
     ClassDB::register_class<Attacker>();
-    ClassDB::register_class<AttackerFSM>();
     ClassDB::register_class<AttackerAttack>();
     ClassDB::register_class<AttackerChase>();
     ClassDB::register_class<AttackerDodge>();
