@@ -30,6 +30,8 @@ void AttackerAttack::update(double delta) {
         return;
     }
     player->set_lives(player->get_lives() - 1);
+    player->set_is_hurt(true);
+    player->set_hurt_frames(0);
     player->life_lost_GUI();
     emit_signal("transitioned", "attackerattack", "attackerdodge");
 }

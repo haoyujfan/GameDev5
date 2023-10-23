@@ -53,7 +53,7 @@ void Food::food_body_entered(const Node3D* node) {
         if (enter_class == "Eater") {
             emit_signal("eater_ate", this->get_name());
         }
-        else {
+        if (enter_class == "Player") {
             entered_by_player = true;
         }
     }

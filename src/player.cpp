@@ -339,6 +339,7 @@ void Player::play_empty_interact() {
 
 void Player::food_interaction(bool entered_by_player) {
     if (entered_by_player && Input::get_singleton()->is_action_just_pressed("E")) {
+        emit_signal("interact_orange");
         if (!interact_player->is_playing() && !mute_sound_effects) {
             play_interact();
         }
@@ -346,22 +347,18 @@ void Player::food_interaction(bool entered_by_player) {
         if (food1->is_entered_by_player()) {
             food1->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            emit_signal("interact_orange");
         } 
         if (food2->is_entered_by_player()) {
             food2->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            emit_signal("interact_orange");
         } 
         if (food3->is_entered_by_player()) {
             food3->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            emit_signal("interact_orange");
         }
         if (food4->is_entered_by_player()) {
             food4->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
-            emit_signal("interact_orange");
         } 
     }
 }
