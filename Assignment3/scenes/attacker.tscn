@@ -26,3 +26,6 @@ material = SubResource("StandardMaterial3D_l0diy")
 [node name="AttackerChase" type="AttackerChase" parent="AttackerFSM"]
 
 [node name="AttackerDodge" type="AttackerDodge" parent="AttackerFSM"]
+
+[node name="Raycast" type="Raycast" parent="."]
+target_position = Vector3(2.08165e-12, 8, 2.08165e-12)

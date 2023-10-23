@@ -31,3 +31,6 @@ material = SubResource("StandardMaterial3D_ehevm")
 [node name="EaterChase" type="EaterChase" parent="EaterFSM"]
 
 [node name="EaterRetreat" type="EaterRetreat" parent="EaterFSM"]
+
+[node name="Raycast" type="Raycast" parent="."]
+target_position = Vector3(2.08165e-12, 8, 2.08165e-12)
