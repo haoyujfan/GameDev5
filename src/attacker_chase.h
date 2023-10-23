@@ -17,7 +17,10 @@ class AttackerChase : public State {
         Attacker *attacker;
         AStar3D *a_star;
         Player *player;
-        Raycast *raycast;
+        Raycast *raycast1;
+        Raycast *raycast2;
+        Raycast *raycast3;
+        Raycast *raycast4;
 
     protected:
 

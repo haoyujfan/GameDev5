@@ -15,7 +15,10 @@ class EaterRetreat : public State {
     private:
         Eater *eater;
         Player *player;
-        Raycast *raycast;
+        Raycast *raycast1;
+        Raycast *raycast2;
+        Raycast *raycast3;
+        Raycast *raycast4;
 
     protected:
 

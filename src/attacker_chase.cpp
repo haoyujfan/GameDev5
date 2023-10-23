@@ -19,7 +19,10 @@ void AttackerChase::_ready() {
     attacker = Object::cast_to<Attacker>(this->get_parent()->get_parent());
     player = get_node<Player>("../../../Player");
     a_star = memnew(AStar3D);
-    raycast = get_node<Raycast>("../../Raycast");
+    raycast1 = get_node<Raycast>("../../Raycast");
+    raycast2 = get_node<Raycast>("../../Raycast2");
+    raycast3 = get_node<Raycast>("../../Raycast3");
+    raycast4 = get_node<Raycast>("../../Raycast4");
 }
 
 void AttackerChase::enter() {
@@ -36,7 +39,10 @@ void AttackerChase::physics_update(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    if (raycast->is_colliding() && raycast->get_collider() == player) {
+    if ((raycast1->is_colliding() && raycast1->get_collider() == player) ||
+        (raycast2->is_colliding() && raycast2->get_collider() == player) ||
+        (raycast3->is_colliding() && raycast3->get_collider() == player) ||
+        (raycast4->is_colliding() && raycast4->get_collider() == player)) {
         attacker->set_position(Vector3(0, 10, 0));
     } else {
         Vector3 dest = player->get_position();
