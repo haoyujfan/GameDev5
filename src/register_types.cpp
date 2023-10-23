@@ -3,6 +3,7 @@
 #include "cactus.h"
 #include "food.h"
 #include "ground.h"
+#include "wall.h"
 #include "camera.h"
 #include "raycast.h"
 #include "state.h"
@@ -30,6 +31,7 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Cactus>();
     ClassDB::register_class<Food>();
     ClassDB::register_class<Ground>();
+    ClassDB::register_class<Wall>();
     ClassDB::register_class<Camera>();
     ClassDB::register_class<Raycast>();
     ClassDB::register_class<State>();
