@@ -45,7 +45,7 @@ Attacker::Attacker() {
     current_air = 0;
     velocity = Vector3(0.0, 0.0, 0.0);
     position = Vector3(rand.randf_range(-150, 150), rand.randf_range(6, 20), 
-        rand.randf_range(-150, 150));
+    rand.randf_range(-150, 150));
 }
 
 Attacker::~Attacker() {}

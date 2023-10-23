@@ -8,6 +8,7 @@ radius = 5.0
 height = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0diy"]
+albedo_color = Color(0.560784, 0, 0.027451, 1)
 
 [node name="Attacker" type="Attacker"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 0)
