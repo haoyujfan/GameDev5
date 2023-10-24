@@ -23,7 +23,6 @@ void Navigation::chase(CharacterBody3D *source, Vector3 dest) {
     astar->connect_points(1, 2, false);
     PackedVector3Array path = astar->get_point_path(1, 2);
     Vector3 dir = Vector3(0, 0, 0);
-    UtilityFunctions::print(path);
     if (path.size() > 0) {
         dir = path[1] - source->get_position();
     }
@@ -42,7 +41,6 @@ void Navigation::retreat(CharacterBody3D *source, Vector3 dest) {
     astar->connect_points(1, 2, false);
     PackedVector3Array path = astar->get_point_path(1, 2);
     Vector3 dir = Vector3(0, 0, 0);
-    UtilityFunctions::print(path);
     if (path.size() > 0) {
         dir = -1 * (path[1] - source->get_position());
     }

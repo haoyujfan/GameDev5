@@ -41,15 +41,11 @@ void EaterRetreat::physics_update(double delta) {
         (raycast2->is_colliding() && raycast2->get_collider() == player) ||
         (raycast3->is_colliding() && raycast3->get_collider() == player) ||
         (raycast4->is_colliding() && raycast4->get_collider() == player)) {
-        eater->set_position(Vector3(0, 10, 0));
+        nav->teleport(eater, Vector3(0, 10, 0));
     } else {
         if (player->is_inside_tree() && eater) {
             Vector3 dest = player->get_position();
-            Vector3 dir = -1 * (dest - eater->get_position());
-            dir.normalize();
-            eater->set_velocity(dir * 500 * delta);
-            eater->move_and_slide();
-            eater->set_position(eater->get_position());
+            nav->retreat(eater, dest);
             if ((dest - eater->get_position()).length() > 40) {
                 emit_signal("transitioned", "eaterretreat", "eaterchase");
             }
