@@ -20,14 +20,6 @@ shape = SubResource("SphereShape3D_ji7la")
 mesh = SubResource("SphereMesh_xue85")
 material = SubResource("StandardMaterial3D_l0diy")
 
-[node name="AttackerFSM" type="AttackerFSM" parent="."]
-
-[node name="AttackerAttack" type="AttackerAttack" parent="AttackerFSM"]
-
-[node name="AttackerChase" type="AttackerChase" parent="AttackerFSM"]
-
-[node name="AttackerDodge" type="AttackerDodge" parent="AttackerFSM"]
-
 [node name="Raycast" type="Raycast" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.08165e-12, 2.08165e-12)
 target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
@@ -43,3 +35,11 @@ target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
 [node name="Raycast4" type="Raycast" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 5)
 target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
+
+[node name="FSM" type="FSM" parent="."]
+
+[node name="AttackerAttack" type="AttackerAttack" parent="FSM"]
+
+[node name="AttackerChase" type="AttackerChase" parent="FSM"]
+
+[node name="AttackerDodge" type="AttackerDodge" parent="FSM"]
