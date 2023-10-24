@@ -66,28 +66,34 @@ void Eater::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
+    initialize_sound();
     set_position(position);
 }
 
-void Eater::_process(double delta) {}
+void Eater::_process(double delta) {
+    play_eat();
+}
 
 void Eater::_physics_process(double delta) {}
 
 void Eater::initialize_sound() {
-//     String squish_path = "res://audio/squish.mp3";
-//     Ref<FileAccess> squish_file = FileAccess::open(squish_path, FileAccess::ModeFlags::READ);
-//     FileAccess *squish_ptr = Object::cast_to<FileAccess>(*squish_file);
-//     interact = memnew(AudioStreamMP3);
-//     interact->set_data(squish_ptr->get_file_as_bytes(squish_path));
-//     interact_player = get_node<AudioStreamPlayer>("InteractPlayer");
+    String squish_path = "res://audio/squish.mp3";
+    Ref<FileAccess> squish_file = FileAccess::open(squish_path, FileAccess::ModeFlags::READ);
+    FileAccess *squish_ptr = Object::cast_to<FileAccess>(*squish_file);
+    eat = memnew(AudioStreamMP3);
+    eat->set_data(squish_ptr->get_file_as_bytes(squish_path));
+    eat_player = get_node<AudioStreamPlayer>("EatPlayer");
+    if (eat_player) {
+        UtilityFunctions::print("Got eat_player");
+    }
 }
 
-void Eater::play_interact() {
-    // if (interact_player && !Engine::get_singleton()->is_editor_hint()) {
-    //     interact_player->set_stream(interact);
-    //     interact_player->set_volume_db(-12.0);
-    //     interact_player->play(0.0);
-    // }
+void Eater::play_eat() {
+    if (eat_player && !Engine::get_singleton()->is_editor_hint()) {
+        eat_player->set_stream(eat);
+        eat_player->set_volume_db(-12.0);
+        eat_player->play(0.0);
+    }
 }
 
 void Eater::food_interaction(bool entered) {}

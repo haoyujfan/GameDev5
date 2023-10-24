@@ -23,7 +23,7 @@ shape = SubResource("SphereShape3D_ggucg")
 mesh = SubResource("SphereMesh_p6d0b")
 material = SubResource("StandardMaterial3D_ehevm")
 
-[node name="InteractPlayer" type="AudioStreamPlayer3D" parent="."]
+[node name="EatPlayer" type="AudioStreamPlayer3D" parent="."]
 
 [node name="Raycast" type="Raycast" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.08165e-12, 2.08165e-12)

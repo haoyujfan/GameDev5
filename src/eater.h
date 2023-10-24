@@ -29,17 +29,12 @@ class Eater : public CharacterBody3D {
         Transform3D transform;
         Player *player;
 
-        Food *food1;
-        Food *food2;
-        Food *food3;
-        Food *food4;
         AStar3D *a_star;
         RandomNumberGenerator rand;
 
         // sounds
-        AudioStreamPlayer *interact_player;
-        AudioStreamMP3 *interact;
-        AudioStreamMP3 *empty_interact;
+        AudioStreamPlayer *eat_player;
+        AudioStreamMP3 *eat;
 
         // movement
         double gravity;
@@ -62,7 +57,7 @@ class Eater : public CharacterBody3D {
         void _ready() override;
 
         void initialize_sound();
-        void play_interact();
+        void play_eat();
 
         void set_gravity(float p_gravity);
         float get_gravity();

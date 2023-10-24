@@ -3,6 +3,7 @@
 
 #include "state.h"
 #include "eater.h"
+#include "player.h"
 #include <godot_cpp/classes/character_body3d.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 

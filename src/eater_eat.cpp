@@ -43,6 +43,8 @@ void EaterEat::physics_update(double delta) {
 
 void EaterEat::eat_food() {
     if (curr_food) {
+        UtilityFunctions::print("calling play_eat()");
+        eater->play_eat();
         curr_food->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150)));
     }
