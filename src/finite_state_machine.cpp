@@ -8,7 +8,8 @@
 using namespace godot;
 
 void FiniteStateMachine::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("on_child_transition", "old_state_name", "new_state_name"), &FiniteStateMachine::on_child_transition);
+    ClassDB::bind_method(D_METHOD("on_child_transition", "old_state_name", "new_state_name"), 
+        &FiniteStateMachine::on_child_transition);
 }
 
 FiniteStateMachine::FiniteStateMachine() {}
@@ -24,9 +25,6 @@ void FiniteStateMachine::_ready() {
     for (int i = 0; i < children.size(); i++) {
         Variant child = children[i];
         State *child_state = Object::cast_to<State>(child);
-        // if (child_state->get_name().to_lower() == "eaterchase") {
-        //     initial_state = child_state;
-        // }
         states[child_state->get_name().to_lower()] = child;
         child_state->connect("transitioned", Callable(this, "on_child_transition"));
     }

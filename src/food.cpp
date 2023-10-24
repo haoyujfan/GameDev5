@@ -38,7 +38,7 @@ void Food::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    EaterEat *eater_eat = get_node<EaterEat>("../Eater/FSM/EaterEat");
+    EaterEat *eater_eat = get_node<EaterEat>("../Eater/FiniteStateMachine/EaterEat");
     entered = false;
     enter_class = "";
     this->connect("body_entered", Callable(this, "food_body_entered"));

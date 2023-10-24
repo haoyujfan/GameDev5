@@ -7,7 +7,6 @@
 #include "camera.h"
 #include "raycast.h"
 #include "state.h"
-#include "FSM.h"
 #include "eater.h"
 #include "eater_eat.h"
 #include "eater_chase.h"
@@ -36,7 +35,6 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Camera>();
     ClassDB::register_class<Raycast>();
     ClassDB::register_class<State>();
-    ClassDB::register_class<FSM>();
     ClassDB::register_class<Eater>();
     ClassDB::register_class<EaterEat>();
     ClassDB::register_class<EaterChase>();

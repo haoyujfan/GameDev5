@@ -14,8 +14,8 @@ void EaterRetreat::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    player = get_node<Player>("../../../Player");
     eater = Object::cast_to<Eater>(this->get_parent()->get_parent());
+    player = get_node<Player>("../../../Player");
     raycast1 = get_node<Raycast>("../../Raycast");
     raycast2 = get_node<Raycast>("../../Raycast2");
     raycast3 = get_node<Raycast>("../../Raycast3");
