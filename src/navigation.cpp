@@ -14,12 +14,13 @@ void Navigation::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    UtilityFunctions::print("in navigation");
+    astar = memnew(AStar3D);
 }
 
-void Navigation::_process(double delta) {
-    if(Engine::get_singleton()->is_editor_hint()) {
-        return;
-    }
+void Navigation::chase(Node3D *source, Node3D *target) {}
 
+void Navigation::retreat(Node3D *source, Node3D *target) {}
+
+void Navigation::teleport(Node3D *target, Vector3 dest) {
+    target->set_position(Vector3(0, 10, 0));
 }

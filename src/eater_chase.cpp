@@ -27,6 +27,7 @@ void EaterChase::_ready() {
     raycast2 = get_node<Raycast>("../../Raycast2");
     raycast3 = get_node<Raycast>("../../Raycast3");
     raycast4 = get_node<Raycast>("../../Raycast4");
+    nav = get_node<Navigation>("../../Navigation");
 }
 
 void EaterChase::enter() {
@@ -47,7 +48,7 @@ void EaterChase::physics_update(double delta) {
         (raycast2->is_colliding() && raycast2->get_collider() == player) ||
         (raycast3->is_colliding() && raycast3->get_collider() == player) ||
         (raycast4->is_colliding() && raycast4->get_collider() == player)) {
-        eater->set_position(Vector3(0, 10, 0));
+        nav->teleport(eater, Vector3(0, 10, 0));
     } else {
         if (food1->is_inside_tree() && food2->is_inside_tree() && food3->is_inside_tree() && food4->is_inside_tree()) {
             a_star->add_point(1, food1->get_position());
@@ -56,6 +57,7 @@ void EaterChase::physics_update(double delta) {
             a_star->add_point(4, food4->get_position());
         }
         int id = a_star->get_closest_point(eater->get_position());
+        
         Vector3 dir_p = Vector3(0.0, 0.0, 0.0);
         real_t dist_p = 1000.0;
         if (player->is_inside_tree()) {
