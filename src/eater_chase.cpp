@@ -73,7 +73,7 @@ void EaterChase::physics_update(double delta) {
         eater->set_velocity(dir * 500 * delta);
         eater->move_and_slide();
         eater->set_position(eater->get_position());
-        if ((eater->get_position() - dest).length() < 8) {
+        if ((eater->get_position() - dest).length() < 5) {
             emit_signal("transitioned", "eaterchase", "eatereat");
         }
     }

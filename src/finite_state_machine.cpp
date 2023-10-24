@@ -66,7 +66,8 @@ void FiniteStateMachine::on_child_transition(String old_state_name, String new_s
     if (current_state) {
         current_state->exit();
     }
-    Object::cast_to<State>(new_state)->enter();
 
     current_state = Object::cast_to<State>(new_state);
+
+    Object::cast_to<State>(current_state)->enter();
 }
