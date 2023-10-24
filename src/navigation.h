@@ -2,8 +2,9 @@
 #define NAVIGATION_H
 
 #include <godot_cpp/classes/engine.hpp>
-#include <godot_cpp/classes/node3d.hpp>
+#include <godot_cpp/classes/character_body3d.hpp>
 #include <godot_cpp/classes/a_star3d.hpp>
+
 
 namespace godot {
 
@@ -21,9 +22,9 @@ public:
     ~Navigation();
     void _ready() override;
 
-    void chase(Node3D *source, Node3D *target);
-    void retreat(Node3D *source, Node3D *target);
-    void teleport(Node3D *target, Vector3 dest);
+    void chase(CharacterBody3D *source, Vector3 dest);
+    void retreat(CharacterBody3D *source, Vector3 dest);
+    void teleport(CharacterBody3D *source, Vector3 dest);
 };
 
 }

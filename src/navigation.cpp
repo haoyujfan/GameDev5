@@ -17,10 +17,44 @@ void Navigation::_ready() {
     astar = memnew(AStar3D);
 }
 
-void Navigation::chase(Node3D *source, Node3D *target) {}
+void Navigation::chase(CharacterBody3D *source, Vector3 dest) {
+    astar->add_point(1, source->get_position());
+    astar->add_point(2, dest);
+    astar->connect_points(1, 2, false);
+    PackedVector3Array path = astar->get_point_path(1, 2);
+    Vector3 dir = Vector3(0, 0, 0);
+    UtilityFunctions::print(path);
+    if (path.size() > 0) {
+        dir = path[1] - source->get_position();
+    }
+    dir.normalize();
+    source->set_velocity(dir * 10);
+    source->move_and_slide();
+    source->set_position(source->get_position());
+    astar->disconnect_points(1, 2);
+    astar->remove_point(1);
+    astar->remove_point(2);
+}
 
-void Navigation::retreat(Node3D *source, Node3D *target) {}
+void Navigation::retreat(CharacterBody3D *source, Vector3 dest) {
+    astar->add_point(1, source->get_position());
+    astar->add_point(2, dest);
+    astar->connect_points(1, 2, false);
+    PackedVector3Array path = astar->get_point_path(1, 2);
+    Vector3 dir = Vector3(0, 0, 0);
+    UtilityFunctions::print(path);
+    if (path.size() > 0) {
+        dir = -1 * (path[1] - source->get_position());
+    }
+    dir.normalize();
+    source->set_velocity(dir * 10);
+    source->move_and_slide();
+    source->set_position(source->get_position());
+    astar->disconnect_points(1, 2);
+    astar->remove_point(1);
+    astar->remove_point(2);
+}
 
-void Navigation::teleport(Node3D *target, Vector3 dest) {
-    target->set_position(Vector3(0, 10, 0));
+void Navigation::teleport(CharacterBody3D *source, Vector3 dest) {
+    source->set_position(dest);
 }

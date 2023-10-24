@@ -20,6 +20,7 @@ void EaterRetreat::_ready() {
     raycast2 = get_node<Raycast>("../../Raycast2");
     raycast3 = get_node<Raycast>("../../Raycast3");
     raycast4 = get_node<Raycast>("../../Raycast4");
+    nav = get_node<Navigation>("../../Navigation");
 }
 
 void EaterRetreat::enter() {
