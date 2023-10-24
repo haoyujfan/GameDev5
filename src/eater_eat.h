@@ -31,7 +31,8 @@ class EaterEat : public State {
         void exit() override;
         void update(double delta);
         void physics_update(double delta);
-        void eat_food(String food_name);
+        void eat_food();
+        void set_curr_food(Food *p_curr_food);
 };
     
 }
