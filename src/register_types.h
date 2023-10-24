@@ -28,9 +28,13 @@
 #ifndef ATTACKER_REGISTER_TYPES_H
 #define ATTACKER_REGISTER_TYPES_H
 
+#ifndef FINITESTATEMACHINE_REGISTER_TYPES_H
+#define FINITESTATEMACHINE_REGISTER_TYPES_H
+
 void initialize_player_module();
 void uninitialize_player_module();
 
+#endif
 #endif
 #endif
 #endif
