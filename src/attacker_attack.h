@@ -17,7 +17,8 @@ class AttackerAttack : public State {
         Player *player;
 
     protected:
-
+        static void _bind_methods();
+        
     public:
         AttackerAttack();
         ~AttackerAttack();

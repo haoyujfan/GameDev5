@@ -18,6 +18,8 @@ void Cactus::_bind_methods() {
 
     ADD_SIGNAL(MethodInfo("lose_life"));
     ADD_SIGNAL(MethodInfo("cactus_hit"));
+
+    ADD_SIGNAL(MethodInfo("hit_player"));
 }
 
 // constructor
@@ -35,9 +37,6 @@ void Cactus::_process(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    if (Input::get_singleton()->is_action_just_pressed("Sound Effect")) {
-        mute_sound_effects = !mute_sound_effects;
-    }
 }
 
 // initialize the cactus when its children are ready 
@@ -45,34 +44,16 @@ void Cactus::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    initialize_sound();
-    this->connect("body_entered", Callable(this, "cactus_body_entered"));
-    mute_sound_effects = false;
     player = get_node<Player>("../Player");
-}
-
-void Cactus::initialize_sound() {
-    String hurt_path = "res://audio/hurt.mp3";
-    Ref<FileAccess> hurt_file = FileAccess::open(hurt_path, FileAccess::ModeFlags::READ);
-    FileAccess *hurt_ptr = Object::cast_to<FileAccess>(*hurt_file);
-    hurt = memnew(AudioStreamMP3);
-    hurt->set_data(hurt_ptr->get_file_as_bytes(hurt_path));
-    sound_effects = get_node<AudioStreamPlayer>("AudioStreamPlayer");
-}
-
-void Cactus::play_interact() {
-    if (sound_effects && !Engine::get_singleton()->is_editor_hint() && !mute_sound_effects) {
-        sound_effects->set_stream(hurt);
-        sound_effects->set_volume_db(-12.0);
-        sound_effects->play(0.0);
-    }
+    this->connect("hit_player", Callable(player, "play_hurt"));
+    this->connect("body_entered", Callable(this, "cactus_body_entered"));
 }
 
 // handle collisions with other objects
 void Cactus::cactus_body_entered(const Node3D* node) {
     if (node->get_class() == "Player") {
-        play_interact();
         emit_signal("lose_life");
+        emit_signal("hit_player");
         int lives = player->get_lives();
         player->set_lives(lives - 1);
         player->set_is_hurt(true);

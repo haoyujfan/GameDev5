@@ -8,6 +8,10 @@
 
 using namespace godot;
 
+void AttackerAttack::_bind_methods() {
+    ADD_SIGNAL(MethodInfo("hit_player"));
+}
+
 AttackerAttack::AttackerAttack() {}
 
 AttackerAttack::~AttackerAttack() {}
@@ -18,6 +22,7 @@ void AttackerAttack::_ready() {
     }
     attacker = Object::cast_to<Attacker>(this->get_parent()->get_parent());
     player = get_node<Player>("../../../Player");
+    this->connect("hit_player", Callable(player, "play_hurt"));
     a_star = memnew(AStar3D);
 }
 
@@ -33,6 +38,7 @@ void AttackerAttack::update(double delta) {
     player->set_is_hurt(true);
     player->set_hurt_frames(0);
     player->life_lost_GUI();
+    emit_signal("hit_player");
     emit_signal("transitioned", "attackerattack", "attackerdodge");
 }
 

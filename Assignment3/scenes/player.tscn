@@ -50,6 +50,8 @@ target_position = Vector3(2.08165e-12, -15, 2.08165e-12)
 
 [node name="InteractPlayer" type="AudioStreamPlayer" parent="."]
 
+[node name="HurtPlayer" type="AudioStreamPlayer" parent="."]
+
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="Camera" type="Camera" parent="Node3D"]

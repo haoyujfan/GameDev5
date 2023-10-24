@@ -13,10 +13,6 @@ class Cactus : public Area3D {
 
 private:
     Vector3 position;
-    bool pickup;
-    AudioStreamPlayer *sound_effects;
-    AudioStreamMP3 *hurt;
-    bool mute_sound_effects;
     Player *player;
 
 protected:
@@ -28,8 +24,6 @@ public:
     void _process(double delta) override;
     void _ready() override;
     
-    void initialize_sound();
-    void play_interact();
     void cactus_body_entered(const Node3D *node);
 
 

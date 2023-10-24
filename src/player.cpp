@@ -45,6 +45,8 @@ void Player::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("get_lives"), &Player::get_lives);
 
+    ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
+
     ADD_SIGNAL(MethodInfo("interact_orange"));
     ADD_SIGNAL(MethodInfo("life_lost_attacker"));
     ADD_SIGNAL(MethodInfo("sound_effect_toggle", PropertyInfo(Variant::STRING, "toggle")));
@@ -319,6 +321,13 @@ void Player::initialize_sound() {
     empty_interact = memnew(AudioStreamMP3);
     empty_interact->set_data(clonk_ptr->get_file_as_bytes(clonk_path));
     empty_interact_player = get_node<AudioStreamPlayer>("EmptyInteractPlayer");
+
+    String hurt_path = "res://audio/hurt.mp3";
+    Ref<FileAccess> hurt_file = FileAccess::open(hurt_path, FileAccess::ModeFlags::READ);
+    FileAccess *hurt_ptr = Object::cast_to<FileAccess>(*hurt_file);
+    hurt = memnew(AudioStreamMP3);
+    hurt->set_data(hurt_ptr->get_file_as_bytes(hurt_path));
+    hurt_player = get_node<AudioStreamPlayer>("HurtPlayer");
 }
 
 void Player::play_interact() {
@@ -334,6 +343,14 @@ void Player::play_empty_interact() {
         empty_interact_player->set_stream(empty_interact);
         empty_interact_player->set_volume_db(-17.0);
         empty_interact_player->play(0.0);
+    }
+}
+
+void Player::play_hurt() {
+    if (hurt_player && !Engine::get_singleton()->is_editor_hint() && !mute_sound_effects) {
+        hurt_player->set_stream(hurt);
+        hurt_player->set_volume_db(-12.0);
+        hurt_player->play(0.0);
     }
 }
 

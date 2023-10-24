@@ -47,8 +47,10 @@ class Player : public CharacterBody3D {
         // sounds
         AudioStreamPlayer *interact_player;
         AudioStreamPlayer *empty_interact_player;
+        AudioStreamPlayer *hurt_player;
         AudioStreamMP3 *interact;
         AudioStreamMP3 *empty_interact;
+        AudioStreamMP3 *hurt;
         bool mute_sound_effects;
 
         // movement
@@ -83,6 +85,8 @@ class Player : public CharacterBody3D {
         void initialize_sound();
         void play_empty_interact();
         void play_interact();
+        void play_hurt();
+
         bool get_ad_rotate();
 
         void set_gravity(float p_gravity);

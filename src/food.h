@@ -2,6 +2,7 @@
 #define FOOD_H
 
 #include <godot_cpp/classes/area3d.hpp>
+#include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/audio_stream_player.hpp>
 #include <godot_cpp/classes/audio_stream_mp3.hpp>
 
@@ -11,6 +12,7 @@ class Food : public Area3D {
     GDCLASS(Food, Area3D)
 
 private:
+    RandomNumberGenerator rand;
     Vector3 position;
     int value;
     bool entered;
