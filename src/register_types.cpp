@@ -16,6 +16,7 @@
 #include "attacker_chase.h"
 #include "attacker_dodge.h"
 #include "finite_state_machine.h"
+#include "navigation.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/core/class_db.hpp>
@@ -44,6 +45,7 @@ void initialize_player_module(ModuleInitializationLevel p_level) {
     ClassDB::register_class<AttackerChase>();
     ClassDB::register_class<AttackerDodge>();
     ClassDB::register_class<FiniteStateMachine>();
+    ClassDB::register_class<Navigation>();
 }
 
 void uninitialize_player_module(ModuleInitializationLevel p_level) {
