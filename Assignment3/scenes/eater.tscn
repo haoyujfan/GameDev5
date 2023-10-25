@@ -41,6 +41,8 @@ target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 5)
 target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
 
+[node name="FoodRaycast" type="Raycast" parent="."]
+
 [node name="FiniteStateMachine" type="FiniteStateMachine" parent="."]
 
 [node name="EaterChase" type="EaterChase" parent="FiniteStateMachine"]

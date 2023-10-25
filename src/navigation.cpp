@@ -27,6 +27,11 @@ void Navigation::chase(CharacterBody3D *source, Vector3 dest) {
         dir = path[1] - source->get_position();
     }
     dir.normalize();
+    if (!source->is_on_floor()) {
+        dir.y = source->get_velocity().y - 1400;
+    } else {
+        dir.y = 0;
+    }
     source->set_velocity(dir * 10);
     source->move_and_slide();
     source->set_position(source->get_position());
@@ -45,6 +50,7 @@ void Navigation::retreat(CharacterBody3D *source, Vector3 dest) {
         dir = -1 * (path[1] - source->get_position());
     }
     dir.normalize();
+    dir.y = 0;
     source->set_velocity(dir * 10);
     source->move_and_slide();
     source->set_position(source->get_position());

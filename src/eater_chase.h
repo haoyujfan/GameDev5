@@ -26,6 +26,7 @@ class EaterChase : public State {
         Raycast *raycast2;
         Raycast *raycast3;
         Raycast *raycast4;
+        Raycast *foodcast;
         Navigation *nav;
 
     protected:
