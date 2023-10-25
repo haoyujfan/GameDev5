@@ -49,8 +49,8 @@
 #ifndef STATE_REGISTER_TYPES_H
 #define STATE_REGISTER_TYPES_H
 
-void initialize_player_module();
-void uninitialize_player_module();
+void initialize_gdextension_module();
+void uninitialize_gdextension_module();
 
 #endif
 #endif

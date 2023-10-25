@@ -18,7 +18,7 @@ sources = Glob("src/*.cpp")
 
 if env["platform"] == "macos":
     library1 = env.SharedLibrary(
-        "Assignment3/bin/libplayer.{}.{}.framework/libplayer.{}.{}".format(
+        "Assignment4/bin/libgdextension.{}.{}.framework/libgdextension.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
@@ -26,7 +26,7 @@ if env["platform"] == "macos":
 
 else:
     library1 = env.SharedLibrary(
-        "Assignment3/bin/libplayer{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        "Assignment4/bin/libgdextension{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
     
