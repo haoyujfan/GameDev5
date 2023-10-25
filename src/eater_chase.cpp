@@ -71,11 +71,8 @@ void EaterChase::physics_update(double delta) {
         int id = a_star->get_closest_point(eater->get_position());
         Vector3 dest = a_star->get_point_position(id);
         Vector3 eater_pos = eater->get_position();
-        if (foodcast->is_colliding() && foodcast->get_collider()->get_class() == "Food" && eater->is_on_floor()) {
-            eater->set_velocity(Vector3(eater_pos.x, 300.0, eater_pos.z));
-        }
-        nav->chase(eater, dest);
-        if ((eater->get_position() - dest).length() < 5) {
+        nav->chase(eater, dest, delta);
+        if ((eater->get_position() - dest).length() < 9) {
             emit_signal("transitioned", "eaterchase", "eatereat");
         }
     }

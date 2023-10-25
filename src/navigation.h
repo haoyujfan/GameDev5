@@ -4,7 +4,7 @@
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/character_body3d.hpp>
 #include <godot_cpp/classes/a_star3d.hpp>
-
+#include "raycast.h"
 
 namespace godot {
 
@@ -22,8 +22,9 @@ public:
     ~Navigation();
     void _ready() override;
 
-    void chase(CharacterBody3D *source, Vector3 dest);
+    void chase(CharacterBody3D *source, Vector3 dest, double delta);
     void retreat(CharacterBody3D *source, Vector3 dest);
+    void jump(CharacterBody3D *source);
     void teleport(CharacterBody3D *source, Vector3 dest);
 };
 

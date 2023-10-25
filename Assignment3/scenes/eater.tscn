@@ -42,6 +42,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 5)
 target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
 
 [node name="FoodRaycast" type="Raycast" parent="."]
+target_position = Vector3(2.08165e-12, 40, 2.08165e-12)
+collide_with_areas = true
 
 [node name="FiniteStateMachine" type="FiniteStateMachine" parent="."]
 
