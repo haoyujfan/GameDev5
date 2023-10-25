@@ -23,6 +23,7 @@ void AttackerChase::_ready() {
     raycast2 = get_node<Raycast>("../../Raycast2");
     raycast3 = get_node<Raycast>("../../Raycast3");
     raycast4 = get_node<Raycast>("../../Raycast4");
+    nav = get_node<Navigation>("../../Navigation");
 }
 
 void AttackerChase::enter() {
@@ -43,7 +44,7 @@ void AttackerChase::physics_update(double delta) {
         (raycast2->is_colliding() && raycast2->get_collider() == player) ||
         (raycast3->is_colliding() && raycast3->get_collider() == player) ||
         (raycast4->is_colliding() && raycast4->get_collider() == player)) {
-        attacker->set_position(Vector3(0, 10, 0));
+        nav->teleport(attacker, Vector3(0, 10, 0));
     } else {
         Vector3 dest = player->get_position();
         Vector3 dir = dest - attacker->get_position();

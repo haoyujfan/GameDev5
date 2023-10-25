@@ -43,3 +43,6 @@ target_position = Vector3(2.08165e-12, 15, 2.08165e-12)
 [node name="AttackerDodge" type="AttackerDodge" parent="FiniteStateMachine"]
 
 [node name="AttackerAttack" type="AttackerAttack" parent="FiniteStateMachine"]
+
+[node name="Navigation" type="Navigation" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -10, 0)
