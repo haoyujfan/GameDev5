@@ -48,11 +48,7 @@ void AttackerDodge::physics_update(double delta) {
     } else {
         if (player->is_inside_tree() && attacker) {
             Vector3 dest = player->get_position();
-            Vector3 dir = -1 * (dest - attacker->get_position());
-            dir.normalize();
-            attacker->set_velocity(dir * 500 * delta);
-            attacker->move_and_slide();
-            attacker->set_position(attacker->get_position());
+            nav->retreat(attacker, dest);
             if ((dest - attacker->get_position()).length() > 40) {
                 emit_signal("transitioned", "attackerdodge", "attackerchase");
             }
