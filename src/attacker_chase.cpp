@@ -47,11 +47,7 @@ void AttackerChase::physics_update(double delta) {
         nav->teleport(attacker, Vector3(0, 10, 0));
     } else {
         Vector3 dest = player->get_position();
-        Vector3 dir = dest - attacker->get_position();
-        dir.normalize();
-        attacker->set_velocity(dir * 500 * delta);
-        attacker->move_and_slide();
-        attacker->set_position(attacker->get_position());
+        nav->chase(attacker, dest);
         if ((dest - attacker->get_position()).length() < 11) {
             emit_signal("transitioned", "attackerchase", "attackerattack");
         }
