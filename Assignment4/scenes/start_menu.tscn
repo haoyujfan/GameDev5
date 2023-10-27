@@ -24,13 +24,28 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "Start"
 
+[node name="Host" type="Button" parent="."]
+offset_left = 120.0
+offset_top = 202.0
+offset_right = 270.0
+offset_bottom = 277.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+text = "Host Game
+"
+
+[node name="Join" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
 [node name="Label" type="Label" parent="."]
 offset_left = 320.0
 offset_top = 64.0
 offset_right = 832.0
 offset_bottom = 128.0
 theme_override_font_sizes/font_size = 30
-text = "CS354R Assignment 3"
+text = "CS354R Assignment 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
