@@ -3,6 +3,12 @@ using System;
 
 public partial class start_menu : Node2D
 {
+	[Export]
+	private int port = 8000;
+
+	[Export]
+	private string address = "127.0.0.1"; // local host adapter on local computer
+	
 	public override void _Ready() {
 		Multiplayer.PeerConnected += PeerConnected;
 		Multiplayer.PeerDisconnected += PeerDisconnected;
@@ -34,7 +40,17 @@ public partial class start_menu : Node2D
 	
 	private void _on_host_button_down()
 	{
-		// Replace with function body.
+		ENetMultiplayerPeer peer = new ENetMultiplayerPeer();
+		// create server and check for issues
+		var error = peer.CreateServer(port, 2); // 2 max clients
+		if (error != Error.Ok) {
+			GD.Print("error !! cannot host! :: " + error.ToString());
+			return;
+		}
+		// setup compression type and self as peer
+		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
+		Multiplayer.MultiplayerPeer = peer;
+		GD.Print("set up server! waiting for players to connect:: ");
 	}
 
 	private void _on_join_button_down()
