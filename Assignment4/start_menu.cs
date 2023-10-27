@@ -20,18 +20,18 @@ public partial class start_menu : Node2D
 	// runs when a player connects (runs on all peers)
 	// id - id of player that connected
 	private void PeerConnected(long id) {
-		GD.Print("Player Connected" + id.ToString());
+		GD.Print("Player Connected: " + id.ToString());
 	}
 
 	// runs when a peer disconnects (runs on all peers)
 	// id - id of player that disconnected
 	private void PeerDisconnected(long id) {
-		GD.Print("Player Disconnected" + id.ToString());
+		GD.Print("Player Disconnected: " + id.ToString());
 	}
 
 	// runs when the connection is successful (only runs on clients)
 	private void ConnectedToServer() {
-		GD.Print("CONNECTED SUCCESSFULLY !!!");
+		GD.Print("Connected Successfully!");
 	}
 
 	// runs when connection fails (only runs on clients)
@@ -51,7 +51,7 @@ public partial class start_menu : Node2D
 		// setup compression type and self as peer
 		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 		Multiplayer.MultiplayerPeer = peer;
-		GD.Print("Set Up Server! Waiting For Players To Connect :: ");
+		GD.Print("Host Joined! Waiting For Other Players :: ");
 	}
 
 	private void _on_join_button_down()
