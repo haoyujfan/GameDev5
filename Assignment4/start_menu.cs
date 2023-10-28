@@ -67,6 +67,11 @@ public partial class start_menu : Node2D
 
 	private void _on_start_pressed()
 	{
+		Rpc("StartGame");
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void StartGame() {
 		GetTree().ChangeSceneToFile("res://scenes/main.tscn");
 	}
 	
