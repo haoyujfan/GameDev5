@@ -1,6 +1,5 @@
 #include "food.h"
 #include "ground.h"
-#include "eater_eat.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
@@ -19,10 +18,6 @@ using namespace godot;
 void Food::_bind_methods() {
     ClassDB::bind_method(D_METHOD("food_body_entered", "node"), &Food::food_body_entered);
     ClassDB::bind_method(D_METHOD("food_body_exited", "node"), &Food::food_body_exited);
-
-    ADD_SIGNAL(MethodInfo("eater_ate", PropertyInfo(Variant::STRING, "food_name")));
-
-    
 }
 
 // constructor
@@ -45,28 +40,18 @@ void Food::_ready() {
 }
 
 void Food::food_body_entered(const Node3D* node) {
-    if (node->get_class() == "Player" || node->get_class() == "Eater") {
+    if (node->get_class() == "Player") {
         entered = true;
         enter_class = node->get_class();
-        if (enter_class == "Eater") {
-            node->get_node<EaterEat>("FiniteStateMachine/EaterEat")->set_curr_food(this);
-        }
-        if (enter_class == "Player") {
-            entered_by_player = true;
-        }
+        entered_by_player = true;
     }
 }
 
 void Food::food_body_exited(const Node3D* node) {
-    if (node->get_class() == "Player" || node->get_class() == "Eater") {
+    if (node->get_class() == "Player") {
         entered = false;
         enter_class = "";
-        if (node->get_class() == "Eater") {
-            node->get_node<EaterEat>("FiniteStateMachine/EaterEat")->set_curr_food(nullptr);
-        }
-        if (node->get_class() == "Player") {
-            entered_by_player = false;
-        }
+        entered_by_player = false;
     }
 }
 
