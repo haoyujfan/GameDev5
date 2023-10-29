@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddajlhy1vq3p0"]
 
-[ext_resource type="Script" path="res://no_lives.cs" id="1_qami5"]
+[ext_resource type="Script" path="res://NoLives.cs" id="1_qami5"]
 
 [node name="Lose Screen" type="Node2D"]
 script = ExtResource("1_qami5")

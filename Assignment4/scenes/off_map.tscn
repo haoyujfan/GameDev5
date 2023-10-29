@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://r8dyd2ek3r8d"]
 
-[ext_resource type="Script" path="res://off_map.cs" id="1_xi4ni"]
+[ext_resource type="Script" path="res://OffMap.cs" id="1_xi4ni"]
 
 [node name="off_map" type="Node2D"]
 script = ExtResource("1_xi4ni")

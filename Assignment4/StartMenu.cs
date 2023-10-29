@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class start_menu : Node2D
+public partial class StartMenu : Node2D
 {
 	[Export]
 	private int port = 8000;
@@ -45,7 +45,7 @@ public partial class start_menu : Node2D
 		// create server and check for issues
 		var error = peer.CreateServer(port, 2); // 2 max clients
 		if (error != Error.Ok) {
-			GD.Print("Error !! Cannot Host! :: " + error.ToString());
+			GD.Print("Error! Cannot Host!: " + error.ToString());
 			return;
 		}
 		// setup compression type and self as peer
@@ -78,6 +78,10 @@ public partial class start_menu : Node2D
 	private void _on_exit_pressed()
 	{
 		GetTree().Quit();
+	}
+	
+	private void SendPlayerInformation(string name, int id) {
+		
 	}
 }
 

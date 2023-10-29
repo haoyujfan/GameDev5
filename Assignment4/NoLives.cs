@@ -1,9 +1,8 @@
 using Godot;
 using System;
 
-public partial class win_screen : Node2D
+public partial class NoLives : Node2D
 {
-	private Label label;
 	// restart button
 	private void _on_restart_pressed()
 	{

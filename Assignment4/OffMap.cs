@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class off_map : Node2D
+public partial class OffMap : Node2D
 {
 	// restart button
 	private void _on_restart_pressed()
