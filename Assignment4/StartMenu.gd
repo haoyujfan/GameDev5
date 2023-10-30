@@ -7,15 +7,11 @@ var peer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	multiplayer.peer_disconnected.connect(peer_connected)
+	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
 	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 # called on the server and clients when they connect
 func peer_connected(id):

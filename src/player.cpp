@@ -12,6 +12,8 @@
 #include <godot_cpp/variant/transform3d.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/object.hpp>
+#include <godot_cpp/classes/multiplayer_synchronizer.hpp>
+#include <godot_cpp/classes/multiplayer_api.hpp>
 
 #include <cstdlib>
 
@@ -92,6 +94,7 @@ void Player::_ready() {
     food4 = get_node<Food>("../Food4");
 
     camera = get_node<Camera>("Node3D/Camera");
+    sync = get_node<MultiplayerSynchronizer>("MultiplayerSynchronizer");
     Ref<Material> mat_ref = get_node<CSGMesh3D>("CSGMesh3D")->get_material();
     //FileAccess *squish_ptr = Object::cast_to<FileAccess>(*squish_file);
     material = Object::cast_to<BaseMaterial3D>(*mat_ref);
@@ -147,96 +150,99 @@ void Player::_physics_process(double delta) {
         return;
     }
 
-    // sets rotate mode or strafe mode
-    if (Input::get_singleton()->is_action_just_pressed("R")) {
-        AD_rotate = !AD_rotate;
-    }
-    // reset gravity 
-    if (this->is_on_floor()) {
-        speed = 1;
-        gravity = 1400.0;
-        momentum = Vector3(0, 0, 0);
-    }
-
-    // gravity and jumping
-    if (!this->is_on_floor()) {
-        if (!hanging) {
-            translate_object_local(momentum);
-            velocity.y -= gravity * delta;
-            speed -= air_resistance * delta;
+    // if (sync->get_multiplayer_authority() == tree->get_multiplayer()->get_unique_id()) {
+    if (sync->get_multiplayer_authority() == 1) {
+        // sets rotate mode or strafe mode
+        if (Input::get_singleton()->is_action_just_pressed("R")) {
+            AD_rotate = !AD_rotate;
         }
-        else {
-            gravity = 0;
+        // reset gravity 
+        if (this->is_on_floor()) {
+            speed = 1;
+            gravity = 1400.0;
+            momentum = Vector3(0, 0, 0);
         }
 
-    }
-    if (Input::get_singleton()->is_action_just_pressed("Jump") && this->is_on_floor()) {
-        velocity.y = jump_velocity;
-        jumped = true;
-    }
-    if (Input::get_singleton()->is_action_just_pressed("Jump") && !this->is_on_floor() && jumped) {
-        gravity = 1400.0;
-        velocity.y = jump_velocity;
-        jumped = false;
-    }
-    if (Input::get_singleton()->is_action_just_pressed("Jump") && hanging) {
-        gravity = 1400.0;
-        velocity.y = jump_velocity;
-        jumped = true;
-        hanging = false;
-    }
-    
-    // ledge stop and ledge hang 
-    if (Input::get_singleton()->is_action_pressed("Shift")) {
-        if (ray1->is_colliding() && ray2->is_colliding() &&
-            ray3->is_colliding() && ray4->is_colliding()) {
-            // WASD movement
-            if (AD_rotate) {
-                momentum = rotate_wasd();
+        // gravity and jumping
+        if (!this->is_on_floor()) {
+            if (!hanging) {
+                translate_object_local(momentum);
+                velocity.y -= gravity * delta;
+                speed -= air_resistance * delta;
             }
             else {
-                momentum = strafe_wasd();
+                gravity = 0;
             }
+
         }
-    } else if (Input::get_singleton()->is_action_pressed("H")) {
-        if (ray1->is_colliding() || ray2->is_colliding() ||
-            ray3->is_colliding() || ray4->is_colliding()) {
-            // WASD movement
-            if (AD_rotate) {
-                momentum = rotate_wasd();
+        if (Input::get_singleton()->is_action_just_pressed("Jump") && this->is_on_floor()) {
+            velocity.y = jump_velocity;
+            jumped = true;
+        }
+        if (Input::get_singleton()->is_action_just_pressed("Jump") && !this->is_on_floor() && jumped) {
+            gravity = 1400.0;
+            velocity.y = jump_velocity;
+            jumped = false;
+        }
+        if (Input::get_singleton()->is_action_just_pressed("Jump") && hanging) {
+            gravity = 1400.0;
+            velocity.y = jump_velocity;
+            jumped = true;
+            hanging = false;
+        }
+        
+        // ledge stop and ledge hang 
+        if (Input::get_singleton()->is_action_pressed("Shift")) {
+            if (ray1->is_colliding() && ray2->is_colliding() &&
+                ray3->is_colliding() && ray4->is_colliding()) {
+                // WASD movement
+                if (AD_rotate) {
+                    momentum = rotate_wasd();
+                }
+                else {
+                    momentum = strafe_wasd();
+                }
             }
-            else {
-                momentum = strafe_wasd();
+        } else if (Input::get_singleton()->is_action_pressed("H")) {
+            if (ray1->is_colliding() || ray2->is_colliding() ||
+                ray3->is_colliding() || ray4->is_colliding()) {
+                // WASD movement
+                if (AD_rotate) {
+                    momentum = rotate_wasd();
+                }
+                else {
+                    momentum = strafe_wasd();
+                }
+            } else {
+                gravity = 0;
+                velocity.y = 0;
+                hanging = true;
             }
         } else {
-            gravity = 0;
-            velocity.y = 0;
-            hanging = true;
-        }
-    } else {
-        // WASD movement
-        if (AD_rotate) {
-            momentum = rotate_wasd();
-        }
-        else {
-            momentum = strafe_wasd();
-        }
+            // WASD movement
+            if (AD_rotate) {
+                momentum = rotate_wasd();
+            }
+            else {
+                momentum = strafe_wasd();
+            }
 
-    }
-    if (is_hurt) {
-        material->set_albedo(Color(.5, 0, 0, .5));
-        hurt_frames++;
-        if (hurt_frames > 20) {
-            material->set_albedo(albedo);
-            is_hurt = false;
-            hurt_frames = 0;
         }
+        if (is_hurt) {
+            material->set_albedo(Color(.5, 0, 0, .5));
+            hurt_frames++;
+            if (hurt_frames > 20) {
+                material->set_albedo(albedo);
+                is_hurt = false;
+                hurt_frames = 0;
+            }
+        }
+        gliding();
+        
+        end_conditions();
+        set_velocity(velocity);
+        move_and_slide();
     }
-    gliding();
-    
-    end_conditions();
-    set_velocity(velocity);
-    move_and_slide();
 }
 
 Vector3 Player::rotate_wasd() {

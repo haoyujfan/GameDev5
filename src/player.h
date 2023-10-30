@@ -9,6 +9,7 @@
 #include <godot_cpp/classes/area3d.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/base_material3d.hpp>
+#include <godot_cpp/classes/multiplayer_synchronizer.hpp>
 #include "raycast.h"
 #include "food.h"
 #include "camera.h"
@@ -68,6 +69,9 @@ class Player : public CharacterBody3D {
         BaseMaterial3D *material;
         Color albedo;
         int hurt_frames;
+
+        // multiplayer
+        MultiplayerSynchronizer *sync;
 
     protected:
         static void _bind_methods();

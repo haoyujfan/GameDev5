@@ -141,10 +141,10 @@ Music Volume Up: 🔼
 Music Volume Down: 🔽"
 
 [node name="Spawn0" type="Node3D" parent="." groups=["SpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 50)
 
 [node name="Spawn1" type="Node3D" parent="." groups=["SpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 10, -50)
 
 [connection signal="lose_life" from="Cactus" to="." method="_lose_life"]
 [connection signal="lose_life" from="Cactus2" to="." method="_lose_life"]
