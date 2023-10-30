@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dg2giq6w1wr4w"]
+[gd_scene load_steps=7 format=3 uid="uid://dg2giq6w1wr4w"]
 
 [ext_resource type="Texture2D" uid="uid://cv5yqm8fxqtl6" path="res://textures/planks/blue_painted_planks_diff_2k.png" id="1_it1ys"]
 [ext_resource type="Texture2D" uid="uid://cugryu8rfq1mw" path="res://textures/planks/blue_painted_planks_arm_2k.png" id="2_xevgs"]
@@ -13,6 +13,12 @@ size = Vector3(10, 10, 10)
 albedo_texture = ExtResource("1_it1ys")
 roughness_texture = ExtResource("2_xevgs")
 normal_enabled = true
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lo7br"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
 
 [node name="Player" type="Player"]
 "slide angle" = 0.08
@@ -66,3 +72,6 @@ collide_with_areas = true
 [node name="Raycast2" type="Raycast" parent="Node3D/Camera"]
 target_position = Vector3(5, -12, -35)
 collide_with_areas = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_lo7br")

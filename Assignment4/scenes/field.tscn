@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://x1pdr2wgcjuj"]
 
-[ext_resource type="Script" path="res://field.cs" id="1_e1b4n"]
+[ext_resource type="Script" path="res://SceneManager.gd" id="1_1824r"]
 [ext_resource type="PackedScene" uid="uid://dr6dyo4wnjsbk" path="res://scenes/ground.tscn" id="1_lyp0q"]
 [ext_resource type="PackedScene" uid="uid://dl8g5ltkkkf6q" path="res://scenes/food.tscn" id="2_71hdr"]
 [ext_resource type="PackedScene" uid="uid://clclk7iemgvat" path="res://scenes/cactus.tscn" id="3_abjbr"]
@@ -8,13 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dg2giq6w1wr4w" path="res://scenes/player.tscn" id="4_8n5cc"]
 
 [node name="field" type="Node3D"]
-script = ExtResource("1_e1b4n")
+script = ExtResource("1_1824r")
+PlayerScene = ExtResource("4_8n5cc")
 
 [node name="Ground" parent="." instance=ExtResource("1_lyp0q")]
-
-[node name="Ground2" parent="." instance=ExtResource("1_lyp0q")]
-
-[node name="Ground3" parent="." instance=ExtResource("1_lyp0q")]
 
 [node name="Wall" parent="." instance=ExtResource("3_widil")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 16, 2.08165e-12)
@@ -74,6 +71,10 @@ spot_range = 4096.0
 spot_attenuation = 0.5
 
 [node name="Player" parent="." instance=ExtResource("4_8n5cc")]
+velocity = Vector3(0, 0, 0)
+
+[node name="Player2" parent="." instance=ExtResource("4_8n5cc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50)
 velocity = Vector3(0, 0, 0)
 
 [node name="BackgroundPlayer" type="AudioStreamPlayer" parent="."]
@@ -139,9 +140,17 @@ text = "Music Controls:
 Music Volume Up: 🔼
 Music Volume Down: 🔽"
 
+[node name="Spawn0" type="Node3D" parent="." groups=["SpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50)
+
+[node name="Spawn1" type="Node3D" parent="." groups=["SpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -50)
+
 [connection signal="lose_life" from="Cactus" to="." method="_lose_life"]
 [connection signal="lose_life" from="Cactus2" to="." method="_lose_life"]
 [connection signal="lose_life" from="Cactus3" to="." method="_lose_life"]
 [connection signal="lose_life" from="Cactus4" to="." method="_lose_life"]
 [connection signal="interact_orange" from="Player" to="." method="_on_player_interact_orange"]
 [connection signal="life_lost_attacker" from="Player" to="." method="_on_player_life_lost_attacker"]
+[connection signal="interact_orange" from="Player2" to="." method="_on_player_interact_orange"]
+[connection signal="life_lost_attacker" from="Player2" to="." method="_on_player_life_lost_attacker"]

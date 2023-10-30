@@ -62,7 +62,7 @@ Player::Player() {
     air_resistance = 0;
     current_air = 0;
     velocity = Vector3(0.0, 0.0, 0.0);
-    position = Vector3(0.0, 10.0, 0.0);
+    //position = Vector3(0.0, 10.0, 0.0);
     hanging = false;
     AD_rotate = true;
     mute_sound_effects = false;

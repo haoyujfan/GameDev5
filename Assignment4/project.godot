@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-StartMenu="*res://StartMenu.cs"
+GameManager="*res://GameManager.gd"
 
 [display]
 

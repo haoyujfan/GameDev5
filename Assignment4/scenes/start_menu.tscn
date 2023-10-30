@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://d025siqhjhuke"]
 
-[ext_resource type="Script" path="res://StartMenu.cs" id="1_2aply"]
+[ext_resource type="Script" path="res://StartMenu.gd" id="1_re3uv"]
 
 [node name="Start Menu" type="Node2D"]
-script = ExtResource("1_2aply")
+script = ExtResource("1_re3uv")
 
 [node name="Exit" type="Button" parent="."]
 offset_left = 21.0
@@ -53,7 +53,7 @@ text = "CS354R Assignment 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Username input" type="LineEdit" parent="."]
+[node name="UsernameInput" type="LineEdit" parent="."]
 offset_left = 331.0
 offset_top = 192.0
 offset_right = 924.0
@@ -67,6 +67,6 @@ offset_bottom = 222.0
 text = "Username: "
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
