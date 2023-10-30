@@ -32,6 +32,7 @@ public partial class StartMenu : Node2D
 	// runs when the connection is successful (only runs on clients)
 	private void ConnectedToServer() {
 		GD.Print("Connected Successfully!");
+		RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("Username input").Text, Multiplayer.GetUniqueId());
 	}
 
 	// runs when connection fails (only runs on clients)
@@ -52,6 +53,7 @@ public partial class StartMenu : Node2D
 		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 		Multiplayer.MultiplayerPeer = peer;
 		GD.Print("Host Joined! Waiting For Other Players :: ");
+		SendPlayerInformation(GetNode<LineEdit>("Username input").Text, 1);
 	}
 
 	private void _on_join_button_down()
@@ -72,6 +74,9 @@ public partial class StartMenu : Node2D
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame() {
+		foreach (var item in GameManager.Players) {
+			GD.Print(item.Name + " is playing");
+		}
 		GetTree().ChangeSceneToFile("res://scenes/main.tscn");
 	}
 	
@@ -80,8 +85,20 @@ public partial class StartMenu : Node2D
 		GetTree().Quit();
 	}
 	
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	private void SendPlayerInformation(string name, int id) {
-		
+		PlayerInfo playerInfo = new PlayerInfo(){
+			Name = name,
+			Id = id
+		};
+		if (!GameManager.Players.Contains(playerInfo)) {
+			GameManager.Players.Add(playerInfo);
+		}
+		if (Multiplayer.IsServer()) {
+			foreach (var item in GameManager.Players) {
+				Rpc("SendPlayerInformation", name, id);
+			}
+		}
 	}
 }
 
