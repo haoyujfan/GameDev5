@@ -94,6 +94,7 @@ void Player::_ready() {
     food4 = get_node<Food>("../Food4");
 
     camera = get_node<Camera>("Node3D/Camera");
+    
     Ref<Material> mat_ref = get_node<CSGMesh3D>("CSGMesh3D")->get_material();
     //FileAccess *squish_ptr = Object::cast_to<FileAccess>(*squish_file);
     material = Object::cast_to<BaseMaterial3D>(*mat_ref);
@@ -101,6 +102,10 @@ void Player::_ready() {
     tree = get_tree();
 
     sync = get_node<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+
+    if (sync->get_multiplayer_authority() == get_multiplayer()->get_unique_id()) {
+        camera->make_current();
+    }
 }
 
 void Player::_process(double delta) {
@@ -108,40 +113,42 @@ void Player::_process(double delta) {
         return;
     }
 
-    // handle food interactions
-    bool entered_by_player = food1->is_entered_by_player() || food2->is_entered_by_player() || 
-        food3->is_entered_by_player() || food4->is_entered_by_player();
-    if (food1->get_enter_class() == "Player" || food2->get_enter_class() == "Player" ||
-        food3->get_enter_class() == "Player" || food4->get_enter_class() == "Player") {
-        food_interaction(entered_by_player);
-    }
-
-    // empty interaction
-    if (!entered_by_player && Input::get_singleton()->is_action_just_pressed("E")) {
-        if (!empty_interact_player->is_playing() && !mute_sound_effects) {
-            play_empty_interact();
+    if (sync->get_multiplayer_authority() == get_multiplayer()->get_unique_id()) {
+        // handle food interactions
+        bool entered_by_player = food1->is_entered_by_player() || food2->is_entered_by_player() || 
+            food3->is_entered_by_player() || food4->is_entered_by_player();
+        if (food1->get_enter_class() == "Player" || food2->get_enter_class() == "Player" ||
+            food3->get_enter_class() == "Player" || food4->get_enter_class() == "Player") {
+            food_interaction(entered_by_player);
         }
-    }
-    // sound effect toggle
-    if (Input::get_singleton()->is_action_just_pressed("Sound Effect")) {
-        mute_sound_effects = !mute_sound_effects;
-    }
-    toggles();
 
-    // dithering for camera collisions
-    if (camera_cast1->is_colliding() && camera_cast2->is_colliding()) {
-        if (colliding && camera_cast1->get_collider() != colliding) {
+        // empty interaction
+        if (!entered_by_player && Input::get_singleton()->is_action_just_pressed("E")) {
+            if (!empty_interact_player->is_playing() && !mute_sound_effects) {
+                play_empty_interact();
+            }
+        }
+        // sound effect toggle
+        if (Input::get_singleton()->is_action_just_pressed("Sound Effect")) {
+            mute_sound_effects = !mute_sound_effects;
+        }
+        toggles();
+
+        // dithering for camera collisions
+        if (camera_cast1->is_colliding() && camera_cast2->is_colliding()) {
+            if (colliding && camera_cast1->get_collider() != colliding) {
+                colliding->set_visible(true);
+                colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
+                colliding->set_visible(false);
+            } else {
+                colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
+                colliding->set_visible(false);
+            }
+        }
+        if (!camera_cast1->is_colliding() && !camera_cast2->is_colliding() && colliding) {
             colliding->set_visible(true);
-            colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
-            colliding->set_visible(false);
-        } else {
-            colliding = Object::cast_to<Node3D>(camera_cast1->get_collider());
-            colliding->set_visible(false);
+            colliding = NULL;
         }
-    }
-    if (!camera_cast1->is_colliding() && !camera_cast2->is_colliding() && colliding) {
-        colliding->set_visible(true);
-        colliding = NULL;
     }
 }
 
