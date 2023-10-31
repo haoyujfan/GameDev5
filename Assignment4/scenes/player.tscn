@@ -19,6 +19,10 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
 
 [node name="Player" type="Player"]
 "slide angle" = 0.08
@@ -70,6 +74,7 @@ target_position = Vector3(-3, -12, -35)
 collide_with_areas = true
 
 [node name="Raycast2" type="Raycast" parent="Node3D/Camera"]
+transform = Transform3D(1, -1.12286e-19, 0, -1.12286e-19, 1, 0, 0, 0, 1, 0, 0, 0)
 target_position = Vector3(5, -12, -35)
 collide_with_areas = true
 
