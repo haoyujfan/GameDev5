@@ -17,13 +17,13 @@ func _ready():
 	#player2.global_position = spawn1.global_position
 
 #   this doesn't currently work, we want it to work later
-#	var index = 0
-#	for i in GameManager.Players:
-#		var currentPlayer = PlayerScene.instantiate()
-#		add_child(currentPlayer)
-#		for spawn in get_tree().get_nodes_in_group("SpawnPoint"):
-#			if spawn.name == "Spawn" + str(index):
-#				currentPlayer.global_position = spawn.global_position
-#		index += 1
-#	pass # Replace with function body.
+	var index = 0
+	for i in GameManager.Players:
+		var currentPlayer = PlayerScene.instantiate()
+		add_child(currentPlayer)
+		for spawn in get_tree().get_nodes_in_group("SpawnPoint"):
+			if spawn.name == "Spawn" + str(index):
+				currentPlayer.global_position = spawn.global_position
+		index += 1
+	pass # Replace with function body.
 

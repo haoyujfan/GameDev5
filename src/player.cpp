@@ -100,6 +100,8 @@ void Player::_ready() {
     material = Object::cast_to<BaseMaterial3D>(*mat_ref);
     albedo = material->get_albedo();
     tree = get_tree();
+
+    UtilityFunctions::print("in ready of cpp");
 }
 
 void Player::_process(double delta) {
@@ -150,8 +152,11 @@ void Player::_physics_process(double delta) {
         return;
     }
 
+    UtilityFunctions::print("in physics process cpp");
+    UtilityFunctions::print(sync->get_multiplayer_authority());
+
     // if (sync->get_multiplayer_authority() == tree->get_multiplayer()->get_unique_id()) {
-    if (sync->get_multiplayer_authority() == 1) {
+    // if (sync->get_multiplayer_authority() == 1) {
         // sets rotate mode or strafe mode
         if (Input::get_singleton()->is_action_just_pressed("R")) {
             AD_rotate = !AD_rotate;
@@ -242,7 +247,7 @@ void Player::_physics_process(double delta) {
         end_conditions();
         set_velocity(velocity);
         move_and_slide();
-    }
+    // }
 }
 
 Vector3 Player::rotate_wasd() {
