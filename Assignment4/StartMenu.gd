@@ -49,7 +49,7 @@ func _on_host_button_down():
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 2) # 2 player game
 	if error != OK:
-		print("cannot host: " + error)
+		print("cannot host: " + error_string(error))
 		return
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	

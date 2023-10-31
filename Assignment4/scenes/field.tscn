@@ -70,13 +70,6 @@ light_indirect_energy = 16.0
 spot_range = 4096.0
 spot_attenuation = 0.5
 
-[node name="Player" parent="." instance=ExtResource("4_8n5cc")]
-velocity = Vector3(0, 0, 0)
-
-[node name="Player2" parent="." instance=ExtResource("4_8n5cc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50)
-velocity = Vector3(0, 0, 0)
-
 [node name="BackgroundPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="Lives" type="RichTextLabel" parent="."]
@@ -140,17 +133,15 @@ text = "Music Controls:
 Music Volume Up: 🔼
 Music Volume Down: 🔽"
 
-[node name="Spawn0" type="Node3D" parent="." groups=["SpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 50)
+[node name="SpawnLocations" type="Node3D" parent="."]
+
+[node name="Spawn0" type="Node3D" parent="SpawnLocations" groups=["SpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 50)
 
 [node name="Spawn1" type="Node3D" parent="." groups=["SpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 10, -50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -50)
 
 [connection signal="lose_life" from="Cactus" to="." method="_lose_life"]
 [connection signal="lose_life" from="Cactus2" to="." method="_lose_life"]
 [connection signal="lose_life" from="Cactus3" to="." method="_lose_life"]
 [connection signal="lose_life" from="Cactus4" to="." method="_lose_life"]
-[connection signal="interact_orange" from="Player" to="." method="_on_player_interact_orange"]
-[connection signal="life_lost_attacker" from="Player" to="." method="_on_player_life_lost_attacker"]
-[connection signal="interact_orange" from="Player2" to="." method="_on_player_interact_orange"]
-[connection signal="life_lost_attacker" from="Player2" to="." method="_on_player_life_lost_attacker"]
