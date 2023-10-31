@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dl8g5ltkkkf6q"]
+[gd_scene load_steps=9 format=3 uid="uid://dl8g5ltkkkf6q"]
 
 [ext_resource type="Texture2D" uid="uid://brqggqdiy0ho8" path="res://textures/orange/Orange_001_COLOR.jpg" id="1_trl8r"]
 [ext_resource type="Texture2D" uid="uid://cqqff4nx7h7g5" path="res://textures/orange/Orange_001_OCC.jpg" id="2_myp3r"]
@@ -21,6 +21,12 @@ ao_enabled = true
 ao_texture = ExtResource("2_myp3r")
 uv1_scale = Vector3(4, 4, 4)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bomv8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = true
+
 [node name="Food" type="Food"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 3, 40)
 
@@ -30,3 +36,6 @@ shape = SubResource("SphereShape3D_dddvy")
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 mesh = SubResource("SphereMesh_dhk8u")
 material = SubResource("StandardMaterial3D_5eoht")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bomv8")
