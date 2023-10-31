@@ -65,9 +65,7 @@ func _on_join_button_down():
 
 @rpc("any_peer", "call_local")
 func start_game():
-	var scene = load("res://scenes/main.tscn").instantiate()
-	get_tree().root.add_child(scene)
-	self.hide()
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_start_button_down():
 	start_game.rpc()
