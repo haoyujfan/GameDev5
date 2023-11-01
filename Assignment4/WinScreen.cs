@@ -13,7 +13,7 @@ public partial class WinScreen : Node2D
 	// quit button
 	private void _on_quit_pressed()
 	{
-		GetTree().Quit();
+		GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
 	}
 
 }
