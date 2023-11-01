@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://da78fgjnx18av"]
+
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_f6dn3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f6dn3")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 832.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 30
+text = "CS354R Assignment 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Singleplayer" type="Button" parent="."]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 350.0
+offset_right = 550.0
+offset_bottom = 500.0
+theme_override_font_sizes/font_size = 35
+text = "Singleplayer"
+
+[node name="Multiplayer" type="Button" parent="."]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 350.0
+offset_right = 950.0
+offset_bottom = 500.0
+theme_override_font_sizes/font_size = 35
+text = "Multiplayer"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="Singleplayer" to="." method="_on_singleplayer_pressed"]
+[connection signal="pressed" from="Multiplayer" to="." method="_on_multiplayer_pressed"]
