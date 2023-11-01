@@ -4,9 +4,11 @@ extends Node2D
 @export var Address = "127.0.0.1"
 @export var port = 8910
 var peer
+@onready var start_button = $Start
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	start_button.disabled = true
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -56,6 +58,8 @@ func _on_host_button_down():
 	multiplayer.set_multiplayer_peer(peer)
 	print("Waiting for players!")
 	SendPlayerInformation($UsernameInput.text, multiplayer.get_unique_id())
+	
+	start_button.disabled = false
 	
 func _on_join_button_down():
 	peer = ENetMultiplayerPeer.new()
