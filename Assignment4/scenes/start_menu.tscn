@@ -57,16 +57,16 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "Start"
 
-[node name="Exit" type="Button" parent="."]
+[node name="Back" type="Button" parent="."]
 offset_left = 21.0
 offset_top = 553.0
 offset_right = 168.0
 offset_bottom = 629.0
 scale = Vector2(0.989597, 1)
 theme_override_font_sizes/font_size = 30
-text = "Exit"
+text = "Back"
 
 [connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
