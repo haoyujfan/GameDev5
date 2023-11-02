@@ -120,6 +120,7 @@ class Player : public CharacterBody3D {
         void toggles();
         void end_conditions();
         void food_interaction(bool entered);
+        void move_food(Node3D *food_obj, Vector3 pos);
 };
     
 

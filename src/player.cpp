@@ -14,6 +14,7 @@
 #include <godot_cpp/classes/object.hpp>
 #include <godot_cpp/classes/multiplayer_synchronizer.hpp>
 #include <godot_cpp/classes/multiplayer_api.hpp>
+#include <godot_cpp/classes/multiplayer_peer.hpp>
 
 #include <cstdlib>
 
@@ -51,6 +52,8 @@ void Player::_bind_methods() {
         "0, 2, 0.1"), "set_lives", "get_lives");
 
     ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
+
+    ClassDB::bind_method(D_METHOD("move_food", "food_obj", "pos"), &Player::move_food);
 
     ADD_SIGNAL(MethodInfo("interact_orange"));
     ADD_SIGNAL(MethodInfo("life_lost_attacker"));
@@ -109,6 +112,13 @@ void Player::_ready() {
     if (sync->get_multiplayer_authority() == get_multiplayer()->get_unique_id()) {
         camera->make_current();
     }
+
+    Dictionary *rpc_annotations = new Dictionary();
+    (*rpc_annotations)["rpc_mode"] = MultiplayerAPI::RPC_MODE_ANY_PEER;
+    (*rpc_annotations)["transfer_mode"] = MultiplayerPeer::TRANSFER_MODE_RELIABLE;
+    (*rpc_annotations)["call_local"] = false;
+    (*rpc_annotations)["channel"] = 0;
+    rpc_config("move_food", *rpc_annotations);
 }
 
 void Player::_process(double delta) {
@@ -379,22 +389,32 @@ void Player::food_interaction(bool entered_by_player) {
         }
         lives++;
         if (food1->is_entered_by_player()) {
-            food1->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
-            rand.randf_range(-150, 150)));
+            Vector3 pos1 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
+            rand.randf_range(-150, 150));
+            rpc("move_food", food1, pos1);
         } 
         if (food2->is_entered_by_player()) {
-            food2->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
-            rand.randf_range(-150, 150)));
+            Vector3 pos2 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
+            rand.randf_range(-150, 150));
+            rpc("move_food", food2, pos2);
         } 
         if (food3->is_entered_by_player()) {
-            food3->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
-            rand.randf_range(-150, 150)));
+            Vector3 pos3 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
+            rand.randf_range(-150, 150));
+            rpc("move_food", food3, pos3);
         }
         if (food4->is_entered_by_player()) {
-            food4->set_position(Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
-            rand.randf_range(-150, 150)));
+            Vector3 pos4 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
+            rand.randf_range(-150, 150));
+            rpc("move_food", food4, pos4);
         } 
     }
+}
+
+void Player::move_food(Node3D *food_obj, Vector3 pos) {
+    UtilityFunctions::print("moving food");
+    UtilityFunctions::print(get_multiplayer_authority());
+    // food_obj->set_position(pos);
 }
 
 void Player::ledge_hang() {
