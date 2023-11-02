@@ -68,6 +68,14 @@ offset_bottom = 651.0
 theme_override_font_sizes/normal_font_size = 31
 text = "Points: "
 
+[node name="Lives2" type="RichTextLabel" parent="."]
+offset_left = 883.0
+offset_top = 559.0
+offset_right = 1142.0
+offset_bottom = 610.0
+theme_override_font_sizes/normal_font_size = 31
+text = "Points: "
+
 [node name="Controls" type="RichTextLabel" parent="."]
 offset_left = 2.0
 offset_top = 20.0

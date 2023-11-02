@@ -46,6 +46,9 @@ void Player::_bind_methods() {
         "0, 2, 0.1"), "set_air_resistance", "get_air_resistance");
 
     ClassDB::bind_method(D_METHOD("get_lives"), &Player::get_lives);
+    ClassDB::bind_method(D_METHOD("set_lives", "lives"), &Player::set_lives);
+    ClassDB::add_property("Player", PropertyInfo(Variant::FLOAT, "lives", PROPERTY_HINT_RANGE, 
+        "0, 2, 0.1"), "set_lives", "get_lives");
 
     ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
 
@@ -494,13 +497,15 @@ int Player::get_lives() {
     return lives;
 }
 
+void Player::set_lives(int p_lives) {
+    lives = p_lives;
+}
+
 bool Player::get_sound_toggle() {
     return mute_sound_effects;
 }
 
-void Player::set_lives(int p_lives) {
-    lives = p_lives;
-}
+
 
 void Player::life_lost_GUI() {
     emit_signal("life_lost_attacker");

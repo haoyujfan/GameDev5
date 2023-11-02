@@ -23,6 +23,10 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath(".:lives")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
 
 [node name="Player" type="Player"]
 "slide angle" = 0.08
