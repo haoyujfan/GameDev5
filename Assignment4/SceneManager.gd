@@ -9,7 +9,7 @@ func _ready():
 	for i in GameManager.Players:
 		var currentPlayer = PlayerScene.instantiate()
 		currentPlayer.set_multiplayer_authority(GameManager.Players[i].id)
-		# currentPlayer.name = str(GameManager.Players[i].id) # can access in c++ with get_name()
+		currentPlayer.name = str(GameManager.Players[i].id) # can access in c++ with get_name()
 		add_child(currentPlayer)
 		for spawn in get_tree().get_nodes_in_group("SpawnPoint"):
 			if spawn.name == "Spawn" + str(index):

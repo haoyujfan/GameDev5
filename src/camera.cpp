@@ -30,7 +30,7 @@ void Camera::_input(const Ref<InputEvent> &event) {
     
 	if (key_event) {
         Node3D* tgt = Object::cast_to<Node3D>(get_parent());
-        Player* player = get_node<Player>("../../../Player");
+        Player* player = Object::cast_to<Player>(get_parent()->get_parent());
         if (!player->get_ad_rotate()) {
             rotation[0] = 0.0;
             rotation += Vector3(0.0, -1 * key_event->get_relative()[0] / (1000 - speed), 0.0);
