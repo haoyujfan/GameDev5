@@ -8,7 +8,6 @@ var peer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("in ready again")
 	initialize_game()
 	pass # Replace with function body.
 	
