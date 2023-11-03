@@ -61,23 +61,25 @@ spot_attenuation = 0.5
 [node name="BackgroundPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="Lives" type="RichTextLabel" parent="."]
-offset_left = 5.0
-offset_top = 600.0
-offset_right = 264.0
-offset_bottom = 651.0
-theme_override_font_sizes/normal_font_size = 31
-
-[node name="Lives2" type="RichTextLabel" parent="."]
 offset_left = 883.0
 offset_top = 600.0
 offset_right = 1142.0
 offset_bottom = 651.0
 theme_override_font_sizes/normal_font_size = 31
+text = "Points: "
+
+[node name="Lives2" type="RichTextLabel" parent="."]
+offset_left = 883.0
+offset_top = 559.0
+offset_right = 1142.0
+offset_bottom = 610.0
+theme_override_font_sizes/normal_font_size = 31
+text = "Points: "
 
 [node name="Controls" type="RichTextLabel" parent="."]
-offset_left = 5.0
+offset_left = 2.0
 offset_top = 20.0
-offset_right = 301.0
+offset_right = 298.0
 offset_bottom = 243.0
 text = "Movement Controls: 
 Movement: W, A, S, D
@@ -99,9 +101,9 @@ text = "Rotate Mode: R (AD Keys)
 "
 
 [node name="MusicToggle" type="RichTextLabel" parent="."]
-offset_left = 5.0
+offset_left = 2.26523
 offset_top = 290.441
-offset_right = 247.0
+offset_right = 244.265
 offset_bottom = 389.441
 text = "Music Mute: M (unmuted)
 
@@ -109,9 +111,9 @@ text = "Music Mute: M (unmuted)
 "
 
 [node name="SoundEffectToggle" type="RichTextLabel" parent="."]
-offset_left = 5.0
+offset_left = 2.3101
 offset_top = 311.824
-offset_right = 274.0
+offset_right = 271.31
 offset_bottom = 401.824
 text = "Sound Effect Mute: , (unmuted)
 
@@ -119,9 +121,9 @@ text = "Sound Effect Mute: , (unmuted)
 "
 
 [node name="Controls2" type="RichTextLabel" parent="."]
-offset_left = 5.0
+offset_left = 2.0
 offset_top = 221.0
-offset_right = 259.0
+offset_right = 256.0
 offset_bottom = 299.0
 text = "Music Controls:
 Music Volume Up: 🔼

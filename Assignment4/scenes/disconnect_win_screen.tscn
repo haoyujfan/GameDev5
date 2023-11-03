@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cqjs6pee3joio"]
+
+[node name="Win Screen" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 168.0
+offset_right = 976.0
+offset_bottom = 256.0
+theme_override_font_sizes/font_size = 50
+text = "You Win :)
+Congratulations! 
+Other Player Quit lol"
+horizontal_alignment = 1
+vertical_alignment = 1
