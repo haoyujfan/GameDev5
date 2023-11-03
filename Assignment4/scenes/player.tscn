@@ -28,7 +28,7 @@ properties/2/spawn = true
 properties/2/sync = true
 properties/2/watch = false
 
-[node name="Player" type="Player"]
+[node name="Player" type="Player" groups=["Players"]]
 "slide angle" = 0.08
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 velocity = Vector3(0, -2573.33, 0)

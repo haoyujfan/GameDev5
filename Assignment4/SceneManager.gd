@@ -34,8 +34,9 @@ func _process(delta):
 	# Points.Text = "Points: " + get_node<Player>("Player").get_points() # If Points is a RichTextLabel
 	if (numPlayers == 2):
 		$Lives.text = "Player 1 Lives: " + str(Player1.get_lives())
-		$Lives2.position = Vector2(883, 600)
-		$Lives2.text = "Player 2 Lives: " + str(Player2.get_lives())
+		if GameManager.Players.size() == 2 :
+			$Lives2.position = Vector2(883, 600)
+			$Lives2.text = "Player 2 Lives: " + str(Player2.get_lives())
 	
 	else:
 		$Lives.text = "Lives: " + str(Player1.get_lives())

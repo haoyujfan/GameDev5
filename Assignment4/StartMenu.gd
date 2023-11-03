@@ -23,6 +23,12 @@ func peer_connected(id):
 # called on the server and clients when they disconnect
 func peer_disconnected(id):
 	print("Player disconnected "  + str(id))
+	GameManager.Players.erase(id)
+	var players = get_tree().get_nodes_in_group("Players")
+	for item in players :
+		if item.name == str(id) :
+			item.queue_free()
+	get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
 	
 # called on only the clients when they connect
 func connected_to_server():
