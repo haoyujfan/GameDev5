@@ -1,14 +1,28 @@
-[gd_scene format=3 uid="uid://cqjs6pee3joio"]
+[gd_scene load_steps=2 format=3 uid="uid://cqjs6pee3joio"]
+
+[ext_resource type="Script" path="res://DisconnectScreen.cs" id="1_rccdj"]
 
 [node name="Win Screen" type="Node2D"]
+script = ExtResource("1_rccdj")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 168.0
-offset_right = 976.0
-offset_bottom = 256.0
+offset_left = 179.0
+offset_top = 37.0
+offset_right = 987.0
+offset_bottom = 293.0
 theme_override_font_sizes/font_size = 50
 text = "You Win :)
 Congratulations! 
 Other Player Quit lol"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Return" type="Button" parent="."]
+offset_left = 450.0
+offset_top = 400.0
+offset_right = 750.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 35
+text = "Return"
+
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]

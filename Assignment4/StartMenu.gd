@@ -28,6 +28,7 @@ func peer_disconnected(id):
 	for item in players :
 		if item.name == str(id) :
 			item.queue_free()
+	get_node("../main").queue_free()
 	get_tree().change_scene_to_file("res://scenes/disconnect_win_screen.tscn")
 	
 # called on only the clients when they connect
