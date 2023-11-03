@@ -8,12 +8,16 @@ var peer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("in ready again")
+	initialize_game()
+	pass # Replace with function body.
+	
+func initialize_game() :
 	start_button.disabled = true
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
-	pass # Replace with function body.
 
 # called on the server and clients when they connect
 func peer_connected(id):
@@ -33,6 +37,11 @@ func peer_disconnected(id):
 	get_tree().change_scene_to_file("res://scenes/disconnect_win_screen.tscn")
 	# disconnect signals 
 	peer = null
+	multiplayer.peer_connected.disconnect(peer_connected)
+	multiplayer.peer_disconnected.disconnect(peer_disconnected)
+	multiplayer.connected_to_server.disconnect(connected_to_server)
+	multiplayer.connection_failed.disconnect(connection_failed)
+	GameManager.readied = false
 	
 # called on only the clients when they connect
 func connected_to_server():
@@ -58,8 +67,19 @@ func SendPlayerInformation(name, id):
 			
 	
 func _on_host_button_down():
+	if not GameManager.readied:
+		multiplayer.peer_connected.disconnect(peer_connected)
+		multiplayer.peer_disconnected.disconnect(peer_disconnected)
+		multiplayer.connected_to_server.disconnect(connected_to_server)
+		multiplayer.connection_failed.disconnect(connection_failed)
+		initialize_game()
 	peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(port, 2) # 2 player game
+	var error
+	print(GameManager.readied)
+	if GameManager.readied :
+		error = peer.create_server(port, 2) # 2 player game
+	else :
+		error = peer.create_server(port + 1, 2) # use new port
 	if error != OK:
 		print("cannot host: " + error_string(error))
 		return
