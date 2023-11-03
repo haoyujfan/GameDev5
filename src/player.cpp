@@ -53,7 +53,7 @@ void Player::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
 
-    ClassDB::bind_method(D_METHOD("move_food", "food_obj", "pos"), &Player::move_food);
+    ClassDB::bind_method(D_METHOD("move_food", "food", "pos"), &Player::move_food);
 
     ADD_SIGNAL(MethodInfo("interact_orange"));
     ADD_SIGNAL(MethodInfo("life_lost_attacker"));
@@ -406,48 +406,62 @@ void Player::food_interaction(bool entered_by_player) {
             Vector3 pos1 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
             if (sync->get_multiplayer_authority() == 1) {
-                rpc("move_food", food1, pos1);
+                UtilityFunctions::print("food server");
+                rpc("move_food", 1, pos1);
             } else {
-                rpc_id(1, "move_food", food1, pos1);
+                UtilityFunctions::print("food client");
+                rpc_id(1, "move_food", 1, pos1);
             }
         } 
         if (food2->is_entered_by_player()) {
             Vector3 pos2 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
             if (sync->get_multiplayer_authority() == 1) {
-                rpc("move_food", food2, pos2);
+                UtilityFunctions::print("food server");
+                rpc("move_food", 2, pos2);
             } else {
-                rpc_id(1, "move_food", food2, pos2);
+                UtilityFunctions::print("food client");
+                rpc_id(1, "move_food", 2, pos2);
             }
         } 
         if (food3->is_entered_by_player()) {
             Vector3 pos3 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
             if (sync->get_multiplayer_authority() == 1) {
-                rpc("move_food", food3, pos3);
+                UtilityFunctions::print("food server");
+                rpc("move_food", 3, pos3);
             } else {
-                rpc_id(1, "move_food", food3, pos3);
+                UtilityFunctions::print("food client");
+                rpc_id(1, "move_food", 3, pos3);
             }
         }
         if (food4->is_entered_by_player()) {
             Vector3 pos4 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
             if (sync->get_multiplayer_authority() == 1) {
-                rpc("move_food", food4, pos4);
+                UtilityFunctions::print("food server");
+                rpc("move_food", 4, pos4);
             } else {
-                rpc_id(1, "move_food", food4, pos4);
+                UtilityFunctions::print("food client");
+                rpc_id(1, "move_food", 4, pos4);
             }
         } 
     }
 }
 
-void Player::move_food(Node3D *food_obj, Vector3 pos) {
+void Player::move_food(int food, Vector3 pos) {
     UtilityFunctions::print("moving food");
     UtilityFunctions::print(get_multiplayer_authority());
-    food_obj->set_position(pos);
-    if (sync->get_multiplayer_authority() == 1) {
-        rpc("move_food", food_obj, pos);
-    }
+    // food_obj->set_position(pos);
+    UtilityFunctions::print(food1->get_position());
+    UtilityFunctions::print(food2->get_position());
+    UtilityFunctions::print(food3->get_position());
+    UtilityFunctions::print(food4->get_position());
+    UtilityFunctions::print("");
+
+    // if (sync->get_multiplayer_authority() == 1) {
+    //     rpc("move_food", 1, pos);
+    // }
 }
 
 void Player::ledge_hang() {
