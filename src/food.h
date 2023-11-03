@@ -16,7 +16,6 @@ private:
     Vector3 position;
     int value;
     bool entered;
-    bool entered_by_player;
     String enter_class;
 
 protected:
@@ -33,6 +32,8 @@ public:
     bool is_entered();
     bool is_entered_by_player();
     String get_enter_class();
+
+    bool entered_by_player;
 
 };
 

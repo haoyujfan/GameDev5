@@ -31,6 +31,8 @@ func peer_disconnected(id):
 	GameManager.Players = {}
 	get_node("../main").queue_free()
 	get_tree().change_scene_to_file("res://scenes/disconnect_win_screen.tscn")
+	# disconnect signals 
+	peer = null
 	
 # called on only the clients when they connect
 func connected_to_server():
