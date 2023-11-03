@@ -120,7 +120,7 @@ void Player::_ready() {
     Dictionary *rpc_annotations = new Dictionary();
     (*rpc_annotations)["rpc_mode"] = MultiplayerAPI::RPC_MODE_ANY_PEER;
     (*rpc_annotations)["transfer_mode"] = MultiplayerPeer::TRANSFER_MODE_RELIABLE;
-    (*rpc_annotations)["call_local"] = false;
+    (*rpc_annotations)["call_local"] = true;
     (*rpc_annotations)["channel"] = 0;
     rpc_config("move_food", *rpc_annotations);
 }
@@ -405,22 +405,38 @@ void Player::food_interaction(bool entered_by_player) {
         if (food1->is_entered_by_player()) {
             Vector3 pos1 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food1, pos1);
+            if (sync->get_multiplayer_authority() == 1) {
+                rpc("move_food", food1, pos1);
+            } else {
+                rpc_id(1, "move_food", food1, pos1);
+            }
         } 
         if (food2->is_entered_by_player()) {
             Vector3 pos2 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food2, pos2);
+            if (sync->get_multiplayer_authority() == 1) {
+                rpc("move_food", food2, pos2);
+            } else {
+                rpc_id(1, "move_food", food2, pos2);
+            }
         } 
         if (food3->is_entered_by_player()) {
             Vector3 pos3 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food3, pos3);
+            if (sync->get_multiplayer_authority() == 1) {
+                rpc("move_food", food3, pos3);
+            } else {
+                rpc_id(1, "move_food", food3, pos3);
+            }
         }
         if (food4->is_entered_by_player()) {
             Vector3 pos4 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food4, pos4);
+            if (sync->get_multiplayer_authority() == 1) {
+                rpc("move_food", food4, pos4);
+            } else {
+                rpc_id(1, "move_food", food4, pos4);
+            }
         } 
     }
 }
@@ -428,7 +444,10 @@ void Player::food_interaction(bool entered_by_player) {
 void Player::move_food(Node3D *food_obj, Vector3 pos) {
     UtilityFunctions::print("moving food");
     UtilityFunctions::print(get_multiplayer_authority());
-    // food_obj->set_position(pos);
+    food_obj->set_position(pos);
+    if (sync->get_multiplayer_authority() == 1) {
+        rpc("move_food", food_obj, pos);
+    }
 }
 
 void Player::ledge_hang() {
