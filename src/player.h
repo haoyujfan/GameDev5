@@ -30,6 +30,10 @@ class Player : public CharacterBody3D {
         Raycast *ray2;
         Raycast *ray3;
         Raycast *ray4;
+        Raycast *ray_up1;
+        Raycast *ray_up2;
+        Raycast *ray_up3;
+        Raycast *ray_up4;
         SceneTree *tree;
         int lives;
         bool is_hurt;
@@ -110,6 +114,7 @@ class Player : public CharacterBody3D {
 
         void ledge_hang();
         void gliding();
+        void attack();
            
         bool get_sound_toggle();
         int get_lives();

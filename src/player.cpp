@@ -90,6 +90,10 @@ void Player::_ready() {
     ray2 = get_node<Raycast>("Raycast2");
     ray3 = get_node<Raycast>("Raycast3");
     ray4 = get_node<Raycast>("Raycast4");
+    ray_up1 = get_node<Raycast>("RaycastUp");
+    ray_up2 = get_node<Raycast>("RaycastUp2");
+    ray_up3 = get_node<Raycast>("RaycastUp3");
+    ray_up4 = get_node<Raycast>("RaycastUp4");
     camera_cast1 = get_node<Raycast>("Node3D/Camera/Raycast");
     camera_cast2 = get_node<Raycast>("Node3D/Camera/Raycast2");
     colliding = NULL;
@@ -211,6 +215,16 @@ void Player::_physics_process(double delta) {
             jumped = true;
             hanging = false;
         }
+
+        // getting jumped on
+        if ((ray_up1->is_colliding() && ray_up1->get_collider()->get_class() == "Player") ||
+            (ray_up2->is_colliding() && ray_up2->get_collider()->get_class() == "Player") ||
+            (ray_up3->is_colliding() && ray_up3->get_collider()->get_class() == "Player")||
+            (ray_up4->is_colliding() && ray_up4->get_collider()->get_class() == "Player")) {
+                attack();
+            }
+
+        
         
         // ledge stop and ledge hang 
         if (Input::get_singleton()->is_action_pressed("Shift")) {
@@ -467,6 +481,27 @@ void Player::gliding() {
         gravity = 1400.0;
         air_resistance = current_air;
     }
+}
+
+void Player::attack() {
+    Object *collider;
+    if (ray_up1->is_colliding() && ray_up1->get_collider()->get_class() == "Player") {
+        collider = ray_up1->get_collider();
+    }
+    if (ray_up2->is_colliding() && ray_up2->get_collider()->get_class() == "Player") {
+        collider = ray_up2->get_collider();
+    }
+    if (ray_up3->is_colliding() && ray_up3->get_collider()->get_class() == "Player") {
+        collider = ray_up3->get_collider();
+    }
+    if (ray_up4->is_colliding() && ray_up4->get_collider()->get_class() == "Player") {
+        collider = ray_up4->get_collider();
+    }
+    Node3D *collider_node = Object::cast_to<Node3D>(collider);
+    Vector3 collider_pos = collider_node->get_position();
+    collider_pos.y += 20;
+    collider_node->set_position(collider_pos);        
+    set_position(Vector3(rand.randf_range(-100, 100), 10, 0));
 }
 
 void Player::set_gravity(float p_gravity) {

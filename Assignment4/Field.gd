@@ -1,11 +1,9 @@
 extends Node3D
 
 @export var PlayerScene: PackedScene
-var Lives : RichTextLabel
 var Effects : RichTextLabel
 var Rotate : RichTextLabel
 var Music : RichTextLabel
-var PointsValue : int
 var numPlayers : int
 var Player1 : Player
 var Player2 : Player
@@ -13,7 +11,6 @@ var Player2 : Player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	numPlayers = 1
-	PointsValue = 0
 	var index = 0
 	for i in GameManager.Players:
 		var currentPlayer = PlayerScene.instantiate()
@@ -41,6 +38,15 @@ func _process(delta):
 	
 	else:
 		$Lives.text = "Lives: " + str(Player1.get_lives())
+		
+	win_conditions()
+
+func win_conditions():
+#	if (Player1.get_lives() == 10):
+#		Player1.get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
+#	if (Player2.get_lives() == 10):
+#		Player2.get_tree().change_scene_to_file("res://scenes/no_lives.tscn")
+	pass
 #
 #func _on_player_interact_orange():
 #	PointsValue += 1
