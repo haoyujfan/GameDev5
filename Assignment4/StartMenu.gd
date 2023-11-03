@@ -66,6 +66,8 @@ func _on_join_button_down():
 	peer.create_client(Address, port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
+	
+	start_button.disabled = false
 
 @rpc("any_peer", "call_local")
 func start_game():

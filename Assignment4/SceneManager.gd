@@ -24,11 +24,10 @@ func _ready():
 			Player1 = currentPlayer
 		else:
 			Player2 = currentPlayer
-			numPlayers += 1
+			numPlayers = 2
 		for spawn in get_tree().get_nodes_in_group("SpawnPoint"):
 			if spawn.name == "Spawn" + str(index):
 				currentPlayer.global_position = spawn.global_position
-		print(numPlayers)
 		index += 1
 
 func _process(delta):
