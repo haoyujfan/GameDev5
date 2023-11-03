@@ -73,9 +73,9 @@ func _on_host_button_down():
 		multiplayer.connected_to_server.disconnect(connected_to_server)
 		multiplayer.connection_failed.disconnect(connection_failed)
 		initialize_game()
+
 	peer = ENetMultiplayerPeer.new()
 	var error
-	print(GameManager.readied)
 	if GameManager.readied :
 		error = peer.create_server(port, 2) # 2 player game
 	else :
