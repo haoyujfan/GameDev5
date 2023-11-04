@@ -512,11 +512,12 @@ void Player::attack() {
     if (ray_up4->is_colliding() && ray_up4->get_collider()->get_class() == "Player") {
         collider = ray_up4->get_collider();
     }
-    Node3D *collider_node = Object::cast_to<Node3D>(collider);
-    Vector3 collider_pos = collider_node->get_position();
-    collider_pos.y += 20;
-    //collider_node->set_position(collider_pos);
-    collider_node->set_position(Vector3(0, 100, 0));       
+    Player *collider_node = Object::cast_to<Player>(collider);
+    // Vector3 collider_pos = collider_node->get_position();
+    // collider_pos.y += 20;
+    // //collider_node->set_position(collider_pos);
+    // collider_node->set_position(Vector3(0, 100, 0));
+    lives--;
     set_position(Vector3(rand.randf_range(-100, 100), 5, 0));
 }
 

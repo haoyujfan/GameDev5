@@ -4,13 +4,11 @@ extends Node3D
 var Effects : RichTextLabel
 var Rotate : RichTextLabel
 var Music : RichTextLabel
-var numPlayers : int
 var Player1 : Player
 var Player2 : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	numPlayers = 1
 	var index = 0
 	for i in GameManager.Players:
 		var currentPlayer = PlayerScene.instantiate()
@@ -21,21 +19,17 @@ func _ready():
 			Player1 = currentPlayer
 		else:
 			Player2 = currentPlayer
-			numPlayers = 2
 		for spawn in get_tree().get_nodes_in_group("SpawnPoint"):
 			if spawn.name == "Spawn" + str(index):
 				currentPlayer.global_position = spawn.global_position
 		index += 1
 
 func _process(delta):
-	# Points.Text = "Points: " + get_node<Player>("Player").get_points() # If Points is a RichTextLabel
-	if numPlayers == 2 : 
-		if GameManager.Players.size() == 2 :
+	if GameManager.Players.size() == 2 :
 			$Lives.position = Vector2(20, 600)
 			$Lives.text = "Player 1 Lives: " + str(Player1.get_lives())
 			$Lives2.position = Vector2(883, 600)
 			$Lives2.text = "Player 2 Lives: " + str(Player2.get_lives())
-	
 	else:
 		$Lives.text = "Lives: " + str(Player1.get_lives())
 		

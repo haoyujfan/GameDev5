@@ -1,22 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://x1pdr2wgcjuj"]
+[gd_scene load_steps=8 format=3 uid="uid://x1pdr2wgcjuj"]
 
 [ext_resource type="Script" path="res://Field.gd" id="1_fes42"]
 [ext_resource type="PackedScene" uid="uid://dr6dyo4wnjsbk" path="res://scenes/ground.tscn" id="1_lyp0q"]
 [ext_resource type="PackedScene" uid="uid://dl8g5ltkkkf6q" path="res://scenes/food.tscn" id="2_71hdr"]
-[ext_resource type="PackedScene" uid="uid://dq6w7xuofi1up" path="res://scenes/wall.tscn" id="3_widil"]
 [ext_resource type="PackedScene" uid="uid://dg2giq6w1wr4w" path="res://scenes/player.tscn" id="4_8n5cc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_61yl1"]
+sky_top_color = Color(0.247059, 0.423529, 0.819608, 1)
+sky_horizon_color = Color(0.611765, 0.648132, 0.738152, 1)
+sky_energy_multiplier = 0.9
+ground_horizon_color = Color(0.611765, 0.648132, 0.738152, 1)
+
+[sub_resource type="Sky" id="Sky_idg3m"]
+sky_material = SubResource("ProceduralSkyMaterial_61yl1")
+
+[sub_resource type="Environment" id="Environment_4r41m"]
+background_mode = 2
+sky = SubResource("Sky_idg3m")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="field" type="Node3D"]
 script = ExtResource("1_fes42")
 PlayerScene = ExtResource("4_8n5cc")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4r41m")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.868632, -0.494867, 0.024203, 0, 0.0488498, 0.998806, -0.495459, 0.867594, -0.0424324, 0, 0, 0)
+light_energy = 1.9
+shadow_enabled = true
+
 [node name="Ground" parent="." instance=ExtResource("1_lyp0q")]
-
-[node name="Wall" parent="." instance=ExtResource("3_widil")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 16, 2.08165e-12)
-
-[node name="Wall2" parent="." instance=ExtResource("3_widil")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 16, 2.08165e-12)
 
 [node name="Food" parent="." instance=ExtResource("2_71hdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 4, 40)
