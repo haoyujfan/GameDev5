@@ -17,6 +17,7 @@
 #include <godot_cpp/classes/multiplayer_peer.hpp>
 
 #include <cstdlib>
+#include <string>
 
 using namespace godot;
 
@@ -91,10 +92,9 @@ void Player::_ready() {
     ray2 = get_node<Raycast>("Raycast2");
     ray3 = get_node<Raycast>("Raycast3");
     ray4 = get_node<Raycast>("Raycast4");
-    ray_up1 = get_node<Raycast>("RaycastUp");
-    ray_up2 = get_node<Raycast>("RaycastUp2");
-    ray_up3 = get_node<Raycast>("RaycastUp3");
-    ray_up4 = get_node<Raycast>("RaycastUp4");
+    for (int i = 1; i <= 12; i++) {
+        ray_up_array.push_back(get_node<Raycast>("RaycastUp" + UtilityFunctions::str(i)));
+    }
     camera_cast1 = get_node<Raycast>("Node3D/Camera/Raycast");
     camera_cast2 = get_node<Raycast>("Node3D/Camera/Raycast2");
     colliding = NULL;
@@ -225,12 +225,16 @@ void Player::_physics_process(double delta) {
         }
 
         // getting jumped on
-        if ((ray_up1->is_colliding() && ray_up1->get_collider()->get_class() == "Player") ||
-            (ray_up2->is_colliding() && ray_up2->get_collider()->get_class() == "Player") ||
-            (ray_up3->is_colliding() && ray_up3->get_collider()->get_class() == "Player")||
-            (ray_up4->is_colliding() && ray_up4->get_collider()->get_class() == "Player")) {
-                attack();
+        bool attacked = false;
+        for (int i = 0; i < 12; i++) {
+            Raycast *curr = Object::cast_to<Raycast>(ray_up_array[i]);
+            if (curr->is_colliding() && curr->get_collider()->get_class() == "Player") {
+                attacked = true;
             }
+        }
+        if (attacked) {
+            attack();
+        }
 
         
         
@@ -500,17 +504,11 @@ void Player::gliding() {
 
 void Player::attack() {
     Object *collider;
-    if (ray_up1->is_colliding() && ray_up1->get_collider()->get_class() == "Player") {
-        collider = ray_up1->get_collider();
-    }
-    if (ray_up2->is_colliding() && ray_up2->get_collider()->get_class() == "Player") {
-        collider = ray_up2->get_collider();
-    }
-    if (ray_up3->is_colliding() && ray_up3->get_collider()->get_class() == "Player") {
-        collider = ray_up3->get_collider();
-    }
-    if (ray_up4->is_colliding() && ray_up4->get_collider()->get_class() == "Player") {
-        collider = ray_up4->get_collider();
+    for (int i = 0; i < 12; i++) {
+        Raycast *curr = Object::cast_to<Raycast>(ray_up_array[i]);
+        if (curr->is_colliding() && curr->get_collider()->get_class() == "Player") {
+            collider = curr->get_collider();
+        }
     }
     Player *collider_node = Object::cast_to<Player>(collider);
     // Vector3 collider_pos = collider_node->get_position();

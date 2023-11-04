@@ -60,7 +60,7 @@ target_position = Vector3(2.08165e-12, -15, 2.08165e-12)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
 target_position = Vector3(2.08165e-12, -15, 2.08165e-12)
 
-[node name="RaycastUp" type="Raycast" parent="."]
+[node name="RaycastUp1" type="Raycast" parent="."]
 transform = Transform3D(0.999555, 0.0298407, 0, -0.0298407, 0.999555, 0, 0, 0, 1, -5.10126, 4.95206, 5.00766)
 target_position = Vector3(0, 2, 0)
 

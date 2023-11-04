@@ -30,10 +30,8 @@ class Player : public CharacterBody3D {
         Raycast *ray2;
         Raycast *ray3;
         Raycast *ray4;
-        Raycast *ray_up1;
-        Raycast *ray_up2;
-        Raycast *ray_up3;
-        Raycast *ray_up4;
+        Array ray_up_array;
+
         SceneTree *tree;
         int lives;
         bool is_hurt;

@@ -26,9 +26,9 @@ void Ground::_ready() {
         return;
     }
     volume = -15;
-    mute_music = false;
+    mute_music = true;
     music_pos = 0.0;
-    // initialize_sound();
+    //initialize_sound();
 }
 
 void Ground::_process(double delta) {
