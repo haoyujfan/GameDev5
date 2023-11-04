@@ -15,6 +15,6 @@ public partial class DisconnectScreen : Node2D
 	
 	private void _on_return_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/start_menu.tscn");
 	}
 }

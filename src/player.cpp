@@ -53,7 +53,8 @@ void Player::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
 
-    ClassDB::bind_method(D_METHOD("move_food", "food_obj", "pos"), &Player::move_food);
+    ClassDB::bind_method(D_METHOD("move_food", "food", "pos"), &Player::move_food);
+    ClassDB::bind_method(D_METHOD("broadcast_food", "food", "pos"), &Player::broadcast_food);
 
     ADD_SIGNAL(MethodInfo("interact_orange"));
     ADD_SIGNAL(MethodInfo("life_lost_attacker"));
@@ -117,12 +118,19 @@ void Player::_ready() {
         camera->make_current();
     }
 
-    Dictionary *rpc_annotations = new Dictionary();
-    (*rpc_annotations)["rpc_mode"] = MultiplayerAPI::RPC_MODE_ANY_PEER;
-    (*rpc_annotations)["transfer_mode"] = MultiplayerPeer::TRANSFER_MODE_RELIABLE;
-    (*rpc_annotations)["call_local"] = false;
-    (*rpc_annotations)["channel"] = 0;
-    rpc_config("move_food", *rpc_annotations);
+    Dictionary *rpc_annotations_1 = new Dictionary();
+    (*rpc_annotations_1)["rpc_mode"] = MultiplayerAPI::RPC_MODE_ANY_PEER;
+    (*rpc_annotations_1)["transfer_mode"] = MultiplayerPeer::TRANSFER_MODE_RELIABLE;
+    (*rpc_annotations_1)["call_local"] = true;
+    (*rpc_annotations_1)["channel"] = 0;
+    rpc_config("move_food", *rpc_annotations_1);
+
+    Dictionary *rpc_annotations_2 = new Dictionary();
+    (*rpc_annotations_2)["rpc_mode"] = MultiplayerAPI::RPC_MODE_ANY_PEER;
+    (*rpc_annotations_2)["transfer_mode"] = MultiplayerPeer::TRANSFER_MODE_RELIABLE;
+    (*rpc_annotations_2)["call_local"] = false;
+    (*rpc_annotations_2)["channel"] = 0;
+    rpc_config("broadcast_food", *rpc_annotations_2);
 }
 
 void Player::_process(double delta) {
@@ -405,30 +413,37 @@ void Player::food_interaction(bool entered_by_player) {
         if (food1->is_entered_by_player()) {
             Vector3 pos1 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food1, pos1);
+            rpc_id(1, "move_food", "", pos1);
+            food1->entered_by_player = false;
         } 
         if (food2->is_entered_by_player()) {
             Vector3 pos2 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food2, pos2);
+            rpc_id(1, "move_food", "2", pos2);
+            food2->entered_by_player = false;
         } 
         if (food3->is_entered_by_player()) {
             Vector3 pos3 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food3, pos3);
+            rpc_id(1, "move_food", "3", pos3);
+            food3->entered_by_player = false;
         }
         if (food4->is_entered_by_player()) {
             Vector3 pos4 = Vector3(rand.randf_range(-150, 150), rand.randf_range(4, 20), 
             rand.randf_range(-150, 150));
-            rpc("move_food", food4, pos4);
+            rpc_id(1, "move_food", "4", pos4);
+            food4->entered_by_player = false;
         } 
     }
 }
 
-void Player::move_food(Node3D *food_obj, Vector3 pos) {
-    UtilityFunctions::print("moving food");
-    UtilityFunctions::print(get_multiplayer_authority());
-    // food_obj->set_position(pos);
+void Player::move_food(String food, Vector3 pos) {
+    get_node<Food>("../Food" + food)->set_position(pos);
+    rpc("broadcast_food", food, pos);
+}
+
+void Player::broadcast_food(String food, Vector3 pos) {
+    get_node<Food>("../Food" + food)->set_position(pos);
 }
 
 void Player::ledge_hang() {
