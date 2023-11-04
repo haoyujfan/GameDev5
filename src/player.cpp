@@ -500,8 +500,9 @@ void Player::attack() {
     Node3D *collider_node = Object::cast_to<Node3D>(collider);
     Vector3 collider_pos = collider_node->get_position();
     collider_pos.y += 20;
-    collider_node->set_position(collider_pos);        
-    set_position(Vector3(rand.randf_range(-100, 100), 10, 0));
+    //collider_node->set_position(collider_pos);
+    collider_node->set_position(Vector3(0, 100, 0));       
+    set_position(Vector3(rand.randf_range(-100, 100), 5, 0));
 }
 
 void Player::set_gravity(float p_gravity) {
