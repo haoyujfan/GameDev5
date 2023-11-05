@@ -21,5 +21,4 @@ func game_over():
 		if item.name == str(multiplayer.get_unique_id()) :
 			item.queue_free()
 	queue_free()
-	# disconnect signals 
 	GameManager.readied = false

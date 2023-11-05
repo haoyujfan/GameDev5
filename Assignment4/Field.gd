@@ -23,11 +23,13 @@ func _ready():
 			if spawn.name == "Spawn" + str(index):
 				currentPlayer.global_position = spawn.global_position
 		index += 1
-	for j in GameManager.Players:
-		if (j == 1):
-			Player2.set_other_id(GameManager.Players[j].id)
-		else:
-			Player1.set_other_id(GameManager.Players[j].id)
+	
+	if GameManager.Players.size() == 2 :
+		for j in GameManager.Players:
+			if (j == 1):
+				Player2.set_other_id(GameManager.Players[j].id)
+			else:
+				Player1.set_other_id(GameManager.Players[j].id)
 
 func _process(delta):
 	if GameManager.mode == "multiplayer":
@@ -38,7 +40,7 @@ func _process(delta):
 	else:
 		$Lives.text = "Lives: " + str(Player1.get_lives())
 	
-	if Player1.get_game_over() || Player2.get_game_over():
+	if (Player1 and Player1.get_game_over()) || (Player2 and Player2.get_game_over()):
 		GameManager.game_over = true
 		self.hide()
 
