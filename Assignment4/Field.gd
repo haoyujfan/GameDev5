@@ -23,7 +23,6 @@ func _ready():
 			if spawn.name == "Spawn" + str(index):
 				currentPlayer.global_position = spawn.global_position
 		index += 1
-		
 	for j in GameManager.Players:
 		if (j == 1):
 			Player2.set_other_id(GameManager.Players[j].id)

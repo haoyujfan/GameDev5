@@ -67,6 +67,7 @@ func SendPlayerInformation(name, id):
 	
 func _on_host_button_down():
 	if not GameManager.readied:
+		peer = null
 		multiplayer.peer_connected.disconnect(peer_connected)
 		multiplayer.peer_disconnected.disconnect(peer_disconnected)
 		multiplayer.connected_to_server.disconnect(connected_to_server)
