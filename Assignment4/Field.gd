@@ -6,8 +6,6 @@ var Rotate : RichTextLabel
 var Music : RichTextLabel
 var Player1 : Player
 var Player2 : Player
-var Player1End: Node2D
-var Player2End: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,9 +29,6 @@ func _ready():
 			Player2.set_other_id(GameManager.Players[j].id)
 		else:
 			Player1.set_other_id(GameManager.Players[j].id)
-
-	Player1End = Player1.get_node("EndScene")
-	Player2End = Player2.get_node("EndScene")
 
 func _process(delta):
 	if GameManager.mode == "multiplayer":

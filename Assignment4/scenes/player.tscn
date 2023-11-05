@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dg2giq6w1wr4w"]
+[gd_scene load_steps=7 format=3 uid="uid://dg2giq6w1wr4w"]
 
 [ext_resource type="Texture2D" uid="uid://cv5yqm8fxqtl6" path="res://textures/planks/blue_painted_planks_diff_2k.png" id="1_it1ys"]
 [ext_resource type="Texture2D" uid="uid://cugryu8rfq1mw" path="res://textures/planks/blue_painted_planks_arm_2k.png" id="2_xevgs"]
-[ext_resource type="PackedScene" uid="uid://bkfpqsdn5ffbo" path="res://scenes/end_scene.tscn" id="3_o8kps"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e1h0s"]
 size = Vector3(10, 10, 10)
@@ -133,6 +132,3 @@ collide_with_areas = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_lo7br")
-
-[node name="EndScene" parent="." instance=ExtResource("3_o8kps")]
-visible = false

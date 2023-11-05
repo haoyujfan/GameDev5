@@ -15,6 +15,7 @@
 #include <godot_cpp/classes/multiplayer_synchronizer.hpp>
 #include <godot_cpp/classes/multiplayer_api.hpp>
 #include <godot_cpp/classes/multiplayer_peer.hpp>
+#include <godot_cpp/classes/canvas_item.hpp>
 
 #include <cstdlib>
 
@@ -632,6 +633,7 @@ void Player::toggles() {
 
 void Player::end_conditions() {
     if (get_position().y < -100.0) {
+        //next_scene = load("res://scenes/off_map.tscn").instantiate();
         tree->change_scene_to_file("res://scenes/off_map.tscn");
         rpc_id(other_id, "win", "off map other");
     }
