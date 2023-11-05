@@ -56,6 +56,10 @@ void Player::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_other_id", "p_id"), &Player::set_other_id);
     ClassDB::add_property("Player", PropertyInfo(Variant::INT, "p_id"), "set_other_id", "get_other_id");
 
+    ClassDB::bind_method(D_METHOD("get_game_over"), &Player::get_game_over);
+    ClassDB::bind_method(D_METHOD("set_game_over", "p_game_over"), &Player::set_game_over);
+    ClassDB::add_property("Player", PropertyInfo(Variant::BOOL, "p_game_over"), "set_game_over", "get_game_over");
+
     ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
 
     ClassDB::bind_method(D_METHOD("move_food", "food", "pos"), &Player::move_food);
@@ -70,6 +74,7 @@ void Player::_bind_methods() {
 }
 
 Player::Player() {
+    game_over = false;
     lives = 0;
     gravity = 1400.0;
     glide_gravity = 200.0;
@@ -602,7 +607,13 @@ bool Player::get_sound_toggle() {
     return mute_sound_effects;
 }
 
+void Player::set_game_over(bool p_game_over) {
+    game_over = p_game_over;
+}
 
+bool Player::get_game_over() {
+    return game_over;
+}
 
 void Player::life_lost_GUI() {
     emit_signal("life_lost_attacker");
@@ -634,15 +645,18 @@ void Player::toggles() {
 void Player::end_conditions() {
     if (get_position().y < -100.0) {
         //next_scene = load("res://scenes/off_map.tscn").instantiate();
+        game_over = true;
         tree->change_scene_to_file("res://scenes/off_map.tscn");
         rpc_id(other_id, "win", "off map other");
     }
     else if (lives < 0) {
+        game_over = true;
         tree->change_scene_to_file("res://scenes/no_lives.tscn");
         rpc_id(other_id, "win", "no lives other");
 
     }
     if (lives == 1) {
+        game_over = true;
         tree->change_scene_to_file("res://scenes/ten_lives.tscn");
         rpc_id(other_id, "lose", "ten lives other");
     }

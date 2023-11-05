@@ -10,7 +10,6 @@
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/base_material3d.hpp>
 #include <godot_cpp/classes/multiplayer_synchronizer.hpp>
-#include <godot_cpp/classes/resource.hpp>
 #include "raycast.h"
 #include "food.h"
 #include "camera.h"
@@ -23,7 +22,7 @@ class Player : public CharacterBody3D {
     private:
         /* data */
         int other_id;
-        Resource next_scene;
+        bool game_over;
 
         Vector3 position;
         Vector3 velocity;
@@ -119,13 +118,21 @@ class Player : public CharacterBody3D {
         void attack();
            
         bool get_sound_toggle();
+
         int get_lives();
         void set_lives(int p_lives);
+
         void life_lost_GUI();
         void set_is_hurt(bool p_is_hurt);
         void set_hurt_frames(int frames);
-        int get_other_id();
+
         void set_other_id(int p_id);
+        int get_other_id();
+       
+        void set_game_over(bool p_game_over);
+        bool get_game_over();
+
+
         void toggles();
         void end_conditions();
         void food_interaction(bool entered);
