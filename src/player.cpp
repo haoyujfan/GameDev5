@@ -17,7 +17,6 @@
 #include <godot_cpp/classes/multiplayer_peer.hpp>
 
 #include <cstdlib>
-#include <string>
 
 using namespace godot;
 
@@ -49,13 +48,19 @@ void Player::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("get_lives"), &Player::get_lives);
     ClassDB::bind_method(D_METHOD("set_lives", "lives"), &Player::set_lives);
-    ClassDB::add_property("Player", PropertyInfo(Variant::FLOAT, "lives", PROPERTY_HINT_RANGE, 
-        "0, 2, 0.1"), "set_lives", "get_lives");
+    ClassDB::add_property("Player", PropertyInfo(Variant::INT, "lives", PROPERTY_HINT_RANGE, 
+        "0, 10"), "set_lives", "get_lives");
+
+    ClassDB::bind_method(D_METHOD("get_other_id"), &Player::get_other_id);
+    ClassDB::bind_method(D_METHOD("set_other_id", "p_id"), &Player::set_other_id);
+    ClassDB::add_property("Player", PropertyInfo(Variant::INT, "p_id"), "set_other_id", "get_other_id");
 
     ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
 
     ClassDB::bind_method(D_METHOD("move_food", "food", "pos"), &Player::move_food);
     ClassDB::bind_method(D_METHOD("broadcast_food", "food", "pos"), &Player::broadcast_food);
+    ClassDB::bind_method(D_METHOD("win", "condition"), &Player::win);
+    ClassDB::bind_method(D_METHOD("lose", "condition"), &Player::lose);
 
     ADD_SIGNAL(MethodInfo("interact_orange"));
     ADD_SIGNAL(MethodInfo("life_lost_attacker"));
@@ -131,13 +136,26 @@ void Player::_ready() {
     (*rpc_annotations_2)["call_local"] = false;
     (*rpc_annotations_2)["channel"] = 0;
     rpc_config("broadcast_food", *rpc_annotations_2);
+
+    Dictionary *rpc_annotations_3 = new Dictionary();
+    (*rpc_annotations_3)["rpc_mode"] = MultiplayerAPI::RPC_MODE_ANY_PEER;
+    (*rpc_annotations_3)["transfer_mode"] = MultiplayerPeer::TRANSFER_MODE_RELIABLE;
+    (*rpc_annotations_3)["call_local"] = true;
+    (*rpc_annotations_3)["channel"] = 0;
+    rpc_config("win", *rpc_annotations_3);
+
+    Dictionary *rpc_annotations_4 = new Dictionary();
+    (*rpc_annotations_4)["rpc_mode"] = MultiplayerAPI::RPC_MODE_ANY_PEER;
+    (*rpc_annotations_4)["transfer_mode"] = MultiplayerPeer::TRANSFER_MODE_RELIABLE;
+    (*rpc_annotations_4)["call_local"] = true;
+    (*rpc_annotations_4)["channel"] = 0;
+    rpc_config("lose", *rpc_annotations_4);
 }
 
 void Player::_process(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-
     if (sync->get_multiplayer_authority() == get_multiplayer()->get_unique_id()) {
         // handle food interactions
         bool entered_by_player = food1->is_entered_by_player() || food2->is_entered_by_player() || 
@@ -567,6 +585,14 @@ int Player::get_lives() {
     return lives;
 }
 
+void Player::set_other_id(int p_id) {
+    other_id = p_id;
+}
+
+int Player::get_other_id() {
+    return other_id;
+}
+
 void Player::set_lives(int p_lives) {
     lives = p_lives;
 }
@@ -607,12 +633,30 @@ void Player::toggles() {
 void Player::end_conditions() {
     if (get_position().y < -100.0) {
         tree->change_scene_to_file("res://scenes/off_map.tscn");
+        rpc_id(other_id, "win", "off map other");
     }
     else if (lives < 0) {
         tree->change_scene_to_file("res://scenes/no_lives.tscn");
+        rpc_id(other_id, "win", "no lives other");
 
     }
-    if (lives == 10) {
-        tree->change_scene_to_file("res://scenes/win_screen.tscn");
+    if (lives == 1) {
+        tree->change_scene_to_file("res://scenes/ten_lives.tscn");
+        rpc_id(other_id, "lose", "ten lives other");
+    }
+}
+
+void Player::win(String condition) {
+    if (condition == "off map other") {
+        tree->change_scene_to_file("res://scenes/off_map_other.tscn");
+    }
+    if (condition == "no lives other") {
+        tree->change_scene_to_file("res://scenes/no_lives_other.tscn");
+    }
+}
+
+void Player::lose(String condition) {
+    if (condition == "ten lives other") {
+        tree->change_scene_to_file("res://scenes/ten_lives_other.tscn");
     }
 }

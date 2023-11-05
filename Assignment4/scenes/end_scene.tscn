@@ -1,9 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7k0c1gbhviw"]
+[gd_scene load_steps=2 format=3 uid="uid://bkfpqsdn5ffbo"]
 
-[ext_resource type="Script" path="res://WinScreen.cs" id="1_lnltj"]
+[sub_resource type="CSharpScript" id="CSharpScript_au4er"]
+script/source = "using Godot;
+using System;
 
-[node name="Win Screen" type="Node2D"]
-script = ExtResource("1_lnltj")
+public partial class EndScene : Node2D
+{
+	// restart button
+	private void _on_restart_pressed()
+	{	
+		Hide();
+		GetTree().ChangeSceneToFile(\"res://scenes/main.tscn\");
+
+	}
+	
+	// quit button
+	private void _on_quit_pressed()
+	{
+		Hide();
+		GetTree().ChangeSceneToFile(\"res://scenes/main_menu.tscn\");
+	}
+
+}
+
+
+
+
+
+"
+
+[node name="End Scene" type="Node2D"]
+script = SubResource("CSharpScript_au4er")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 168.0

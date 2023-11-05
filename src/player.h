@@ -21,6 +21,8 @@ class Player : public CharacterBody3D {
 
     private:
         /* data */
+        int other_id;
+
         Vector3 position;
         Vector3 velocity;
         Vector3 momentum;
@@ -120,11 +122,16 @@ class Player : public CharacterBody3D {
         void life_lost_GUI();
         void set_is_hurt(bool p_is_hurt);
         void set_hurt_frames(int frames);
+        int get_other_id();
+        void set_other_id(int p_id);
         void toggles();
         void end_conditions();
         void food_interaction(bool entered);
+
         void move_food(String food, Vector3 pos);
         void broadcast_food(String food, Vector3 pos);
+        void win(String condition);
+        void lose(String condition);
 };
     
 

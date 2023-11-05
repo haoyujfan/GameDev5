@@ -6,6 +6,8 @@ var Rotate : RichTextLabel
 var Music : RichTextLabel
 var Player1 : Player
 var Player2 : Player
+var Player1End: Node2D
+var Player2End: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,33 +25,24 @@ func _ready():
 			if spawn.name == "Spawn" + str(index):
 				currentPlayer.global_position = spawn.global_position
 		index += 1
+		
+	for j in GameManager.Players:
+		if (j == 1):
+			Player2.set_other_id(GameManager.Players[j].id)
+		else:
+			Player1.set_other_id(GameManager.Players[j].id)
+
+	Player1End = Player1.get_node("EndScene")
+	Player2End = Player2.get_node("EndScene")
 
 func _process(delta):
-	if GameManager.Players.size() == 2 :
-			$Lives.position = Vector2(20, 600)
-			$Lives.text = "Player 1 Lives: " + str(Player1.get_lives())
-			$Lives2.position = Vector2(883, 600)
-			$Lives2.text = "Player 2 Lives: " + str(Player2.get_lives())
+	if GameManager.mode == "multiplayer":
+		$Lives.position = Vector2(20, 600)
+		$Lives.text = "Player 1 Lives: " + str(Player1.get_lives())
+		$Lives2.position = Vector2(883, 600)
+		$Lives2.text = "Player 2 Lives: " + str(Player2.get_lives())
 	else:
 		$Lives.text = "Lives: " + str(Player1.get_lives())
-		
-	win_conditions()
-
-func win_conditions():
-#	if (Player1.get_lives() == 10):
-#		Player1.get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
-#	if (Player2.get_lives() == 10):
-#		Player2.get_tree().change_scene_to_file("res://scenes/no_lives.tscn")
-	pass
-#
-#func _on_player_interact_orange():
-#	PointsValue += 1
-#
-#func _lose_life():
-#	PointsValue -= 1
-#
-#func _on_player_life_lost_attacker():
-#	PointsValue -= 1
 
 #func _on_player_sound_effect_toggle(toggle: String):
 #	Effects.text = "Sound Effect Mute: " + toggle
