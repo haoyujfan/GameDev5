@@ -41,6 +41,7 @@ func _process(delta):
 	
 	if Player1.get_game_over() || Player2.get_game_over():
 		GameManager.game_over = true
+		self.hide()
 
 #func _on_player_sound_effect_toggle(toggle: String):
 #	Effects.text = "Sound Effect Mute: " + toggle

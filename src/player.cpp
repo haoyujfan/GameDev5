@@ -16,6 +16,7 @@
 #include <godot_cpp/classes/multiplayer_api.hpp>
 #include <godot_cpp/classes/multiplayer_peer.hpp>
 #include <godot_cpp/classes/canvas_item.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
 
 #include <cstdlib>
 
@@ -96,6 +97,7 @@ void Player::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
+    loader = memnew(ResourceLoader);
     momentum = Vector3(0.0, 0.0, 0.0);
     set_position(position);
     initialize_sound();
@@ -644,8 +646,10 @@ void Player::toggles() {
 
 void Player::end_conditions() {
     if (get_position().y < -100.0) {
-        //next_scene = load("res://scenes/off_map.tscn").instantiate();
+        // next_scene = loader->load("res://scenes/off_map.tscn");
+        // next_scene.instantiate();
         game_over = true;
+        // tree->get_root().add_child(next_scene);
         tree->change_scene_to_file("res://scenes/off_map.tscn");
         rpc_id(other_id, "win", "off map other");
     }
