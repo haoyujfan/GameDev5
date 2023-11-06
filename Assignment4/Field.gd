@@ -15,10 +15,10 @@ func _ready():
 		currentPlayer.set_multiplayer_authority(GameManager.Players[i].id)
 		if (i == 1):
 			Player1 = currentPlayer
-			Player1.get_node("Label3D").text = GameManager.Players[i].name#Player1.get_name()
+			Player1.get_node("Label3D").text = GameManager.Players[i].name
 		else:
 			Player2 = currentPlayer
-			Player2.get_node("Label3D").text = GameManager.Players[i].name#Player2.get_name()
+			Player2.get_node("Label3D").text = GameManager.Players[i].name
 		currentPlayer.name = str(GameManager.Players[i].id) # can access in c++ with get_name()
 		add_child(currentPlayer)
 		for spawn in get_tree().get_nodes_in_group("SpawnPoint"):

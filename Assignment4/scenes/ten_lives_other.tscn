@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bddjw7ypqiipx"]
 
-[ext_resource type="Script" path="res://WinScreen.cs" id="1_mxcqy"]
+[ext_resource type="Script" path="res://EndScene.cs" id="1_f4it4"]
 
-[node name="Win Screen" type="Node2D"]
-script = ExtResource("1_mxcqy")
+[node name="TenLivesOther" type="Node2D"]
+script = ExtResource("1_f4it4")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 96.0
