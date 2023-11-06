@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://31qlm3qtq1a1"]
 
 [ext_resource type="PackedScene" uid="uid://x1pdr2wgcjuj" path="res://scenes/field.tscn" id="1_6fcu8"]
-[ext_resource type="Script" path="res://scenes/main.gd" id="1_gtbjk"]
+[ext_resource type="Script" path="res://main.gd" id="1_h2kty"]
 
 [node name="main" type="Node3D"]
-script = ExtResource("1_gtbjk")
+script = ExtResource("1_h2kty")
 
 [node name="field" parent="." instance=ExtResource("1_6fcu8")]
