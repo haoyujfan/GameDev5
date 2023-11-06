@@ -317,8 +317,8 @@ void Player::_physics_process(double delta) {
         end_conditions();
         set_velocity(velocity);
         move_and_slide();
-        velocity = get_position() - position;
-        position = get_position();
+        // velocity = get_position() - position;
+        // position = get_position();
     }
 }
 
@@ -650,18 +650,13 @@ void Player::toggles() {
 
 void Player::end_conditions() {
     if (get_position().y < -100.0) {
-        // next_scene = loader->load("res://scenes/off_map.tscn");
-        // next_scene.instantiate();
         game_over = true;
-        // tree->get_root().add_child(next_scene);
-        tree->change_scene_to_file("res://scenes/off_map.tscn");
         rpc_id(other_id, "win", "off map other");
     }
     else if (lives < 0) {
         game_over = true;
         tree->change_scene_to_file("res://scenes/no_lives.tscn");
         rpc_id(other_id, "win", "no lives other");
-
     }
     if (lives == 10) {
         game_over = true;
