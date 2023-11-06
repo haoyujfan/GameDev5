@@ -84,7 +84,7 @@ Player::Player() {
     air_resistance = 0;
     current_air = 0;
     velocity = Vector3(0.0, 0.0, 0.0);
-    //position = Vector3(0.0, 10.0, 0.0);
+    position = Vector3(0.0, 10.0, 0.0);
     hanging = false;
     AD_rotate = true;
     mute_sound_effects = false;
@@ -208,6 +208,8 @@ void Player::_physics_process(double delta) {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
+    // doesn't work, velocity not working
+    //dead_reckoning(delta);
 
     if (sync->get_multiplayer_authority() == get_multiplayer()->get_unique_id()) {
     // if (sync->get_multiplayer_authority() == 1) {
@@ -315,6 +317,8 @@ void Player::_physics_process(double delta) {
         end_conditions();
         set_velocity(velocity);
         move_and_slide();
+        velocity = get_position() - position;
+        position = get_position();
     }
 }
 
@@ -678,5 +682,17 @@ void Player::win(String condition) {
 void Player::lose(String condition) {
     if (condition == "ten lives other") {
         tree->change_scene_to_file("res://scenes/ten_lives_other.tscn");
+    }
+}
+
+Vector3 Player::get_local_velocity() {
+    return velocity;
+}
+
+void Player::dead_reckoning(double delta){
+    if (sync->get_multiplayer_authority() != get_multiplayer()->get_unique_id()) {
+        Vector3 pos = get_global_position();
+        Player* other = get_node<Player>("../" + UtilityFunctions::str(get_other_id()));
+        set_position(pos + get_local_velocity() * delta);
     }
 }

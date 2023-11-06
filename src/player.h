@@ -147,6 +147,9 @@ class Player : public CharacterBody3D {
         void broadcast_food(String food, Vector3 pos);
         void win(String condition);
         void lose(String condition);
+
+        Vector3 get_local_velocity();
+        void dead_reckoning(double delta);
 };
     
 
