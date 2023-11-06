@@ -30,6 +30,7 @@ properties/2/watch = false
 
 [node name="Player" type="Player" groups=["Players"]]
 "slide angle" = 0.08
+p_id = 721388128
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 velocity = Vector3(0, -2573.33, 0)
 floor_max_angle = 0.08
@@ -132,3 +133,9 @@ collide_with_areas = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_lo7br")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+pixel_size = 0.1
+billboard = 1
+text = "Hello World"
