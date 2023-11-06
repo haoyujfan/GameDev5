@@ -10,8 +10,6 @@
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/base_material3d.hpp>
 #include <godot_cpp/classes/multiplayer_synchronizer.hpp>
-#include <godot_cpp/classes/resource_loader.hpp>
-#include <godot_cpp/classes/resource.hpp>
 #include "raycast.h"
 #include "food.h"
 #include "camera.h"
@@ -26,9 +24,7 @@ class Player : public CharacterBody3D {
         int other_id;
         bool game_over;
 
-        // scene stuff
-        Ref<Resource> next_scene;
-        ResourceLoader *loader;
+        String mode;
 
         Vector3 position;
         Vector3 velocity;
@@ -118,6 +114,9 @@ class Player : public CharacterBody3D {
 
         void set_air_resistance(float p_air_resistance);
         float get_air_resistance();
+
+        void set_mode(String p_mode);
+        String get_mode();
 
         void ledge_hang();
         void gliding();

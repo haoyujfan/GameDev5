@@ -16,9 +16,11 @@ func _ready():
 		if (i == 1):
 			Player1 = currentPlayer
 			Player1.get_node("Label3D").text = GameManager.Players[i].name
+			Player1.set_mode(GameManager.mode)
 		else:
 			Player2 = currentPlayer
 			Player2.get_node("Label3D").text = GameManager.Players[i].name
+			Player2.set_mode(GameManager.mode)
 		currentPlayer.name = str(GameManager.Players[i].id) # can access in c++ with get_name()
 		add_child(currentPlayer)
 		for spawn in get_tree().get_nodes_in_group("SpawnPoint"):

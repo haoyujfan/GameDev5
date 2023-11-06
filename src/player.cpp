@@ -61,6 +61,10 @@ void Player::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_game_over", "p_game_over"), &Player::set_game_over);
     ClassDB::add_property("Player", PropertyInfo(Variant::BOOL, "p_game_over"), "set_game_over", "get_game_over");
 
+    ClassDB::bind_method(D_METHOD("get_mode"), &Player::get_mode);
+    ClassDB::bind_method(D_METHOD("set_mode", "p_mode"), &Player::set_mode);
+    ClassDB::add_property("Player", PropertyInfo(Variant::STRING, "p_mode"), "set_mode", "get_mode");
+
     ClassDB::bind_method(D_METHOD("play_hurt"), &Player::play_hurt);
 
     ClassDB::bind_method(D_METHOD("move_food", "food", "pos"), &Player::move_food);
@@ -97,7 +101,6 @@ void Player::_ready() {
     if(Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    loader = memnew(ResourceLoader);
     momentum = Vector3(0.0, 0.0, 0.0);
     set_position(position);
     initialize_sound();
@@ -633,6 +636,14 @@ void Player::set_hurt_frames(int frames) {
     hurt_frames = frames;
 }
 
+String Player::get_mode() {
+    return mode;
+}
+
+void Player::set_mode(String p_mode) {
+    mode = p_mode;
+}
+
 void Player::toggles() {
     if (mute_sound_effects) {
         emit_signal("sound_effect_toggle", "(muted)");
@@ -652,17 +663,25 @@ void Player::end_conditions() {
     if (get_position().y < -100.0) {
         game_over = true;
         tree->change_scene_to_file("res://scenes/off_map.tscn");
-        rpc_id(other_id, "win", "off map other");
+        if (mode == "multiplayer") {
+            rpc_id(other_id, "win", "off map other");
+        }
+        
     }
     else if (lives < 0) {
         game_over = true;
         tree->change_scene_to_file("res://scenes/no_lives.tscn");
-        rpc_id(other_id, "win", "no lives other");
+        if (mode == "multiplayer") {
+            rpc_id(other_id, "win", "no lives other");
+        }
+        
     }
     if (lives == 10) {
         game_over = true;
         tree->change_scene_to_file("res://scenes/ten_lives.tscn");
-        rpc_id(other_id, "lose", "ten lives other");
+        if (mode == "multiplayer") {
+            rpc_id(other_id, "lose", "ten lives other");
+        }
     }
 }
 
