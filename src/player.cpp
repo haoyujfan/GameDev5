@@ -209,7 +209,7 @@ void Player::_physics_process(double delta) {
         return;
     }
     // doesn't work, velocity not working
-    //dead_reckoning(delta);
+    dead_reckoning(delta);
 
     if (sync->get_multiplayer_authority() == get_multiplayer()->get_unique_id()) {
     // if (sync->get_multiplayer_authority() == 1) {
@@ -663,7 +663,7 @@ void Player::end_conditions() {
         rpc_id(other_id, "win", "no lives other");
 
     }
-    if (lives == 1) {
+    if (lives == 10) {
         game_over = true;
         tree->change_scene_to_file("res://scenes/ten_lives.tscn");
         rpc_id(other_id, "lose", "ten lives other");
