@@ -317,8 +317,8 @@ void Player::_physics_process(double delta) {
         end_conditions();
         set_velocity(velocity);
         move_and_slide();
-        velocity = get_position() - position;
-        position = get_position();
+        // velocity = get_position() - position;
+        // position = get_position();
     }
 }
 
