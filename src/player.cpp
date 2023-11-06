@@ -651,6 +651,7 @@ void Player::toggles() {
 void Player::end_conditions() {
     if (get_position().y < -100.0) {
         game_over = true;
+        tree->change_scene_to_file("res://scenes/off_map.tscn");
         rpc_id(other_id, "win", "off map other");
     }
     else if (lives < 0) {
