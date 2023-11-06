@@ -32,18 +32,38 @@ func _ready():
 				Player1.set_other_id(GameManager.Players[j].id)
 
 func _process(delta):
-	if GameManager.mode == "multiplayer":
-		$Lives.position = Vector2(20, 600)
-		$Lives.text = "Player 1 Lives: " + str(Player1.get_lives())
-		if GameManager.Players.size() > 1 :
-			$Lives2.position = Vector2(883, 600)
-			$Lives2.text = "Player 2 Lives: " + str(Player2.get_lives())
-	else:
-		$Lives.text = "Lives: " + str(Player1.get_lives())
-	
-	if (Player1 and Player1.get_game_over()) || (Player2 and Player2.get_game_over()):
-		GameManager.game_over = true
-		self.hide()
+	if GameManager.new_client_connected and multiplayer.get_unique_id() == 1 :
+		var index = 0
+		for i in GameManager.Players:
+			if i != 1 :
+				var currentPlayer = PlayerScene.instantiate()
+				currentPlayer.set_multiplayer_authority(GameManager.Players[i].id)
+				currentPlayer.name = str(GameManager.Players[i].id) # can access in c++ with get_name()
+				add_child(currentPlayer)
+				Player2 = currentPlayer
+				for spawn in get_tree().get_nodes_in_group("SpawnPoint"):
+					if spawn.name == "Spawn" + str(index):
+						currentPlayer.global_position = spawn.global_position
+				index += 1
+				
+				for j in GameManager.Players:
+					if (j == 1):
+						Player2.set_other_id(GameManager.Players[j].id)
+					else:
+						Player1.set_other_id(GameManager.Players[j].id)
+		GameManager.new_client_connected = false
+#	if GameManager.mode == "multiplayer":
+#		$Lives.position = Vector2(20, 600)
+#		$Lives.text = "Player 1 Lives: " + str(Player1.get_lives())
+#		if GameManager.Players.size() > 1 and Player2:
+#			$Lives2.position = Vector2(883, 600)
+#			$Lives2.text = "Player 2 Lives: " + str(Player2.get_lives())
+#	else:
+#		$Lives.text = "Lives: " + str(Player1.get_lives())
+#
+#	if (Player1 and Player1.get_game_over()) || (Player2 and Player2.get_game_over()):
+#		GameManager.game_over = true
+#		self.hide()
 
 #func _on_player_sound_effect_toggle(toggle: String):
 #	Effects.text = "Sound Effect Mute: " + toggle
